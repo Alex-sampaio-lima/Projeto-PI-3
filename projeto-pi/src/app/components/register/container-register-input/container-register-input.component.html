@@ -1,0 +1,61 @@
+<div class="container-register">
+  <div class="container-internal-box-register">
+    <div class="container-register-text-input">
+      <div class="container-title-subtitle-register">
+        <div class="container-title-register">
+          <p class="title-register">Crie sua conta</p>
+        </div>
+        <div class="container-subtitle-register">
+          <p class="subtitle-register">Preencha os campos abaixo</p>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="userForm" method="post" class="container-register-input">
+
+      <div class="container-register-input-default">
+        <span class="input-icon">
+          <i class="material-icons" style="color: #C2C2C2;">person</i>
+        </span>
+        <input formControlName="nome" type="text" name="nome" class="input-register" placeholder="Digite seu nome">
+      </div>
+
+      <div class="container-register-input-default">
+        <span class="input-icon">
+          <i class="material-icons" style="color: #C2C2C2;">email</i>
+        </span>
+        <input formControlName="email" type="email" name="email" class="input-register" placeholder="Digite seu e-mail">
+      </div>
+
+      <div class="container-register-input-default">
+        <span class="input-icon-senha">
+          <i class="material-icons" style="color: #C2C2C2;">lock</i>
+        </span>
+        <input formControlName="senha" type="password" name="senha" class="input-register"
+          placeholder="Digite sua senha">
+      </div>
+
+      <div class="container-register-input-default">
+        <span class="input-icon-senha">
+          <i class="material-icons" style="color: #C2C2C2;">fingerprint</i>
+        </span>
+        <input formControlName="cpf" type="text" name="cpf" class="input-register" placeholder="Digite seu CPF">
+      </div>
+
+      <div class="container-register-input-default">
+        <span class="input-icon-senha">
+          <i class="material-icons" style="color: #C2C2C2;">phone</i>
+        </span>
+        <input formControlName="telefone" type="text" name="telefone" class="input-register"
+          placeholder="Digite seu Telefone">
+      </div>
+
+      <!-- <select name="" id="">
+        <option value="admin">Admin</option>
+        <option value="cliente">Cliente</option>
+      </select> -->
+
+      <button type="submit" class="text-register-btn" (click)="criarUser()">Cadastrar</button>
+      <a class="text-nao-tem-conta" routerLink="/login">Faça Login</a>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<!-- Seção DashBoard -->
+<!-- <app-container-form-modal-estoque [visible]="modalVisible" (close)="modalVisible = false"
+    (pedidoCriado)=""></app-container-form-modal-estoque> -->
+
+<app-container-modal-form-estoque [visible]="modalVisible" (close)="modalVisible = false"
+  (estoqueCriado)="listarEstoque()"></app-container-modal-form-estoque>
+<div class="container-header-dashboard">
+  <button class="btn-add-pedido-modal" type="button" (click)="openModal()">Adicionar Ao Estoque</button>
+  <div class="container-icon-btn-pesquisa">
+    <span class="container-input-icon">
+      <i class="material-icons" id="icon-pesquisa">search</i>
+    </span>
+    <input type="search" name="pesquisa-pedido" id="pesquisa-pedido" placeholder="Pesquisa" [(ngModel)]="termoPesquisa"
+      (change)="filtraEstoque">
+  </div>
+</div>
+
+<div class="container-dashBoard-admin-pedido">
+
+  <table class="container-table-pedido">
+    <thead>
+      <tr class="container-title-check">
+        <th>
+          <!-- <input type="checkbox" name="" id=""> -->
+        </th>
+        <th class="title-info-pedido">Nome do Produto</th>
+        <th class="title-info-pedido">Tipo do Produto</th>
+        <th class="title-info-pedido">Quantidade</th>
+        <th class="title-info-pedido">Custo Unitário</th>
+        <th class="title-info-pedido">Observações</th>
+        <th class="title-info-pedido">Data</th>
+        <th class="title-info-pedido">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <ng-container *ngFor="let item of pedidos"> -->
+
+      @for (item of filtraEstoque; track item.id) {
+      <tr class="container-info-edit-delete">
+        <!-- <tr class="container-info-edit-delete" *ngFor="let item of pedidos"> -->
+        <td>
+          <!-- <input type="checkbox" name="checkbox-pedidos" id="checkbox-pedidos"> -->
+        </td>
+        <td>{{item.nome_produto}}</td>
+        <td>{{item.tipo_produto}}</td>
+        <td>{{item.quantidade}}</td>
+        <td>{{`${item.custo_unitario} R$`}}</td>
+        <td>{{item.observacoes}}</td>
+        <td>{{dataFormatada}}</td>
+
+        <td class="container-edit-delete-btn">
+          <button class="icon-button"><i class="material-icons" id="btn-i-delete"
+              (click)="excluirEstoque(item.id)">delete_outline</i></button>
+          <button class="icon-button"><i class="material-icons" id="btn-i-edit"
+              (click)="verificarAtualizacaoEstoqueForm(item.id)">edit</i></button>
+        </td>
+      </tr>
+      }
+      <!-- </ng-container> -->
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Seção Form PEDIDO -->

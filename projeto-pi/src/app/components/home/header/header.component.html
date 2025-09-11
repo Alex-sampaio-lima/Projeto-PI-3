@@ -1,0 +1,64 @@
+<header id="Home">
+  <div class="container-header">
+    <div class="container-header-logo">
+      <img class="header-logo-img" src="assets/Logo_sem_fundo.jpg" alt="">
+    </div>
+
+    <!-- Mobile -->
+    <i id="material-icon-hamburguer" class="material-icons" (click)="clickMenu()">menu</i>
+
+    <ul id="header-titulos-menu-mobile" class="container-header-titulos">
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('bannerInicio')" fragment="bannerInicio">Início</a>
+      </li>
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('sabores')" fragment="sabores">Cardápio</a>
+      </li>
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('sobre')" fragment="sobre">Sobre</a>
+      </li>
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('contato')" fragment="contato">Contato</a>
+      </li>
+    </ul>
+
+    <button id="btn-login-menu-mobile" type="button" class="button-login" routerLink="/login">
+      Login
+    </button>
+
+    <!-- Desktop -->
+    <ul id="header-titulos-menu" class="container-header-titulos">
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('bannerInicio')" fragment="bannerInicio">Início</a>
+      </li>
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('sabores')" fragment="sabores">Cardápio</a>
+      </li>
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('sobre')" fragment="sobre">Sobre</a>
+        <!-- <a class="header-texto" [routerLink]="['/home']" fragment="sobre">Sobre</a> -->
+      </li>
+      <li class="container-header-menu">
+        <a class="header-texto" (click)="scrollTo('contato')" fragment="contato">Contato</a>
+      </li>
+    </ul>
+
+    @if(this.userService.isLoggedInAdmin()) {
+    <button id="btn-login-menu" type="button" class="button-login" [routerLink]="'/adminPedidos'">
+      {{'Admin'}}
+    </button>
+    }@else if (this.userService.isLoggedIn()) {
+    <button id="btn-login-menu" type="button" class="button-login" [routerLink]="['/home']"
+      routerLinkActive="router-link-active" (click)="deslogarUsuario()">
+      {{'Sair'}}
+    </button>
+    }@else {
+    <button id="btn-login-menu" type="button" class="button-login" [routerLink]="'/login'">
+      {{'Login'}}
+    </button>
+    }  
+
+    <!-- @if(this.userService.is) -->
+
+  </div>
+</header>

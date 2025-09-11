@@ -1,0 +1,40 @@
+<div class="container-login">
+  <div class="container-internal-box-login">
+    <div class="container-login-text-input">
+      <div class="container-title-subtitle-login">
+        <div class="container-title-login">
+          <p class="title-login">Acesse sua conta</p>
+        </div>
+        <div class="container-subtitle-login">
+          <p class="subtitle-login">Bem-vindo de volta</p>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="loginForm" class="container-login-input">
+      <div class="container-login-input-email">
+        <span class="input-icon">
+          <img src="assets/Icons/email-icon.svg" alt="Ícone de e-mail">
+        </span>
+        <input formControlName="email" type="email" name="email" id="email-login" placeholder="Digite seu e-mail">
+      </div>
+      @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+      <span class="error-message">Por favor, insira um e-mail válido</span>
+      }
+
+      <div class="container-login-input-senha">
+        <span class="input-icon-senha">
+          <img src="assets/Icons/senha-icon.svg" alt="Ícone de senha">
+        </span>
+        <input formControlName="password" type="password" name="password" id="senha-login"
+          placeholder="Digite sua senha">
+      </div>
+      @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+      <span class="error-message">A senha deve ter pelo menos 6 caracteres</span>
+      }
+      <button (click)="onSubmit()" type="submit" class="text-login-btn">Login</button>
+      <!-- <a class="text-esqueci-senha" routerLink="">Esqueci minha senha</a> -->
+      <a class="text-nao-tem-conta" routerLink="/register">Não tem conta ? Clique aqui</a>
+      <a class="text-nao-tem-conta" routerLink="/home">voltar</a>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+.container-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.625rem 1rem 0.625rem 1rem;
+    width: 82rem;
+    height: 37.5rem;
+    max-width: 100%;
+    background: #E5DBD0;
+    border-bottom: 0.0625rem solid #41271F;
+    margin-bottom: 0.625rem;
+    margin: 0 auto;
+}
+
+.img-banner {
+    border: 0.0625rem solid var(--color-primary);
+    /* background: url(assets/img-banner.png) lightgray 50% no-repeat; */
+    width: 80rem;
+    max-width: 100%;
+    height: 36.25rem;
+    border-width: 0.0625rem;
+    border-radius: 1.875rem;
+    transition: 0.7s cubic-bezier(0.15, 6.61, 1, -0.5);;
+}
+
+.img-banner:hover {
+    transform: scale(1.02);
+    border-radius: 0%;
+    width: 100%;
+}
+
+.container-button-banner {
+    display: flex;
+    align-items: center;
+    /* width: 12rem; */
+    /* height: 3.25rem; */
+    /* gap: 2.5rem; */
+    width: 192;
+    height: 52;
+    justify-content: space-between;
+    border: #41271F 10x solid;
+    /* Falta implementação com Angular */
+}
+
+.button-banner {
+    /* width: 2.25rem;
+    height: 2.25rem;
+    color: var(--color-primary, #D9308D);
+    stroke-width: 0.3125rem;
+    border: 0.0625rem solid var(--color-primary, #D9308D);
+    border-radius: 6.25rem; */
+}
+
+@media (max-width:1100px) {
+    .container-banner {
+        width: 760px;
+        height: 468px;
+        max-width: 100%;
+        margin-top: 0px;
+    }
+
+    .img-banner {
+        width: 100%;
+        height: 344px;
+    }
+}
+
+@media (max-width: 590px) {
+    .img-banner {
+        width: 100%;
+        height: 282px;
+    }
+}

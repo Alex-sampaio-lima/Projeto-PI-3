@@ -1,0 +1,17 @@
+<nav class="container-navbar-pedido-estoque">
+  <div class="container-navbar-title">
+    <h1 class="navbar-title">Admin</h1>
+  </div>
+  <div class="container-navbar-title-pedido">
+    <a class="navbar-title-pedido" routerLink="/home">Home</a>
+  </div>
+  <div class="container-navbar-title-pedido">
+    <a class="navbar-title-pedido" routerLink="/adminPedidos">Pedidos</a>
+  </div>
+  <div class="container-navbar-title-estoque">
+    <a class="navbar-title-estoque" routerLink="/adminEstoque">Estoque</a>
+  </div>
+  <div class="container-navbar-title-estoque">
+    <a class="navbar-title-estoque" [routerLink]="['/home']" (click)="this.userService.logOut()">Sair</a>
+  </div>
+</nav>

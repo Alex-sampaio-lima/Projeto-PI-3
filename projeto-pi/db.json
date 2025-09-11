@@ -1,0 +1,155 @@
+{
+  "pedidos": [
+    {
+      "nome": "Alexsander",
+      "telefone": "11940264105'",
+      "email": "alexsander@gmail.com",
+      "cpf": "534.419.968-60",
+      "tipo_pedido": "Bolo de Casamento",
+      "forma_pagamento": "Crédito",
+      "valor_total": 1,
+      "status": "Pendente",
+      "observacoes": "Está muito caro, comprar menos desse",
+      "created_at": "10/05/2025, 03:16:47",
+      "updated_at": "12/05/2025, 21:35:59",
+      "id": 1
+    },
+    {
+      "nome": "Pedro",
+      "telefone": "11940264105'",
+      "email": "pedro@gmail.com",
+      "cpf": "534.419.598-25",
+      "created_at": "26/05/2025, 21:25:25",
+      "updated_at": "26/05/2025, 21:25:25",
+      "forma_pagamento": "Crédito",
+      "tipo_pedido": "Bolo de aniversario",
+      "valor_total": 1,
+      "observacoes": "Falta comprar mais 5 desses",
+      "status": "Realizado",
+      "id": 2
+    },
+    {
+      "nome": "Marcos",
+      "telefone": "11940264105'",
+      "email": "marcos@gmail.com",
+      "cpf": "534.419.598-25",
+      "tipo_pedido": "Bolo de Casamento",
+      "forma_pagamento": "Pix",
+      "valor_total": 1,
+      "status": "Cancelado",
+      "observacoes": "Fazer com recheio de chocolate",
+      "created_at": "27/05/2025, 23:14:21",
+      "updated_at": "27/05/2025, 23:14:21",
+      "id": 4
+    },
+    {
+      "nome": "Ana Julia",
+      "telefone": "11940264105",
+      "email": "ana@gmail.com",
+      "cpf": "534.419.598-25",
+      "tipo_pedido": "Kit Festa",
+      "forma_pagamento": "Pix",
+      "valor_total": 190,
+      "status": "Em Andamento",
+      "observacoes": "Fazer até o meio dia de amanhã",
+      "created_at": "28/05/2025, 20:01:17",
+      "updated_at": "28/05/2025, 20:01:17",
+      "id": 5
+    },
+    {
+      "nome": "Jones",
+      "telefone": "11940264105",
+      "email": "jones@gmail.com",
+      "cpf": "534.419.598-25",
+      "tipo_pedido": "Bolo de aniversario",
+      "forma_pagamento": "pix",
+      "valor_total": 1,
+      "status": "Realizado",
+      "observacoes": "",
+      "created_at": "28/05/2025, 21:03:41",
+      "updated_at": "28/05/2025, 21:03:41",
+      "id": 6
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "nome": "Alexsander",
+      "password": "123456",
+      "email": "alexsandersampaiolima12@gmail.com",
+      "telefone": "11912263106",
+      "cpf": "534.419.968-60",
+      "isAdmin": true,
+      "created_at": "01/06/2025, 03:20:14",
+      "updated_at": "01/06/2025, 03:20:14"
+    },
+    {
+      "id": 2,
+      "nome": "Marcelo souza Maia Pereira",
+      "password": "123456",
+      "email": "marcelo@gmail.com",
+      "telefone": "11912263106",
+      "cpf": "533.424.912-44",
+      "isAdmin": true,
+      "created_at": "01/06/2025, 03:20:14",
+      "updated_at": "01/06/2025, 03:20:14"
+    },
+    {
+      "nome": "Julia alves gomes da Silva",
+      "email": "julia@gmail.com",
+      "password": "123456",
+      "telefone": "11940264106",
+      "cpf": "534.419.598-25",
+      "isAdmin": false,
+      "created_at": "21/05/2025, 16:09:14",
+      "updated_at": "21/05/2025, 16:09:14",
+      "id": 3
+    }
+  ],
+  "estoque": [
+    {
+      "nome_produto": "Creme de Leite",
+      "tipo_produto": "Ingrediente",
+      "quantidade": 23,
+      "custo_unitario": 4.99,
+      "unidade_medida": "ml",
+      "observacoes": "muito Caro !",
+      "created_at": "2025-05-14T03:38:28.877Z",
+      "updated_at": "2025-05-14T03:38:28.877Z",
+      "id": 1
+    },
+    {
+      "nome_produto": "Pão",
+      "tipo_produto": "Ingrediente",
+      "quantidade": 23,
+      "custo_unitario": 24.5,
+      "unidade_medida": "g",
+      "observacoes": "muito Bom ",
+      "created_at": "2025-05-14T03:39:08.346Z",
+      "updated_at": "2025-05-14T03:39:08.346Z",
+      "id": 2
+    },
+    {
+      "nome_produto": "Leite",
+      "tipo_produto": "Ingrediente",
+      "quantidade": 5,
+      "custo_unitario": 42,
+      "unidade_medida": "ml",
+      "observacoes": "Comprei esse biscoito para fazer torta holandesa",
+      "created_at": "2025-05-14T05:33:41.458Z",
+      "updated_at": "2025-05-14T05:33:41.458Z",
+      "id": 3
+    },
+    {
+      "nome_produto": "Leite",
+      "tipo_produto": "Ingrediente",
+      "quantidade": 21,
+      "custo_unitario": 42,
+      "unidade_medida": "",
+      "observacoes": "Comprar mais 8 desse sem falta",
+      "created_at": "2025-05-14T20:13:59.156Z",
+      "updated_at": "2025-05-14T20:13:59.156Z",
+      "id": 4
+    }
+  ]
+}

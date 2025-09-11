@@ -1,0 +1,36 @@
+<div class="container-info-pedido">
+  <div class="container-info-pedido-titles">
+    <div class="container-info-title">
+      <div class="container-title-number">
+        <h1 class="title-number">{{this.pedidoService.vendidos}}</h1>
+      </div>
+      <div class="container-title-text">
+        <h1 class="title-text">Vendidos</h1>
+      </div>
+    </div>
+    <div class="container-info-title">
+      <div class="container-title-number">
+        <h1 class="title-number" id="title-text-cancelado">{{this.pedidoService.cancelados}}</h1>
+      </div>
+      <div class="container-title-text">
+        <h1 class="title-text" id="title-text-cancelado">Cancelados</h1>
+      </div>
+    </div>
+    <div class="container-info-title">
+      <div class="container-title-number">
+        <h1 class="title-number">{{this.pedidoService.totalGanhos.toFixed(2)}} R$</h1>
+      </div>
+      <div class="container-title-text">
+        <h1 class="title-text">Ganhos</h1>
+      </div>
+    </div>
+    <div class="container-info-title">
+      <div class="container-title-number">
+        <h1 class="title-number" id="title-text-enviado">{{this.pedidoService.vendidos}}</h1>
+      </div>
+      <div class="container-title-text">
+        <h1 class="title-text" id="title-text-enviado">Enviados</h1>
+      </div>
+    </div>
+  </div>
+</div>
