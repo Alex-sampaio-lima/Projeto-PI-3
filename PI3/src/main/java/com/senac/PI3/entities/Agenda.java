@@ -1,13 +1,16 @@
 package com.senac.PI3.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -29,8 +32,12 @@ public class Agenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // Relacionamento: Muitas agendas podem pertencer a um Cliente
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    // Relacionamento: Uma agenda pertence a 1 cliente (1:1)
+    @OneToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
+
+    // Uma agenda pode ter vários pedidos (1:N)
+    @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
 };

@@ -1,7 +1,6 @@
 package com.senac.PI3.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -9,7 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -39,7 +38,7 @@ public class Cliente implements Serializable {
     private String nome;
 
     @NotBlank(message = "O E-mail é obrigatório")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Size(max = 255)
     private String email;
 
@@ -51,10 +50,10 @@ public class Cliente implements Serializable {
     private String telefone;
 
     @NotBlank(message = "O CPF é obrigatório")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
-    // Um cliente pode ter muitas agendas
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Agenda> agendas;
+    // Cada cliente possui apenas uma agenda
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private Agenda agenda;
 };
