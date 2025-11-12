@@ -38,17 +38,22 @@ public class ClienteService {
         if (cliente.getEmail() != null) {
             clienteExistente.setEmail(cliente.getEmail());
         }
-        if (clienteExistente.getSenha() != null) {
+        if (cliente.getSenha() != null) {
             clienteExistente.setSenha(cliente.getSenha());
         }
-        if (clienteExistente.getTelefone() != null) {
+        if (cliente.getTelefone() != null) {
             clienteExistente.setTelefone(cliente.getTelefone());
         }
-        if (clienteExistente.getCpf() != null) {
+        if (cliente.getCpf() != null) {
             clienteExistente.setCpf(cliente.getCpf());
         }
 
         return clienteRepository.save(clienteExistente);
     };
 
+    public void delete(long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado !"));
+        clienteRepository.delete(cliente);
+    };
 };

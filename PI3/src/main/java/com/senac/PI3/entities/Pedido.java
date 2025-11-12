@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -21,11 +21,9 @@ public class Pedido implements Serializable {
     @Id
     private long id;
 
-    @NotBlank(message = "Nome do cliente é obrigatório")
     @Size(max = 255)
     private String nomeCliente;
 
-    @NotBlank(message = "Nome do Produto não pode ser nulo")
     @Size(max = 255)
     private String nomeProduto;
 
@@ -35,6 +33,7 @@ public class Pedido implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "agenda_id")
+    @Valid
     private Agenda agenda;
 
 };

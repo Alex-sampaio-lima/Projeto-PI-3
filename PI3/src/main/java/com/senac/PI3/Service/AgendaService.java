@@ -28,7 +28,9 @@ public class AgendaService {
     };
 
     public void delete(long id) {
-        agendaRepository.deleteById(id);
+        Agenda agenda = agendaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agenda não encontrada !"));
+        agendaRepository.delete(agenda);
     };
 
 };

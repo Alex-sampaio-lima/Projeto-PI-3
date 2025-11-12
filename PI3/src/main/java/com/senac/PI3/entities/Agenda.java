@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -39,5 +40,6 @@ public class Agenda implements Serializable {
 
     // Uma agenda pode ter vários pedidos (1:N)
     @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL)
+    @Valid
     private List<Pedido> pedidos;
 };
