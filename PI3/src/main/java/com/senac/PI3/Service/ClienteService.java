@@ -36,8 +36,13 @@ public class ClienteService {
         if (novoCliente.isPresent()) {
             Cliente clienteExistente = novoCliente.get();
             clienteExistente.setNome(cliente.getNome());
-        }
+            clienteExistente.setEmail(cliente.getEmail());
+            clienteExistente.setSenha(cliente.getSenha());
+            clienteExistente.setTelefone(cliente.getTelefone());
+            clienteExistente.setCpf(cliente.getCpf());
 
+            clienteRepository.save(clienteExistente);
+        }
     };
 
 };
