@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.senac.PI3.Repository.ClienteRepository;
 import com.senac.PI3.entities.Cliente;
 
+@Service
 public class ClienteService {
 
     @Autowired
@@ -27,22 +29,26 @@ public class ClienteService {
     };
 
     public Cliente update(Cliente cliente) {
-        Optional<Cliente> novoCliente = clienteRepository.findById(cliente.getId());
-        updateCliente(novoCliente, cliente);
-        return clienteRepository.save(novoCliente.get());
-    };
+        Cliente clienteExistente = clienteRepository.findById(cliente.getId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
 
-    public void updateCliente(Optional<Cliente> novoCliente, Cliente cliente) {
-        if (novoCliente.isPresent()) {
-            Cliente clienteExistente = novoCliente.get();
+        if (cliente.getNome() != null) {
             clienteExistente.setNome(cliente.getNome());
-            clienteExistente.setEmail(cliente.getEmail());
-            clienteExistente.setSenha(cliente.getSenha());
-            clienteExistente.setTelefone(cliente.getTelefone());
-            clienteExistente.setCpf(cliente.getCpf());
-
-            clienteRepository.save(clienteExistente);
         }
+        if (cliente.getEmail() != null) {
+            clienteExistente.setEmail(cliente.getEmail());
+        }
+        if (clienteExistente.getSenha() != null) {
+            clienteExistente.setSenha(cliente.getSenha());
+        }
+        if (clienteExistente.getTelefone() > 0) {
+            clienteExistente.setTelefone(cliente.getTelefone());
+        }
+        if (clienteExistente.getCpf() != null) {
+            clienteExistente.setCpf(cliente.getCpf());
+        }
+
+        return clienteRepository.save(clienteExistente);
     };
 
 };
