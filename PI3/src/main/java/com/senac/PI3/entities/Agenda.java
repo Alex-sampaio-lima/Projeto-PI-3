@@ -24,7 +24,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode(of = "id")
-
 @Entity
 @Table(name = "tb_agenda")
 public class Agenda implements Serializable {

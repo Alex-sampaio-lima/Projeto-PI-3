@@ -31,7 +31,9 @@ public class ClienteService {
     public Cliente update(Cliente cliente) {
         Cliente clienteExistente = clienteRepository.findById(cliente.getId())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
-
+        // Nesta parte do código ele verifica se os atributos que estão sendo passados
+        // por parametro não são nulos, se não forem ele troca o que está sendo passado
+        // por parametro pelo o que está no banco de dados
         if (cliente.getNome() != null) {
             clienteExistente.setNome(cliente.getNome());
         }

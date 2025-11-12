@@ -27,6 +27,17 @@ public class AgendaService {
         return agenda.get();
     };
 
+    public Agenda updateAgenda(Agenda agenda) {
+        Agenda agendaExistente = agendaRepository.findById(agenda.getId())
+                .orElseThrow(() -> new RuntimeException("Agenda não encontrada !"));
+
+        if (agenda.getCliente() != null) {
+            agendaExistente.setCliente(agenda.getCliente());
+        }
+
+        return agendaRepository.save(agendaExistente);
+    };
+
     public void delete(long id) {
         Agenda agenda = agendaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agenda não encontrada !"));
