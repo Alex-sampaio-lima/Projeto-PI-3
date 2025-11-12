@@ -19,11 +19,11 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     };
 
-    public List<Cliente> findAll() {
+    public List<Cliente> getAll() {
         return clienteRepository.findAll();
     };
 
-    public Cliente findById(long id) {
+    public Cliente getById(long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.get();
     };
@@ -41,7 +41,7 @@ public class ClienteService {
         if (clienteExistente.getSenha() != null) {
             clienteExistente.setSenha(cliente.getSenha());
         }
-        if (clienteExistente.getTelefone() > 0) {
+        if (clienteExistente.getTelefone() != null) {
             clienteExistente.setTelefone(cliente.getTelefone());
         }
         if (clienteExistente.getCpf() != null) {

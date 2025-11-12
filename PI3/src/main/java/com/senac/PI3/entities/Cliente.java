@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,17 +35,20 @@ public class Cliente implements Serializable {
 
     @NotBlank(message = "O nome é obrigatório")
     @Column(nullable = false)
+    @Size(max = 255)
     private String nome;
 
     @NotBlank(message = "O E-mail é obrigatório")
     @Column(nullable = false)
+    @Size(max = 255)
     private String email;
 
     @NotBlank(message = "A senha é obrigatória")
     @Column(nullable = false)
+    @Size(max = 255)
     private String senha;
 
-    private int telefone;
+    private String telefone;
 
     @NotBlank(message = "O CPF é obrigatório")
     @Column(nullable = false)
