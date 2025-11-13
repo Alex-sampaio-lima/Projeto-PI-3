@@ -2,6 +2,8 @@ package com.senac.PI3.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,6 +58,7 @@ public class Cliente implements Serializable {
 
     // Cada cliente possui apenas uma agenda
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
     @Valid
     private Agenda agenda;
 };

@@ -1,6 +1,7 @@
 package com.senac.PI3.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +28,8 @@ public class Agenda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    private List<Pedido> pedidos;
 
     // Relacionamento: Uma agenda pertence a 1 cliente (1:1)
     @OneToOne

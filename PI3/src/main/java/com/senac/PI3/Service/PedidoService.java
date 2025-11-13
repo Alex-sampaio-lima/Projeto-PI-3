@@ -1,6 +1,7 @@
 package com.senac.PI3.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,35 @@ public class PedidoService {
                 .orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
 
         Agenda agenda = agendaRepository.findById(agendaId)
-                .orElseThrow(() -> new RuntimeException("Agenda não encontrada !"));
+                .orElseGet(() -> {
+                    Agenda novaAgenda = new Agenda();
+                    novaAgenda.setCliente(cliente);
+                    return agendaRepository.save(novaAgenda);
+                });
+
+        List<Pedido> pedidosAtuais;
+        if (agenda.getPedidos() != null) {
+            pedidosAtuais = agenda.getPedidos();
+        } else {
+            pedidosAtuais = new ArrayList<>();
+        }
 
         pedido.setCliente(cliente);
         pedido.setAgenda(agenda);
+        agenda.setPedidos(pedidosAtuais);
 
         if (pedido.getDataPedido() == null) {
             pedido.setDataPedido(LocalDate.now());
         }
+        // SALVAR o pedido primeiro para ter um ID
+        Pedido pedidoSalvo = pedidoRepository.save(pedido);
+
+        // ADICIONAR o pedido salvo na lista
+        pedidosAtuais.add(pedidoSalvo);
+
+        // Atualizar a agenda com a lista atualizada
+        agenda.setPedidos(pedidosAtuais);
+        agendaRepository.save(agenda);
 
         return pedidoRepository.save(pedido);
     };
