@@ -37,7 +37,14 @@ public class PedidoController {
 
     @PostMapping
     public ResponseEntity<Pedido> newPedido(@RequestBody Pedido novoPedido) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.create(novoPedido));
+        Pedido pedido = new Pedido();
+        pedido.setNomeProduto(novoPedido.getNomeProduto());
+        pedido.setValorTotal(novoPedido.getValorTotal());
+        pedido.setDataPedido(novoPedido.getDataPedido());
+        System.out.println(novoPedido.getCliente().getId() + novoPedido.getAgenda().getId());
+        Pedido pedidoCriado = pedidoService.create(pedido, novoPedido.getCliente().getId(),
+                novoPedido.getAgenda().getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
     };
 
     @PutMapping(value = "/{id}")

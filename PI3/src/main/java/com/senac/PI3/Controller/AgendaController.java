@@ -19,7 +19,7 @@ import com.senac.PI3.entities.Agenda;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("pedido")
+@RequestMapping("agenda")
 public class AgendaController {
     @Autowired
     private AgendaService agendaService;

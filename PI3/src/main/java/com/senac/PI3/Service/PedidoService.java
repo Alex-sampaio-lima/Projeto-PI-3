@@ -1,11 +1,16 @@
 package com.senac.PI3.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.senac.PI3.Repository.AgendaRepository;
+import com.senac.PI3.Repository.ClienteRepository;
 import com.senac.PI3.Repository.PedidoRepository;
+import com.senac.PI3.entities.Agenda;
+import com.senac.PI3.entities.Cliente;
 import com.senac.PI3.entities.Pedido;
 
 @Service
@@ -14,7 +19,26 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public Pedido create(Pedido pedido) {
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private AgendaRepository agendaRepository;
+
+    public Pedido create(Pedido pedido, long clientId, long agendaId) {
+        Cliente cliente = clienteRepository.findById(clientId)
+                .orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
+
+        Agenda agenda = agendaRepository.findById(agendaId)
+                .orElseThrow(() -> new RuntimeException("Agenda não encontrada !"));
+
+        pedido.setCliente(cliente);
+        pedido.setAgenda(agenda);
+
+        if (pedido.getDataPedido() == null) {
+            pedido.setDataPedido(LocalDate.now());
+        }
+
         return pedidoRepository.save(pedido);
     };
 
@@ -31,9 +55,7 @@ public class PedidoService {
     public Pedido update(Pedido pedido) {
         Pedido pedidoExistente = pedidoRepository.findById(pedido.getId())
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado !"));
-        if (pedido.getNomeCliente() != null) {
-            pedidoExistente.setNomeCliente(pedido.getNomeCliente());
-        }
+
         if (pedido.getNomeProduto() != null) {
             pedidoExistente.setNomeProduto(pedido.getNomeProduto());
         }

@@ -33,15 +33,18 @@ public class Pedido implements Serializable {
     private long id;
 
     @Size(max = 255)
-    private String nomeCliente;
-
-    @Size(max = 255)
     private String nomeProduto;
 
     private double valorTotal;
 
     private LocalDate dataPedido;
 
+    // Um pedido pertence a um cliente (N:1)
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    // Um pedido pertence a uma agenda (N:1)
     @ManyToOne
     @JoinColumn(name = "agenda_id")
     @Valid

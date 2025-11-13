@@ -34,9 +34,7 @@ public class ClienteService {
         // Nesta parte do código ele verifica se os atributos que estão sendo passados
         // por parametro não são nulos, se não forem ele troca o que está sendo passado
         // por parametro pelo o que está no banco de dados
-        if (cliente.getNome() != null) {
-            clienteExistente.setNome(cliente.getNome());
-        }
+
         if (cliente.getEmail() != null) {
             clienteExistente.setEmail(cliente.getEmail());
         }
