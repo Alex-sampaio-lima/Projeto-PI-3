@@ -27,8 +27,12 @@ public class PedidoService {
     private AgendaRepository agendaRepository;
 
     public Pedido create(Pedido pedido, long clientId, long agendaId) {
+        List<Pedido> pedidosAtuais = null;
+
         Cliente cliente = clienteRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
+
+        System.out.println("Pedido criado =" + pedido.getNomeProduto());
 
         Agenda agenda = agendaRepository.findById(agendaId)
                 .orElseGet(() -> {
@@ -37,7 +41,6 @@ public class PedidoService {
                     return agendaRepository.save(novaAgenda);
                 });
 
-        List<Pedido> pedidosAtuais;
         if (agenda.getPedidos() != null) {
             pedidosAtuais = agenda.getPedidos();
         } else {
@@ -51,11 +54,8 @@ public class PedidoService {
         if (pedido.getDataPedido() == null) {
             pedido.setDataPedido(LocalDate.now());
         }
-        // Salvar apenas o pedido - o relacionamento será mantido automaticamente
-        Pedido pedidoSalvo = pedidoRepository.save(pedido);
 
-        return pedidoSalvo;
-        // return pedidoRepository.save(pedido);
+        return pedidoRepository.save(pedido);
     };
 
     public List<Pedido> getAll() {

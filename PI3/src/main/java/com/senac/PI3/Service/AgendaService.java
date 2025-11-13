@@ -14,8 +14,8 @@ public class AgendaService {
     @Autowired
     private AgendaRepository agendaRepository;
 
-    public Agenda create(Agenda blog) {
-        return agendaRepository.save(blog);
+    public Agenda create(Agenda agenda) {
+        return agendaRepository.save(agenda);
     }
 
     public List<Agenda> getAll() {
