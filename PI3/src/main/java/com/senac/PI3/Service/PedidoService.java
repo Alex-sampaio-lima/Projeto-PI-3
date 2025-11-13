@@ -51,17 +51,11 @@ public class PedidoService {
         if (pedido.getDataPedido() == null) {
             pedido.setDataPedido(LocalDate.now());
         }
-        // SALVAR o pedido primeiro para ter um ID
+        // Salvar apenas o pedido - o relacionamento será mantido automaticamente
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
 
-        // ADICIONAR o pedido salvo na lista
-        pedidosAtuais.add(pedidoSalvo);
-
-        // Atualizar a agenda com a lista atualizada
-        agenda.setPedidos(pedidosAtuais);
-        agendaRepository.save(agenda);
-
-        return pedidoRepository.save(pedido);
+        return pedidoSalvo;
+        // return pedidoRepository.save(pedido);
     };
 
     public List<Pedido> getAll() {
