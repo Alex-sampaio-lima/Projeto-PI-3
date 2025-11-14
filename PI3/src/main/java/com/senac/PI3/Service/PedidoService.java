@@ -47,6 +47,9 @@ public class PedidoService {
             pedidosAtuais = new ArrayList<>();
         }
 
+        // System.out.println(pedidosAtuais);
+
+        // pedidosAtuais.add(pedido);
         pedido.setCliente(cliente);
         pedido.setAgenda(agenda);
         agenda.setPedidos(pedidosAtuais);
