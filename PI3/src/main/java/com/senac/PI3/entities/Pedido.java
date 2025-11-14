@@ -32,7 +32,6 @@ public class Pedido implements Serializable {
     @Id
     private long id;
 
-    @Size(max = 255)
     private String nomeProduto;
 
     private double valorTotal;
@@ -49,5 +48,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "agenda_id")
     @Valid
     private Agenda agenda;
+
+
 
 };

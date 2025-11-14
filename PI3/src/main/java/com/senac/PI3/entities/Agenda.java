@@ -1,6 +1,7 @@
 package com.senac.PI3.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -29,7 +30,11 @@ public class Agenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private List<Pedido> pedidos;
+    private List<Pedido> pedidos = new ArrayList();
+
+    public void setPedidos( List<Pedido> pedidos ){
+        this.pedidos.addAll(pedidos);
+    }
 
     // Relacionamento: Uma agenda pertence a 1 cliente (1:1)
     @OneToOne
