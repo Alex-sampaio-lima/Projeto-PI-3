@@ -1,0 +1,41 @@
+<main class="pagina-branca">
+  <div class="layout-container">
+    <aside class="sidebar">
+      <h1 class="sidebar-title">Admin</h1>
+      <nav class="menu">
+        <a routerLink="/pedidos" class="menu-item">Agenda</a>
+        <a routerLink="/agenda" class="menu-item">Pedidos</a>
+        <a routerLink="/usuarios" class="menu-item">Usuários</a>
+      </nav>
+    </aside>
+
+    <section class="conteudo">
+      <header class="topo">
+        <h2 class="titulo-nome">Olá, LiLi</h2>
+        <img src="assets/images/imagem-do-usuario.png" class="foto-admin" />
+      </header>
+      <div class="caixa-agenda">
+        <div class="caixa-filtro-agenda">
+          <div class="caixa-filtro">
+            <div class="filtro-grupo">
+              <label for="filtrar-clientes" class="filtro-label">Filtrar clientes</label>
+              <input type="text" id="filtrar-clientes" name="filtrar-clientes" class="filtro-input"
+                placeholder="Digite o nome do cliente" />
+            </div>
+
+            <div class="filtro-grupo">
+              <label for="data-agenda" class="filtro-label">Calendário de pedidos</label>
+              <input type="date" id="data-agenda" name="data-agenda" class="filtro-input" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <div class="botao-enviar-agenda">
+          <a href="inserirlink">Enviar</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,198 @@
+.pagina-branca {
+  background: #ffffff;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+
+
+.layout-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+
+.sidebar {
+  width: 18vw;
+  min-width: 220px;
+  max-width: 300px;
+  background: linear-gradient(180deg, #d54ca9, #8c0361);
+  padding: 30px 20px;
+  color: #fff;
+  border-radius: 20px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.sidebar-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+
+.menu {
+  width: 100%;
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  padding: 20px 10px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.3s;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.conteudo {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titulo-nome {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.foto-admin {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+
+.cards-menu {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.card-btn {
+  background: linear-gradient(180deg, #d54ca9, #8c0361);
+  padding: 18px 50px;
+  border-radius: 25px;
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s;
+}
+
+.card-btn:hover {
+  transform: scale(1.05);
+}
+
+.caixa-agenda {
+  width: 100%;
+  padding: 20px;
+}
+
+.caixa-filtro-agenda {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.caixa-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.filtro-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filtro-label {
+  color: #D9308D;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+
+.filtro-input {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #333;
+  background: white;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.filtro-input:focus {
+  outline: none;
+  border-color: #D9308D;
+  box-shadow: 0 0 0 3px rgba(217, 48, 141, 0.1);
+}
+
+.filtro-input::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+
+input[type="date"] {
+  position: relative;
+}
+
+.botao-enviar-agenda {
+  display: inline-flex; /* muda de bloco para inline */
+  height: 30px;
+  padding: 5px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #D9308D 50%, #73194B 100%);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.botao-enviar-agenda a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.botao-enviar-agenda:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+.botao-enviar-agenda:active {
+  transform: translateY(0);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
