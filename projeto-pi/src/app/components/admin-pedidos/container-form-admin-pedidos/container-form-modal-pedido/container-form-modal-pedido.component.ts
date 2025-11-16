@@ -31,7 +31,7 @@ export class ContainerFormModalPedidoComponent implements OnInit {
   @Output() pedidoCriado = new EventEmitter<void>();
 
   @HostListener('document:keydown.escape', ['$event'])
-  onEscKey(event: KeyboardEvent) {
+  onEscKey(event: KeyboardEvent | Event) {
     if (this.visible) {
       this.onClose();
     };

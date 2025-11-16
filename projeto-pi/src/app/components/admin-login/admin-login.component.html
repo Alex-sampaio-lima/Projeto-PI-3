@@ -1,32 +1,37 @@
-<main>
-  <section class="container-admin-login">
-  </section>
+<main class="pagina-branca">
 
-  <section class="container-sessao-menu">
+  <div class="layout-container">
 
-    <div class="header-admin-inicial">
-      <div class="header-dados-admin">
-        <h2 class="header-dados-admin-nome">Olá, adm!</h2>
-        <img src="assets/images/imagem-do-usuario.png" alt="Foto do Admin" class="header-dados-admin-imagem" />
+    
+    <aside class="sidebar">
+      <h1 class="sidebar-title">Admin</h1>
+
+      <nav class="menu">
+        <a routerLink="/pedidos" class="menu-item">Pedidos</a>
+        <a routerLink="/agenda" class="menu-item">Agenda</a>
+        <a routerLink="/usuarios" class="menu-item">Usuários</a>
+      </nav>
+    </aside>
+
+    
+    <section class="conteudo">
+
+      <header class="topo">
+        <h2 class="titulo-nome">Olá, LiLi</h2>
+        <img src="assets/images/imagem-do-usuario.png" class="foto-admin" />
+      </header>
+
+      <div class="caixa-mensagem">
+        <p>Olá, o que vamos fazer hoje ?</p>
       </div>
-    </div>
+      <div class="cards-menu">
+        <a routerLink="/pedidos" class="card-btn">Pedidos</a>
+        <a routerLink="/agenda" class="card-btn">Agenda</a>
+        <a routerLink="/usuarios" class="card-btn">Usuários</a>
+      </div>
 
-    <div class="header-admin-login">
-      <h2 class="header-admin-login-titulo">Olá, o que vamos fazer hoje?</h2>
-    </div>
-    <div class="menu-opcao">
-      <a routerLink="/pedidos" class="menu-opcao-link">Pedidos</a>
-    </div>
-    <div class="menu-opcao">
-      <a routerLink="/agenda" class="menu-opcao-link">Agenda</a>
-    </div>
-    <div class="menu-opcao">
-      <a routerLink="/usuarios" class="menu-opcao-link">Usuários</a>
-    </div>
+    </section>
 
-
-  </section>
-
-
+  </div>
 
 </main>
