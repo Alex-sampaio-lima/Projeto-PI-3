@@ -17,10 +17,12 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 //15.11
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { HomeCardapioComponent } from './components/home-cardapio/home-cardapio.component';
 
 
 export const routes: Routes = [
   { path: "home", component: HomeComponent },
+  { path: "home-cardapio", component: HomeCardapioComponent },
   { path: "card", component: CardSaboresComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
