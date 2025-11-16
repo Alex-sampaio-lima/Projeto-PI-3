@@ -15,17 +15,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminGuardService } from '../services/admin-guard.service';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+//15.11
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+
 
 export const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "card", component: CardSaboresComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
+  { path: "admin-login", component: AdminLoginComponent },
+
   { path: "adminPedidos", component: AdminPedidosComponent, canActivate: [AdminGuardService] },
   { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
-  { path: "**", component: PaginaNaoEncontradaComponent },
-  { path: "", redirectTo: "/home", pathMatch: "full" }
+
+  { path: "", redirectTo: "/home", pathMatch: "full" },
+  { path: "**", component: PaginaNaoEncontradaComponent }
 ];
+
 
 
 const routerOptions: ExtraOptions = {
