@@ -41,9 +41,8 @@ public class PedidoController {
         pedido.setNomeProduto(novoPedido.getNomeProduto());
         pedido.setValorTotal(novoPedido.getValorTotal());
         pedido.setDataPedido(novoPedido.getDataPedido());
-        System.out.println(novoPedido.getCliente().getId() + novoPedido.getAgenda().getId());
-        Pedido pedidoCriado = pedidoService.create(pedido, novoPedido.getCliente().getId(),
-                novoPedido.getAgenda().getId());
+        System.out.println(novoPedido.getCliente().getId());
+        Pedido pedidoCriado = pedidoService.create(pedido, novoPedido.getCliente().getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
     };
 

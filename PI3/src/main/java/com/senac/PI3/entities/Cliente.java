@@ -56,9 +56,4 @@ public class Cliente implements Serializable {
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    // Cada cliente possui apenas uma agenda
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
-    @JsonIgnore
-    @Valid
-    private Agenda agenda;
 };

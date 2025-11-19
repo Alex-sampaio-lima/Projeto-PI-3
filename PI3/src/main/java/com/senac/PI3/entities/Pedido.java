@@ -43,12 +43,4 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    // Um pedido pertence a uma agenda (N:1)
-    @ManyToOne
-    @JoinColumn(name = "agenda_id")
-    @Valid
-    private Agenda agenda;
-
-
-
 };
