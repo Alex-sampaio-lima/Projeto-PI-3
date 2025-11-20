@@ -24,6 +24,7 @@ public class ClienteService {
             throw new RuntimeException("Email já cadastrado!");
         }
 
+        cliente.setEmail(cliente.getEmail());
         cliente.setSenha(cliente.getSenha());
         cliente.setRole(Cliente.UserRole.USER);
 
@@ -34,12 +35,20 @@ public class ClienteService {
         Cliente clienteExistente = clienteRepository.findById(cliente.getId())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
 
-        // Atualiza apenas campos permitidos
-        if (cliente.getTelefone() != null) {
-            clienteExistente.setTelefone(cliente.getTelefone());
+        if (cliente.getNome() != null) {
+            clienteExistente.setNome(cliente.getNome());
+        }
+        if (cliente.getEmail() != null) {
+            clienteExistente.setEmail(cliente.getEmail());
         }
         if (cliente.getSenha() != null && !cliente.getSenha().isEmpty()) {
             clienteExistente.setSenha(cliente.getSenha());
+        }
+        if (cliente.getTelefone() != null) {
+            clienteExistente.setTelefone(cliente.getTelefone());
+        }
+        if (cliente.getCpf() != null) {
+            clienteExistente.setCpf(cliente.getCpf());
         }
 
         return clienteRepository.save(clienteExistente);
