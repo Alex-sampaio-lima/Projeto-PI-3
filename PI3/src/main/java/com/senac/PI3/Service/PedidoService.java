@@ -21,16 +21,12 @@ public class PedidoService {
     private ClienteRepository clienteRepository;
 
     public Pedido create(Pedido pedido, long clientId) {
-        List<Pedido> pedidosAtuais = null;
 
         Cliente cliente = clienteRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
 
         System.out.println("Pedido criado =" + pedido.getNomeProduto());
 
-        System.out.println(pedidosAtuais);
-
-        pedidosAtuais.add(pedido);
         pedido.setCliente(cliente);
 
         if (pedido.getDataPedido() == null) {
