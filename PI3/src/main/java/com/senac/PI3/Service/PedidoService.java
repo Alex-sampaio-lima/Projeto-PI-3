@@ -20,7 +20,7 @@ public class PedidoService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Pedido create(Pedido pedido, long clientId) {
+    public Pedido create(Pedido pedido, int clientId) {
 
         Cliente cliente = clienteRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
@@ -34,18 +34,19 @@ public class PedidoService {
         }
 
         return pedidoRepository.save(pedido);
-    };
+    }
 
     public List<Pedido> getAll() {
         return pedidoRepository.findAll();
-    };
+    }
 
-    public Pedido getById(long id) {
+    public Pedido getById(int id) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado !"));
         return pedido;
-    };
+    }
 
+    @SuppressWarnings("null")
     public Pedido update(Pedido pedido) {
         Pedido pedidoExistente = pedidoRepository.findById(pedido.getId())
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado !"));
@@ -61,11 +62,13 @@ public class PedidoService {
         }
 
         return pedidoRepository.save(pedidoExistente);
-    };
+    }
 
-    public void delete(long id) {
+    @SuppressWarnings("null")
+    public void delete(int id) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não localizado !"));
         pedidoRepository.delete(pedido);
-    };
+    }
+
 };

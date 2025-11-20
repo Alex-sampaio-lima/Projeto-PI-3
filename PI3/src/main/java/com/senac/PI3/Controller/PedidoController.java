@@ -31,7 +31,7 @@ public class PedidoController {
     };
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Pedido> getId(@PathVariable long id) {
+    public ResponseEntity<Pedido> getId(@PathVariable int id) {
         return ResponseEntity.ok().body(pedidoService.getById(id));
     };
 
@@ -47,14 +47,14 @@ public class PedidoController {
     };
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Pedido> updatePedido(@PathVariable long id, @RequestBody Pedido pedido) {
+    public ResponseEntity<Pedido> updatePedido(@PathVariable int id, @RequestBody Pedido pedido) {
         pedido.setId(id); // Aqui estou garantindo que o id certo será atualizado
         Pedido pedidoAtualizado = pedidoService.update(pedido);
         return ResponseEntity.ok(pedidoAtualizado);
     };
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletePedido(@PathVariable long id) {
+    public ResponseEntity<Void> deletePedido(@PathVariable int id) {
         pedidoService.delete(id);
         return ResponseEntity.noContent().build();
     };

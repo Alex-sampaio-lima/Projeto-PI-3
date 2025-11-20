@@ -15,18 +15,29 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     public Cliente create(Cliente cliente) {
+        if (cliente == null) {
+            throw new RuntimeException("Cliente não encontrado !");
+        }
+        authenticationService.validateAdminAccess();
         return clienteRepository.save(cliente);
-    };
+    }
 
     public List<Cliente> getAll() {
         return clienteRepository.findAll();
-    };
+    }
 
-    public Cliente getById(long id) {
+    public Cliente getById(int id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.get();
-    };
+    }
+
+    public Cliente buscarUsuarioPorEmail(String email) {
+        return clienteRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Email não localizado !"));
+    }
 
     public Cliente update(Cliente cliente) {
         Cliente clienteExistente = clienteRepository.findById(cliente.getId())
@@ -47,13 +58,20 @@ public class ClienteService {
         if (cliente.getCpf() != null) {
             clienteExistente.setCpf(cliente.getCpf());
         }
+        System.out.println("Cliente Existente = " + clienteExistente.toString());
+        System.out.println("Cliente = " + cliente.toString());
 
-        return clienteRepository.save(clienteExistente);
-    };
+        return clienteRepository.save(cliente);
+    }
 
-    public void delete(long id) {
+    @SuppressWarnings("null")
+    public void delete(int id) {
+
+        authenticationService.validateAdminAccess();
+
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado !"));
         clienteRepository.delete(cliente);
-    };
+    }
+
 };

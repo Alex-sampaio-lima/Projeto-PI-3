@@ -30,7 +30,7 @@ public class Pedido implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private long id;
+    private int id;
 
     private String nomeProduto;
 
