@@ -18,6 +18,19 @@ public class ClienteService {
     @Autowired
     private AuthenticationService authenticationService;
 
+    // Cadastro - Login - Autenticação
+    public Cliente registrar(Cliente cliente) {
+        if (clienteRepository.existsByEmail(cliente.getEmail())) {
+            throw new RuntimeException("Email já cadastrado!");
+        }
+
+        cliente.setSenha((cliente.getSenha()));
+        cliente.setRole(Cliente.UserRole.USER);
+
+        return clienteRepository.save(cliente);
+    }
+
+    // CRUD - Cliente
     public Cliente create(Cliente cliente) {
         if (cliente == null) {
             throw new RuntimeException("Cliente não encontrado !");

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senac.PI3.Repository.ClienteRepository;
 import com.senac.PI3.entities.Cliente;
 
 import lombok.Getter;
@@ -22,6 +23,12 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    public final String email = "";
+    public final String senha = "";
+
+    @Autowired
+    ClienteRepository clienteRepository;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -51,5 +58,5 @@ public class AuthController {
 
         private String email;
         private String senha;
-    }
+    };
 };

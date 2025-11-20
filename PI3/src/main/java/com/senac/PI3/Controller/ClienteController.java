@@ -27,6 +27,13 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    // Cadastro - Login - Autenticação
+    @PostMapping("/registrar")
+    public ResponseEntity<Cliente> registrarCliente(@RequestBody Cliente novoCliente) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.registrar(novoCliente));
+    }
+
+    // CRUD - Cliente
     @GetMapping
     public ResponseEntity<List<Cliente>> getAll() {
         return ResponseEntity.ok().body(clienteService.getAll());
