@@ -24,10 +24,25 @@ public class ClienteService {
             throw new RuntimeException("Email já cadastrado!");
         }
 
-        cliente.setSenha((cliente.getSenha()));
+        cliente.setSenha(cliente.getSenha());
         cliente.setRole(Cliente.UserRole.USER);
 
         return clienteRepository.save(cliente);
+    }
+
+    public Cliente atualizarPerfil(Cliente cliente) {
+        Cliente clienteExistente = clienteRepository.findById(cliente.getId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+
+        // Atualiza apenas campos permitidos
+        if (cliente.getTelefone() != null) {
+            clienteExistente.setTelefone(cliente.getTelefone());
+        }
+        if (cliente.getSenha() != null && !cliente.getSenha().isEmpty()) {
+            clienteExistente.setSenha(cliente.getSenha());
+        }
+
+        return clienteRepository.save(clienteExistente);
     }
 
     // CRUD - Cliente
