@@ -18,7 +18,8 @@
                 <div class="flip-card-inner">
 
                     <!-- FRENTE -->
-                    <div class="flip-card-front container-tipos-sabores">
+                    <div class="flip-card-front container-tipos-sabores"
+                        [style.background-image]="'url(' + card.image + ')'">
                         <p class="titulo-card-sabores">{{ card.name }}</p>
 
                         <div class="container-button-sabores">
@@ -62,7 +63,8 @@
             <div class="flip-card" *ngFor="let card of Salgados; let i = index" [class.flipped]="card.isFlipped">
                 <div class="flip-card-inner">
 
-                    <div class="flip-card-front container-tipos-sabores">
+                    <div class="flip-card-front container-tipos-sabores"
+                    [style.background-image]="'url(' + card.image + ')'">
                         <p class="titulo-card-sabores">{{ card.name }}</p>
                         <div class="container-button-sabores">
                             <button class="button-card-sabores" type="button" (click)="flipCard(Salgados, i)">
@@ -104,7 +106,8 @@
             <div class="flip-card" *ngFor="let card of kitFesta; let i = index" [class.flipped]="card.isFlipped">
                 <div class="flip-card-inner">
 
-                    <div class="flip-card-front container-tipos-sabores">
+                    <div class="flip-card-front container-tipos-sabores"
+                    [style.background-image]="'url(' + card.image + ')'">
                         <p class="titulo-card-sabores">{{ card.name }}</p>
                         <div class="container-button-sabores">
                             <button class="button-card-sabores" type="button" (click)="flipCard(kitFesta, i)">
@@ -146,7 +149,8 @@
             <div class="flip-card" *ngFor="let card of doces; let i = index" [class.flipped]="card.isFlipped">
                 <div class="flip-card-inner">
 
-                    <div class="flip-card-front container-tipos-sabores">
+                    <div class="flip-card-front container-tipos-sabores"
+                    [style.background-image]="'url(' + card.image + ')'">
                         <p class="titulo-card-sabores">{{ card.name }}</p>
                         <div class="container-button-sabores">
                             <button class="button-card-sabores" type="button" (click)="flipCard(doces, i)">
