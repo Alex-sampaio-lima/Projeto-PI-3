@@ -56,7 +56,9 @@ public class ClienteService {
         if (cliente == null) {
             throw new RuntimeException("Cliente não encontrado !");
         }
-        authenticationService.validateAdminAccess();
+        if (cliente.getSenha() != null && !cliente.getSenha().isEmpty()) {
+            cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
+        }
         return clienteRepository.save(cliente);
     }
 
@@ -81,11 +83,14 @@ public class ClienteService {
         // por parametro não são nulos, se não forem ele troca o que está sendo passado
         // por parametro pelo o que está no banco de dados
 
+        if (cliente.getNome() != null) {
+            clienteExistente.setNome(cliente.getNome());
+        }
         if (cliente.getEmail() != null) {
             clienteExistente.setEmail(cliente.getEmail());
         }
         if (cliente.getSenha() != null) {
-            clienteExistente.setSenha(cliente.getSenha());
+            clienteExistente.setSenha(passwordEncoder.encode(cliente.getSenha()));
         }
         if (cliente.getTelefone() != null) {
             clienteExistente.setTelefone(cliente.getTelefone());
@@ -96,7 +101,7 @@ public class ClienteService {
         System.out.println("Cliente Existente = " + clienteExistente.toString());
         System.out.println("Cliente = " + cliente.toString());
 
-        return clienteRepository.save(cliente);
+        return clienteRepository.save(clienteExistente);
     }
 
     @SuppressWarnings("null")
