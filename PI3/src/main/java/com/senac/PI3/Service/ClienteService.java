@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.senac.PI3.Repository.ClienteRepository;
@@ -18,37 +19,33 @@ public class ClienteService {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     // Cadastro - Login - Autenticação
     public Cliente registrar(Cliente cliente) {
+
         if (clienteRepository.existsByEmail(cliente.getEmail())) {
             throw new RuntimeException("Email já cadastrado!");
         }
 
         cliente.setEmail(cliente.getEmail());
-        cliente.setSenha(cliente.getSenha());
+        cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
         cliente.setRole(Cliente.UserRole.USER);
 
         return clienteRepository.save(cliente);
     }
 
-    public Cliente atualizarPerfil(Cliente cliente) {
-        Cliente clienteExistente = clienteRepository.findById(cliente.getId())
+    public Cliente atualizarPerfil(Cliente clienteAtualizado) {
+        Cliente clienteExistente = clienteRepository.findById(clienteAtualizado.getId())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
 
-        if (cliente.getNome() != null) {
-            clienteExistente.setNome(cliente.getNome());
+        // Atualiza apenas campos permitidos
+        if (clienteAtualizado.getTelefone() != null) {
+            clienteExistente.setTelefone(clienteAtualizado.getTelefone());
         }
-        if (cliente.getEmail() != null) {
-            clienteExistente.setEmail(cliente.getEmail());
-        }
-        if (cliente.getSenha() != null && !cliente.getSenha().isEmpty()) {
-            clienteExistente.setSenha(cliente.getSenha());
-        }
-        if (cliente.getTelefone() != null) {
-            clienteExistente.setTelefone(cliente.getTelefone());
-        }
-        if (cliente.getCpf() != null) {
-            clienteExistente.setCpf(cliente.getCpf());
+        if (clienteAtualizado.getSenha() != null && !clienteAtualizado.getSenha().isEmpty()) {
+            clienteExistente.setSenha(passwordEncoder.encode(clienteAtualizado.getSenha()));
         }
 
         return clienteRepository.save(clienteExistente);
@@ -68,6 +65,7 @@ public class ClienteService {
     }
 
     public Cliente getById(int id) {
+        authenticationService.validateUserAccess(id);
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.get();
     }

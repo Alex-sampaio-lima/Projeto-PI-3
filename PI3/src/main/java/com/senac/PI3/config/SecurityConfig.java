@@ -3,8 +3,13 @@ package com.senac.PI3.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -58,45 +63,72 @@ public class SecurityConfig {
     //             );
     //     return http.build();
     // }
+    // @Bean
+    // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    //     http
+    //             .authorizeHttpRequests(authz -> authz
+    //             .requestMatchers("/h2-console/**").permitAll()
+    //             .requestMatchers("/auth/**").permitAll() // Permite endpoints de autenticação
+    //             // Clientes
+    //             .requestMatchers("/cliente/registrar").permitAll() // ✅ Cadastro aberto
+    //             .requestMatchers(HttpMethod.GET, "/cliente").hasRole("ADMIN") // Só admin pode ver todos clientes
+    //             .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN") // Só admin cria clientes
+    //             .requestMatchers(HttpMethod.PUT, "/cliente/**").authenticated()
+    //             .requestMatchers(HttpMethod.DELETE, "/cliente/**").hasRole("ADMIN")
+    //             .requestMatchers(HttpMethod.GET, "/cliente/**").authenticated()
+    //             // Pedidos
+    //             .requestMatchers(HttpMethod.POST, "/pedido").authenticated() // Cliente cria pedido
+    //             .requestMatchers(HttpMethod.GET, "/pedido/meus-pedido").authenticated() // Cliente vê seus pedidos
+    //             .requestMatchers(HttpMethod.GET, "/pedido").hasRole("ADMIN") // Listar todos pedidos - só ADMIN
+    //             .requestMatchers(HttpMethod.GET, "/pedido/**").authenticated() // Validação no service
+    //             .requestMatchers(HttpMethod.PUT, "/pedido/**").hasRole("ADMIN") // Editar pedidos - só ADMIN
+    //             .anyRequest().authenticated()
+    //             )
+    //             .formLogin(form -> form
+    //             .loginPage("/login")
+    //             .loginProcessingUrl("/auth/login") // ✅ Endpoint para login
+    //             .defaultSuccessUrl("/cliente/meu-perfil", true)
+    //             .permitAll()
+    //             )
+    //             .logout(logout -> logout
+    //             .logoutUrl("/auth/logout")
+    //             .logoutSuccessUrl("/login?logout")
+    //             .permitAll()
+    //             )
+    //             .csrf(csrf -> csrf
+    //             .ignoringRequestMatchers("/h2-console/**", "/auth/**")
+    //             )
+    //             .headers(headers -> headers
+    //             .frameOptions(frame -> frame.disable())
+    //             );
+    //     return http.build();
+    // }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/auth/**").permitAll() // Permite endpoints de autenticação
-                // Clientes
-                .requestMatchers("/cliente/registrar").permitAll() // ✅ Cadastro aberto
+                // PERMITE TUDO TEMPORARIAMENTE - vamos ajustar depois
                 .requestMatchers(HttpMethod.GET, "/cliente").hasRole("ADMIN") // Só admin pode ver todos clientes
-                .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN") // Só admin cria clientes
-                .requestMatchers(HttpMethod.PUT, "/cliente/**").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/cliente/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/cliente/**").authenticated()
-                // Pedidos
-                .requestMatchers(HttpMethod.POST, "/pedido").authenticated() // Cliente cria pedido
-                .requestMatchers(HttpMethod.GET, "/pedido/meus-pedido").authenticated() // Cliente vê seus pedidos
-                .requestMatchers(HttpMethod.GET, "/pedido").hasRole("ADMIN") // Listar todos pedidos - só ADMIN
-                .requestMatchers(HttpMethod.GET, "/pedido/**").authenticated() // Validação no service
-                .requestMatchers(HttpMethod.PUT, "/pedido/**").hasRole("ADMIN") // Editar pedidos - só ADMIN
-                .anyRequest().authenticated()
+                .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN") // Só cliente pode criar Cliente
+                
+                .anyRequest().permitAll()
                 )
-                .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/auth/login") // ✅ Endpoint para login
-                .defaultSuccessUrl("/cliente/meu-perfil", true)
-                .permitAll()
-                )
-                .logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                )
-                .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**", "/auth/**")
-                )
+                .httpBasic(withDefaults())
+                .csrf(csrf -> csrf.disable()) // DESABILITA CSRF COMPLETAMENTE
                 .headers(headers -> headers
                 .frameOptions(frame -> frame.disable())
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 };

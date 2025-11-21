@@ -1,5 +1,7 @@
 package com.senac.PI3.Controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,15 +26,11 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public final String email = "";
-    public final String senha = "";
-
     @Autowired
-    ClienteRepository clienteRepository;
+    private ClienteRepository clienteRepository;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -43,11 +41,22 @@ public class AuthController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            Cliente cliente = (Cliente) authentication.getPrincipal();
-            return ResponseEntity.ok(cliente);
+            // Busca o cliente completo
+            Cliente cliente = clienteRepository.findByEmail(loginRequest.getEmail())
+                    .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+            System.out.println("🔍 Usuário encontrado: " + cliente.getEmail());
+            System.out.println("🔍 Senha no banco: " + cliente.getSenha());
+            System.out.println("🔍 Senha enviada: " + loginRequest.getSenha());
+
+            // Retorna resposta JSON
+            return ResponseEntity.ok(Map.of("message", "Login realizado com sucesso"));
 
         } catch (Exception e) {
-            return ResponseEntity.status(401).body("Credenciais inválidas");
+            return ResponseEntity.status(401).body(Map.of(
+                    "error", "Credenciais inválidas",
+                    "message", e.getMessage()
+            ));
         }
     }
 
@@ -58,5 +67,6 @@ public class AuthController {
 
         private String email;
         private String senha;
-    };
-};
+
+    }
+}

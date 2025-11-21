@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +29,41 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    // Cadastro - Login - Autenticação
+    // Seção de Cadastro - Login - Autenticação
+    // Cadastro de Cliente
     @PostMapping("/registrar")
     public ResponseEntity<Cliente> registrarCliente(@RequestBody Cliente novoCliente) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.registrar(novoCliente));
     }
 
+    @GetMapping("/meu-perfil")
+    public ResponseEntity<Cliente> getMeuPerfil() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        Cliente cliente = clienteService.buscarUsuarioPorEmail(email);
+        cliente.setSenha(null);
+
+        return ResponseEntity.ok(cliente);
+    }
+
+    @PutMapping("/meu-perfil")
+    public ResponseEntity<Cliente> atualizarMeuPerfil(@RequestBody Cliente clienteAtualizado) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        Cliente cliente = clienteService.buscarUsuarioPorEmail(email);
+        clienteAtualizado.setId(cliente.getId());
+
+        Cliente clienteSalvo = clienteService.atualizarPerfil(clienteAtualizado);
+        clienteSalvo.setSenha(null);
+
+        return ResponseEntity.ok(clienteSalvo);
+    }
+
     // CRUD - Cliente
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Cliente>> getAll() {
         return ResponseEntity.ok().body(clienteService.getAll());
     }
