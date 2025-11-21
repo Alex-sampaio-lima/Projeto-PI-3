@@ -70,7 +70,7 @@ public class SecurityConfig {
     //             .requestMatchers("/h2-console/**").permitAll()
     //             .requestMatchers("/auth/**").permitAll() // Permite endpoints de autenticação
     //             // Clientes
-    //             .requestMatchers("/cliente/registrar").permitAll() // ✅ Cadastro aberto
+    //             .requestMatchers("/cliente/registrar").permitAll() // Cadastro aberto
     //             .requestMatchers(HttpMethod.GET, "/cliente").hasRole("ADMIN") // Só admin pode ver todos clientes
     //             .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN") // Só admin cria clientes
     //             .requestMatchers(HttpMethod.PUT, "/cliente/**").authenticated()
@@ -86,7 +86,7 @@ public class SecurityConfig {
     //             )
     //             .formLogin(form -> form
     //             .loginPage("/login")
-    //             .loginProcessingUrl("/auth/login") // ✅ Endpoint para login
+    //             .loginProcessingUrl("/auth/login") // Endpoint para login
     //             .defaultSuccessUrl("/cliente/meu-perfil", true)
     //             .permitAll()
     //             )
@@ -111,11 +111,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authz -> authz
-                // PERMITE TUDO TEMPORARIAMENTE - vamos ajustar depois
-                .requestMatchers(HttpMethod.GET, "/cliente").hasRole("ADMIN") // Só admin pode ver todos clientes
-                .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN") // Só cliente pode criar Cliente
-                
+                .authorizeHttpRequests((var authz) -> authz
+                // CLIENTES - CONFORME SUAS REGRAS
+                .requestMatchers(HttpMethod.GET, "/cliente").hasRole("ADMIN") // Listar todos - só ADMIN
+                .requestMatchers(HttpMethod.GET, "/cliente/**").authenticated() // Listar específico - validação no service
+                .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN") // Criar - só ADMIN
+                .requestMatchers(HttpMethod.PUT, "/cliente/**").authenticated() // Atualizar - validação no service
+                .requestMatchers(HttpMethod.DELETE, "/cliente/**").authenticated() // Deletar - validação no service
+
+                // PEDIDOS - CONFORME SUAS REGRAS
+                .requestMatchers(HttpMethod.GET, "/pedido").hasRole("ADMIN") // Listar todos - só ADMIN
+                .requestMatchers(HttpMethod.GET, "/pedido/**").authenticated() // Listar próprio - validação no service
+                .requestMatchers(HttpMethod.POST, "/pedido").authenticated() // Criar - só usuário logado
+                .requestMatchers(HttpMethod.PUT, "/pedido/**").authenticated() // Atualizar - validação no service
+                .requestMatchers(HttpMethod.DELETE, "/pedido/**").authenticated() // Deletar - validação no service
+
                 .anyRequest().permitAll()
                 )
                 .httpBasic(withDefaults())

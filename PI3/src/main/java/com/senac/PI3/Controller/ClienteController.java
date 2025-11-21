@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senac.PI3.Service.AuthenticationService;
 import com.senac.PI3.Service.ClienteService;
 import com.senac.PI3.entities.Cliente;
 
@@ -28,6 +29,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     // Seção de Cadastro - Login - Autenticação
     // Cadastro de Cliente
@@ -62,17 +66,21 @@ public class ClienteController {
     }
 
     // CRUD - Cliente
+    // Listar Todos os Clientes
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Cliente>> getAll() {
         return ResponseEntity.ok().body(clienteService.getAll());
     }
 
+    // Listar Cliente por ID
     @GetMapping(value = "/{id}")
     public ResponseEntity<Cliente> getId(@PathVariable int id) {
+        authenticationService.validateUserAccess(id);
         return ResponseEntity.ok().body(clienteService.getById(id));
     }
 
+    // Criar Cliente 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Cliente> newCliente(@RequestBody Cliente novoCliente) {
