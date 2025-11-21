@@ -9,9 +9,6 @@
     <a class="navbar-title-pedido" routerLink="/adminPedidos">Pedidos</a>
   </div>
   <div class="container-navbar-title-estoque">
-    <a class="navbar-title-estoque" routerLink="/adminEstoque">Estoque</a>
-  </div>
-  <div class="container-navbar-title-estoque">
     <a class="navbar-title-estoque" [routerLink]="['/home']" (click)="this.userService.logOut()">Sair</a>
   </div>
 </nav>
