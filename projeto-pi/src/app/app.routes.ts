@@ -2,7 +2,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminPedidosComponent } from './components/admin-pedidos/admin-pedidos.component';
-import { AdminEstoqueComponent } from './components/admin-estoque/admin-estoque.component';
+// import { AdminEstoqueComponent } from './components/admin-estoque/admin-estoque.component';
 import { PaginaNaoEncontradaComponent } from './components/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { CardSaboresComponent } from './components/home/card-sabores/card-sabores.component';
 import { NgModule } from '@angular/core';
@@ -26,10 +26,9 @@ export const routes: Routes = [
   { path: "card", component: CardSaboresComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: "admin-login", component: AdminLoginComponent },
-
+  { path: "admin-login", component: AdminLoginComponent,canActivate: [AdminGuardService]},
   { path: "adminPedidos", component: AdminPedidosComponent, canActivate: [AdminGuardService] },
-  { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
+  // { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
   { path: "admin-login-agenda", component: AdminLoginAgendaComponent /*colocar guardiao depois16.11JULIAAA*/ },
 
 

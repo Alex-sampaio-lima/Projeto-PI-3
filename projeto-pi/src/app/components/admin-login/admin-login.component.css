@@ -1,27 +1,27 @@
 
 .pagina-branca {
   background: #ffffff;
-  height: 100vh;     
-  width: 100vw;     
-  padding: 0;        
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
   margin: 0;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 
 
 .layout-container {
   display: flex;
-  height: 100vh; 
+  height: 100vh;
   width: 100vw;
 }
 
 
 
 .sidebar {
-  width: 18vw;                  
-  min-width: 220px;             
-  max-width: 300px;             
+  width: 18vw;
+  min-width: 220px;
+  max-width: 300px;
   background: linear-gradient(180deg, #d54ca9, #8c0361);
   padding: 30px 20px;
   color: #fff;
@@ -62,7 +62,7 @@
 .conteudo {
   flex: 1;
   padding: 40px;
-  overflow-y: auto;  
+  overflow-y: auto;
 }
 
 
@@ -86,19 +86,16 @@
 
 .caixa-mensagem {
   background: #f9f9f9;
-  padding: 30px 5%;      
-  margin: 4% auto;       
-  width: 80%;            
-  max-width: 900px;      
-  min-width: 320px;      
+  padding: 30px 5%;
+  margin: 4% auto;
+  width: 80%;
+  max-width: 900px;
+  min-width: 320px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   font-size: 1.2rem;
 }
-
-
-
 
 
 .cards-menu {
