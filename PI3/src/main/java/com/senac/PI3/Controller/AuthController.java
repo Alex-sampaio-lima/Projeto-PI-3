@@ -45,9 +45,9 @@ public class AuthController {
             Cliente cliente = clienteRepository.findByEmail(loginRequest.getEmail())
                     .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-            System.out.println("🔍 Usuário encontrado: " + cliente.getEmail());
-            System.out.println("🔍 Senha no banco: " + cliente.getSenha());
-            System.out.println("🔍 Senha enviada: " + loginRequest.getSenha());
+            System.out.println("Usuário encontrado: " + cliente.getEmail());
+            System.out.println("Senha no banco: " + cliente.getSenha());
+            System.out.println("Senha enviada: " + loginRequest.getSenha());
 
             // Retorna resposta JSON
             return ResponseEntity.ok(Map.of("message", "Login realizado com sucesso"));

@@ -59,7 +59,7 @@ public class ClienteController {
         Cliente cliente = clienteService.buscarUsuarioPorEmail(email);
         clienteAtualizado.setId(cliente.getId());
 
-        Cliente clienteSalvo = clienteService.atualizarPerfil(clienteAtualizado);
+        Cliente clienteSalvo = clienteService.update(clienteAtualizado);
         clienteSalvo.setSenha(null);
 
         return ResponseEntity.ok(clienteSalvo);

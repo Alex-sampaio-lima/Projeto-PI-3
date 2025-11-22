@@ -112,14 +112,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((var authz) -> authz
-                // CLIENTES - CONFORME SUAS REGRAS
+                // CLIENTES
                 .requestMatchers(HttpMethod.GET, "/cliente").hasRole("ADMIN") // Listar todos - só ADMIN
                 .requestMatchers(HttpMethod.GET, "/cliente/**").authenticated() // Listar específico - validação no service
                 .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN") // Criar - só ADMIN
                 .requestMatchers(HttpMethod.PUT, "/cliente/**").authenticated() // Atualizar - validação no service
                 .requestMatchers(HttpMethod.DELETE, "/cliente/**").authenticated() // Deletar - validação no service
 
-                // PEDIDOS - CONFORME SUAS REGRAS
+                // PEDIDOS
                 .requestMatchers(HttpMethod.GET, "/pedido").hasRole("ADMIN") // Listar todos - só ADMIN
                 .requestMatchers(HttpMethod.GET, "/pedido/**").authenticated() // Listar próprio - validação no service
                 .requestMatchers(HttpMethod.POST, "/pedido").authenticated() // Criar - só usuário logado
