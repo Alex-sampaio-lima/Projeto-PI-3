@@ -56,7 +56,7 @@ public class PedidoService {
         return pedido;
     }
 
-    // Criar Pedido
+    // Criar Pedido ADMIN
     public Pedido create(Pedido pedido, int clientId) {
 
         Cliente cliente = clienteRepository.findById(clientId)
@@ -73,13 +73,32 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
+    // Criar Pedido USER
+    public Pedido createPedidoUser(Pedido pedido, int clientId) {
+
+        Cliente cliente = clienteRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
+
+        System.out.println("Pedido criado =" + pedido.getNomeProduto());
+
+        validatePedidoAccess(pedido);
+        
+        pedido.setCliente(cliente);
+
+        if (pedido.getDataPedido() == null) {
+            pedido.setDataPedido(LocalDate.now());
+        }
+
+        return pedidoRepository.save(pedido);
+    }
+
     // Atualizar Pedido
     @SuppressWarnings("null")
     public Pedido update(Pedido pedido) {
         Pedido pedidoExistente = pedidoRepository.findById(pedido.getId())
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado !"));
 
-        validatePedidoAccess(pedido);
+        validatePedidoAccess(pedidoExistente);
+
         if (pedido.getNomeProduto() != null) {
             pedidoExistente.setNomeProduto(pedido.getNomeProduto());
         }
