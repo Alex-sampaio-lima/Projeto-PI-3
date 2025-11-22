@@ -31,6 +31,17 @@ public class PedidoService {
         return pedidoRepository.findByClienteId(clienteId);
     }
 
+    // Criar Pedido USER
+    // public Pedido createPedidoUser(Pedido pedido, int clientId) {
+    //     Cliente cliente = clienteRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
+    //     System.out.println("Pedido criado =" + pedido.getNomeProduto());
+    //     validatePedidoAccess(pedido);
+    //     pedido.setCliente(cliente);
+    //     if (pedido.getDataPedido() == null) {
+    //         pedido.setDataPedido(LocalDate.now());
+    //     }
+    //     return pedidoRepository.save(pedido);
+    // }
     // CRUD 
     // Listar Todos Pedidos
     public List<Pedido> getAll() {
@@ -56,7 +67,7 @@ public class PedidoService {
         return pedido;
     }
 
-    // Criar Pedido ADMIN
+    // Criar Pedido
     public Pedido create(Pedido pedido, int clientId) {
 
         Cliente cliente = clienteRepository.findById(clientId)
@@ -64,26 +75,10 @@ public class PedidoService {
 
         System.out.println("Pedido criado =" + pedido.getNomeProduto());
 
-        pedido.setCliente(cliente);
-
-        if (pedido.getDataPedido() == null) {
-            pedido.setDataPedido(LocalDate.now());
-        }
-
-        return pedidoRepository.save(pedido);
-    }
-
-    // Criar Pedido USER
-    public Pedido createPedidoUser(Pedido pedido, int clientId) {
-
-        Cliente cliente = clienteRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
-
-        System.out.println("Pedido criado =" + pedido.getNomeProduto());
-
-        validatePedidoAccess(pedido);
         
         pedido.setCliente(cliente);
-
+        
+        validatePedidoAccess(pedido);
         if (pedido.getDataPedido() == null) {
             pedido.setDataPedido(LocalDate.now());
         }

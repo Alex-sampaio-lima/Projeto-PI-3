@@ -51,11 +51,15 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<Pedido> newPedido(@RequestBody Pedido novoPedido) {
         Pedido pedido = new Pedido();
+
         pedido.setNomeProduto(novoPedido.getNomeProduto());
         pedido.setValorTotal(novoPedido.getValorTotal());
         pedido.setDataPedido(novoPedido.getDataPedido());
-        System.out.println(novoPedido.getCliente().getId());
+
+        System.out.println("ID DO CLIENTE = " + novoPedido.getCliente().getId());
+
         Pedido pedidoCriado = pedidoService.create(pedido, novoPedido.getCliente().getId());
+
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
     }
 
