@@ -34,15 +34,17 @@ public class PedidoService {
     // CRUD 
     // Listar Todos Pedidos
     public List<Pedido> getAll() {
-        int clienteId = getCurrentClientId();
-
-        authenticationService.validateUserAccess(clienteId);
         if (isAdmin()) {
-            System.out.println("QUE PORRA" + isAdmin());
+            System.out.println("Usuário é ADMIN - retornando todos os pedidos");
             return pedidoRepository.findAll();
         }
-        System.out.println("QUE PORRA" + isAdmin());
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("CONTROLLER - Usuário: " + auth.getName());
+        System.out.println("CONTROLLER - Roles: " + auth.getAuthorities());
+
+        int clienteId = getCurrentClientId();
+        System.out.println("Usuário é CLIENTE - retornando apenas pedidos do cliente ID: " + clienteId);
         return pedidoRepository.findByClienteId(clienteId);
     }
 
@@ -50,7 +52,6 @@ public class PedidoService {
     public Pedido getById(int id) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado !"));
-
         validatePedidoAccess(pedido);
         return pedido;
     }
@@ -78,6 +79,7 @@ public class PedidoService {
         Pedido pedidoExistente = pedidoRepository.findById(pedido.getId())
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado !"));
 
+        validatePedidoAccess(pedido);
         if (pedido.getNomeProduto() != null) {
             pedidoExistente.setNomeProduto(pedido.getNomeProduto());
         }
@@ -105,12 +107,21 @@ public class PedidoService {
 
     // Métodos
     private boolean isAdmin() {
-        try {
-            authenticationService.validateAdminAccess();
-            return true;
-        } catch (Exception e) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            System.out.println("DEBUG: Usuário não autenticado");
             return false;
         }
+
+        System.out.println("DEBUG isAdmin() - Usuário: " + authentication.getName());
+        System.out.println("DEBUG isAdmin() - Roles: " + authentication.getAuthorities());
+
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        System.out.println("DEBUG isAdmin() - Resultado: " + isAdmin);
+        return isAdmin;
     }
 
     private int getCurrentClientId() {
@@ -130,8 +141,8 @@ public class PedidoService {
         }
 
         // Cliente só tem acesso aos próprios pedidos
-        int currentClientId = getCurrentClientId();
-        if (pedido.getCliente().getId() != currentClientId) {
+        int idClienteAtual = getCurrentClientId();
+        if (pedido.getCliente().getId() != idClienteAtual) {
             throw new org.springframework.security.access.AccessDeniedException("Acesso negado. Você só pode acessar seus próprios pedidos.");
         }
     }
