@@ -22,19 +22,32 @@ import com.senac.PI3.entities.Pedido;
 @CrossOrigin(origins = "*")
 @RequestMapping("pedido")
 public class PedidoController {
+
     @Autowired
     private PedidoService pedidoService;
 
+    // Cliente - Pedido
+    // Lista todos os pedidos do cliente
+    @GetMapping("/meus-pedidos")
+    public ResponseEntity<List<Pedido>> getMeusPedidos() {
+        List<Pedido> pedidos = pedidoService.getMeusPedidos();
+        return ResponseEntity.ok().body(pedidos);
+    }
+
+    // CRUD 
+    // Listar Todos Pedidos
     @GetMapping
     public ResponseEntity<List<Pedido>> getAll() {
         return ResponseEntity.ok().body(pedidoService.getAll());
-    };
+    }
 
+    // Listar Pedidos por ID
     @GetMapping(value = "/{id}")
     public ResponseEntity<Pedido> getId(@PathVariable int id) {
         return ResponseEntity.ok().body(pedidoService.getById(id));
-    };
+    }
 
+    // Criar Pedidos 
     @PostMapping
     public ResponseEntity<Pedido> newPedido(@RequestBody Pedido novoPedido) {
         Pedido pedido = new Pedido();
@@ -44,19 +57,21 @@ public class PedidoController {
         System.out.println(novoPedido.getCliente().getId());
         Pedido pedidoCriado = pedidoService.create(pedido, novoPedido.getCliente().getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
-    };
+    }
 
+    // Atualizar Pedidos
     @PutMapping(value = "/{id}")
     public ResponseEntity<Pedido> updatePedido(@PathVariable int id, @RequestBody Pedido pedido) {
         pedido.setId(id); // Aqui estou garantindo que o id certo será atualizado
         Pedido pedidoAtualizado = pedidoService.update(pedido);
         return ResponseEntity.ok(pedidoAtualizado);
-    };
+    }
 
+    // Deletar Pedidos
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletePedido(@PathVariable int id) {
         pedidoService.delete(id);
         return ResponseEntity.noContent().build();
-    };
+    }
 
 };
