@@ -1,10 +1,12 @@
 package com.senac.PI3.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.senac.PI3.Repository.ClienteRepository;
 import com.senac.PI3.entities.Cliente;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +18,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Service
 public class AuthenticationService {
+
+    @Autowired
+    ClienteRepository clienteRepository;
 
     public void validateAdminAccess() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -54,7 +59,9 @@ public class AuthenticationService {
             return;
         }
 
-        Cliente cliente = (Cliente) authentication.getPrincipal();
+        String userName = authentication.getName();
+
+        Cliente cliente = clienteRepository.findByEmail(userName).orElseThrow(() -> new AccessDeniedException("Usuário não encontrado !"));
 
         int idUsuarioAtual = cliente.getId();
 

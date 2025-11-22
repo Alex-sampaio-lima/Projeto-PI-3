@@ -41,6 +41,9 @@ public class ClienteService {
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
 
         // Atualiza apenas campos permitidos
+        if (clienteAtualizado.getNome() != null) {
+            clienteExistente.setNome(clienteAtualizado.getNome());
+        }
         if (clienteAtualizado.getTelefone() != null) {
             clienteExistente.setTelefone(clienteAtualizado.getTelefone());
         }
@@ -107,7 +110,7 @@ public class ClienteService {
     @SuppressWarnings("null")
     public void delete(int id) {
 
-        authenticationService.validateAdminAccess();
+        authenticationService.validateUserAccess(id);
 
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado !"));
