@@ -1,4 +1,3 @@
-import { AdminLoginAgendaComponent } from './../../admin-login/admin-login-agenda/admin-login-agenda.component';
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
