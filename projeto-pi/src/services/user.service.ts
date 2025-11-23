@@ -49,8 +49,8 @@ export class UserService implements OnInit {
   postUser(user: Omit<User, 'id' | 'isAdmin' | 'created_at' | 'updated_at'>) {
     const userCompleto = {
       ...user,
-       created_at: new Date().toLocaleString(),
-       updated_at: new Date().toLocaleString(),
+      created_at: new Date().toLocaleString(),
+      updated_at: new Date().toLocaleString(),
       isAdmin: false
     };
     console.log(`USER COMPLETO: ${userCompleto.senha}`);
