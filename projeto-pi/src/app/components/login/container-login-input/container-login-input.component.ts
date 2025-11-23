@@ -58,7 +58,8 @@ export class ContainerLoginInputComponent {
               this.router.navigate(['/home']);
             }
           }, 100);
-
+          console.log(` Nome do currentUser ${this.userService.currentUser.nome}`);
+          console.log(` Nome do currentUser ${this.userService.currentUser.senha}`);
           // this.userService.isAuthenticated = true;
         } else {
           console.log('Resposta sem usuário:', response);

@@ -1,9 +1,9 @@
-import { LoginRequest } from './../interfaces/user';
+import { LoginRequest, User } from './../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable, OnInit } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { Cliente, SafeUser, User } from '../interfaces/user';
+import { Cliente, SafeUser } from '../interfaces/user';
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -16,6 +16,7 @@ export class UserService implements OnInit {
   urlUser = 'http://localhost:8080/cliente';
   urlAuth = 'http://localhost:8080/auth'
 
+  isAdmin = false;
   isAuthenticated = false;
   userLocalStorage: string | null | void = '';
   users: User[] = [];
@@ -38,6 +39,7 @@ export class UserService implements OnInit {
   ngOnInit(): void {
     this.isLoggedInAdmin();
     console.log(` Nome do currentUser ${this.currentUser.nome}`);
+    console.log(` Nome do currentUser ${this.currentUser.senha}`);
 
   }
 
@@ -53,8 +55,10 @@ export class UserService implements OnInit {
       updated_at: new Date().toLocaleString(),
       isAdmin: false
     };
-    console.log(`USER COMPLETO: ${userCompleto.senha}`);
 
+    console.log(`USER COMPLETO: ${userCompleto.senha}`);
+    this.currentUser.senha = userCompleto.senha
+    console.log(`CURRENT USER: ${userCompleto.senha}`);
     return this.http.post<User>(`${this.urlUser}/registrar`, userCompleto);
   };
 
@@ -104,24 +108,24 @@ export class UserService implements OnInit {
           console.log('Está autenticado:', this.isAuthenticated);
 
           // Calcula se é admin
-          const isAdmin = response.user.role === 'ADMIN' || response.user.role === 'ROLE_ADMIN';
+          this.isAdmin = response.user.role === 'ADMIN' || response.user.role === 'ROLE_ADMIN';
 
           console.log('Role do usuário:', response.user.role);
-          console.log('É admin?', isAdmin);
+          console.log('É admin?', this.isAdmin);
 
           // Atualiza o currentUser
           this.currentUser = {
             nome: response.user.nome,
             email: response.user.email,
-            senha: '',
-            isAdmin: isAdmin
+            senha: password,
+            isAdmin: this.isAdmin
           };
 
           // Cria safeUser para localStorage
           const safeUser: SafeUser = {
             nome: response.user.nome,
             email: response.user.email,
-            isAdmin: isAdmin
+            isAdmin: this.isAdmin
           };
 
           // Salva no localStorage

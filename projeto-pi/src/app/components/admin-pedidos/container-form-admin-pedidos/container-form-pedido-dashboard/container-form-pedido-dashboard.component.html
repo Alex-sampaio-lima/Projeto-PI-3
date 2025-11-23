@@ -13,9 +13,6 @@
   </div>
 </div>
 
-
-
-
 <div class="container-dashBoard-admin-pedido">
   <table class="container-table-pedido">
     <thead>
@@ -28,6 +25,7 @@
         <th class="title-info-pedido">Pedido</th>
         <th class="title-info-pedido">Data</th>
         <th class="title-info-pedido">Status</th>
+        <th class="title-info-pedido">Observações</th>
         <th class="title-info-pedido">Editar</th>
       </tr>
     </thead>
@@ -41,14 +39,14 @@
           <!-- <img src="assets/imagemDoUsuario.svg" alt="avatar do usuário"> -->
           <i class="material-icons">account_circle</i>
           <div>
-            <p>{{item.nome}}</p>
-            <p class="email">{{item.email}}</p>
+            <p>Alexsander Sampaio Lima</p>
+            <p class="email">alexsandersampaiolima12.com</p>
           </div>
         </td>
-        <td class="container-dashboard-info">{{item.nome}}</td>
         <td class="container-dashboard-info">{{item.nomeProduto}}</td>
         <td class="container-dashboard-info">{{item.created_at}}</td>
         <td class="container-dashboard-info">{{item.status}}</td>
+        <td class="container-dashboard-info">{{item.observacoes}}</td>
         <td class="container-edit-delete-btn">
           <button class="icon-button"><i class="material-icons"
               (click)="excluirPedido(item.id)">delete_outline</i></button>

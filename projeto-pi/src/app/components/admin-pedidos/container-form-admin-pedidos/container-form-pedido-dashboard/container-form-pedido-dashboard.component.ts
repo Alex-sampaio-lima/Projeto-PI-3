@@ -46,9 +46,9 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
 
     if (termo !== '') {
       return this.pedidos.filter(pedido => {
-        return pedido.nome?.toLowerCase().includes(termo) ||
-          pedido.email?.toLowerCase().includes(termo) ||
-          pedido.nomeProduto?.toLowerCase().includes(termo) ||
+        // return pedido.nome?.toLowerCase().includes(termo) ||
+        // pedido.email?.toLowerCase().includes(termo) ||
+        pedido.nomeProduto?.toLowerCase().includes(termo) ||
           pedido.status?.toLowerCase().includes(termo)
       });
     };

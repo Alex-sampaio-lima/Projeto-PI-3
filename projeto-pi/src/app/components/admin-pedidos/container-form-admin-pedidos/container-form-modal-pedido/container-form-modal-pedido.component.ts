@@ -41,17 +41,12 @@ export class ContainerFormModalPedidoComponent implements OnInit {
     this.listarPedidos();
 
     this.pedidoForm = this.fb.group({
-      nome: [''],
-      telefone: [''],
-      email: [''],
-      cpf: [''],
       nomeProduto: [''],
       formaPagamento: [''],
       valorTotal: [''],
       status: [''],
       observacoes: [''],
     });
-    console.log(this.pedidoForm.value.nome);
   };
 
   onClose() {
@@ -111,16 +106,12 @@ export class ContainerFormModalPedidoComponent implements OnInit {
   };
 
   criarPedido() {
-    const novoPedido: Omit<Pedido, 'id' | 'created_at' | 'updated_at' | 'cliente_id'> = {
-      nome: this.pedidoForm.value.nome,
-      telefone: this.pedidoForm.value.telefone,
-      email: this.pedidoForm.value.email,
-      cpf: this.pedidoForm.value.cpf,
+    const novoPedido: Omit<Pedido, 'id' | 'created_at' | 'updated_at'> = {
       nomeProduto: this.pedidoForm.value.nomeProduto,
       formaPagamento: this.pedidoForm.value.formaPagamento,
       valorTotal: this.pedidoForm.value.valorTotal,
       status: this.pedidoForm.value.status,
-      observacoes: this.pedidoForm.value.observacoes,
+      observacoes: this.pedidoForm.value.observacoes
     };
 
     this.pedidoService.postPedido(novoPedido).subscribe({

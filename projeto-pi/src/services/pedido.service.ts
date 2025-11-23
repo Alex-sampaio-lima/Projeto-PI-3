@@ -1,6 +1,8 @@
+import { User } from './../interfaces/user';
+import { UserService } from './user.service';
 import { Pedido } from './../interfaces/pedido';
-import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable, OnInit } from '@angular/core';
 import { Observable, retry, tap } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -19,6 +21,9 @@ export class PedidoService implements OnInit {
   ganhos: number = 0;
   totalGanhos: number = 0;
 
+  public userService = inject(UserService);
+
+
   constructor(
     private httpClient: HttpClient,
     private fb: FormBuilder
@@ -33,6 +38,18 @@ export class PedidoService implements OnInit {
       valorTotal: ['', [Validators.required]],
       status: ['', [Validators.required]],
       observacoes: ['', [Validators.required]]
+    });
+  };
+
+  private getAuthHeaders(): HttpHeaders {
+    const nomeUsuario = this.userService.currentUser.email;
+    const senha = this.userService.currentUser.senha;
+    console.log("TESTE DA SENHA " + senha);
+
+    const auth = btoa(`${nomeUsuario}:${senha}`);
+    return new HttpHeaders({
+      'Authorization': `Basic ${auth}`,
+      'Content-Type': 'application/json'
     });
   };
 
@@ -58,17 +75,20 @@ export class PedidoService implements OnInit {
 
   // PEDIDO - CLIENTE
   getMeusPedidos(): Observable<Pedido[]> {
-    return this.httpClient.get<Pedido[]>(`${this.urlPedido}/meus-pedidos`);
+    const headers = this.getAuthHeaders();
+    return this.httpClient.get<Pedido[]>(`${this.urlPedido}/meus-pedidos`, { headers });
   };
 
   // CRUD - PEDIDO
   getAllPedidos() {
-    let data = this.httpClient.get<Pedido[]>(this.urlPedido);
+    const headers = this.getAuthHeaders();
+    let data = this.httpClient.get<Pedido[]>(this.urlPedido, { headers });
     this.verificaVendido(data);
     return data;
   };
 
   getPedidoByID(id: number): Observable<Pedido[]> {
+    this.getAuthHeaders();
     let data: Observable<Pedido[]>;
     data = this.httpClient.get<Pedido[]>(`${this.urlPedido}/${id}`);
     return data;
@@ -83,10 +103,12 @@ export class PedidoService implements OnInit {
 
     console.log('Payload sendo enviado:', pedidoCompleto);
 
-    return this.httpClient.post<Pedido>(this.urlPedido, pedidoCompleto);
+    const headers = this.getAuthHeaders();
+    return this.httpClient.post<Pedido>(this.urlPedido, pedidoCompleto, { headers: headers });
   };
 
   updatePedido(id: number, pedido: Partial<Pedido>): Observable<Pedido> {
+    this.getAuthHeaders();
     return this.httpClient.patch<Pedido>(`${this.urlPedido}/${id}`, pedido);
   };
 
@@ -100,6 +122,7 @@ export class PedidoService implements OnInit {
   // };
 
   deletePedido(id: number): Observable<void> {
+    this.getAuthHeaders();
     return this.httpClient.delete<void>(`${this.urlPedido}/${id}`);
   };
 
