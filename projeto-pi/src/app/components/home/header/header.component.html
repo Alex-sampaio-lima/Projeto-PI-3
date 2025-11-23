@@ -22,9 +22,24 @@
       </li>
     </ul>
 
-    <button id="btn-login-menu-mobile" type="button" class="button-login" routerLink="/login">
+    <!-- <button id="btn-login-menu-mobile" type="button" class="button-login" routerLink="/login">
       Login
+    </button> -->
+
+    @if(this.userService.isLoggedInAdmin()) {
+    <button id="btn-login-menu-mobile" type="button" class="button-login" [routerLink]="'/adminPedidos'">
+      {{'Admin'}}
     </button>
+    }@else if (this.userService.isLoggedIn()) {
+    <button id="btn-login-menu-mobile" type="button" class="button-login" [routerLink]="['/home']"
+      routerLinkActive="router-link-active" (click)="deslogarUsuario()">
+      {{'Sair'}}
+    </button>
+    }@else {
+    <button id="btn-login-menu-mobile" type="button" class="button-login" [routerLink]="'/login'">
+      {{'Login'}}
+    </button>
+    }
 
     <!-- Desktop -->
     <ul id="header-titulos-menu" class="container-header-titulos">
