@@ -96,8 +96,17 @@ public class PedidoService {
         if (pedido.getNomeProduto() != null) {
             pedidoExistente.setNomeProduto(pedido.getNomeProduto());
         }
+        if (pedido.getFormaPagamento() != null) {
+            pedidoExistente.setFormaPagamento(pedido.getFormaPagamento());
+        }
         if (pedido.getValorTotal() != 0 && pedido.getValorTotal() != pedidoExistente.getValorTotal()) {
             pedidoExistente.setValorTotal(pedido.getValorTotal());
+        }
+        if (pedido.getStatus() != null && !pedido.getStatus().equalsIgnoreCase(pedidoExistente.getStatus())) {
+            pedidoExistente.setStatus(pedido.getStatus());
+        }
+        if (pedido.getObservacoes() != null && !pedido.getObservacoes().equalsIgnoreCase(pedidoExistente.getObservacoes())) {
+            pedidoExistente.setObservacoes(pedido.getObservacoes());
         }
         if (pedido.getDataPedido() != null) {
             pedidoExistente.setDataPedido(pedido.getDataPedido());
