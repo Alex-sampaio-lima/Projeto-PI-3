@@ -29,30 +29,43 @@ export class ContainerRegisterInputComponent implements OnInit {
   };
 
   listarUsers() {
-    
+
   };
 
   criarUser() {
+    const senha = this.userForm.value.senha;
+    if (!senha) {
+      console.error('Senha é obrigatória');
+      return;
+    }
+    const telefoneLimpo = this.userForm.value.telefone?.replace(/\s/g, '') || '';
+
     const novoUser: Omit<Cliente, 'id' | 'created_at' | 'updated_at'> = {
       nome: this.userForm.value.nome,
       email: this.userForm.value.email,
-      password: this.userForm.value.senha,
-      telefone: this.userForm.value.telefone,
-      cpf: this.userForm.value.cpf,
+      senha: this.userForm.value.senha,
+      telefone: telefoneLimpo,
+      cpf: this.userForm.value.cpf?.replace(/\D/g, ''),
       isAdmin: false,
     };
 
-    console.log(novoUser);
+    // Validação básica antes de enviar
+    if (!novoUser.nome || !novoUser.email || !novoUser.senha) {
+      console.error('Dados incompletos');
+      return;
+    }
+
     this.userService.postUser(novoUser).subscribe({
       next: (response) => {
-        console.log(`Usuário criado: ${response}`);
-
+        console.log('Usuário criado:', response);
       },
-      error(e) {
-        console.error(`Erro ao criar novo usuário ${e}`);
+      error: (e) => {
+        console.error('Erro ao criar novo usuário:', e);
+        // Log mais detalhado do erro
+        if (e.error) {
+          console.error('Detalhes do erro:', e.error);
+        }
       }
     });
-
-
   };
 };

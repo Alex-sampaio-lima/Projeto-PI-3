@@ -23,11 +23,11 @@ export class UserService implements OnInit {
   currentUser: Omit<User, 'id' | 'created_at' | 'updated_at'> = {
     nome: '',
     email: '',
-    password: '',
+    senha: '',
     isAdmin: false,
   };
 
-  verifyCurrentUser: Omit<User, 'id' | 'password' | 'created_at' | 'updated_at'> = {
+  verifyCurrentUser: Omit<User, 'id' | 'senha' | 'created_at' | 'updated_at'> = {
     nome: '',
     email: '',
     isAdmin: false,
@@ -49,13 +49,13 @@ export class UserService implements OnInit {
   postUser(user: Omit<User, 'id' | 'isAdmin' | 'created_at' | 'updated_at'>) {
     const userCompleto = {
       ...user,
-      created_at: new Date().toLocaleString(),
-      updated_at: new Date().toLocaleString(),
+       created_at: new Date().toLocaleString(),
+       updated_at: new Date().toLocaleString(),
       isAdmin: false
     };
-    console.log(`USER COMPLETO: ${userCompleto}`);
+    console.log(`USER COMPLETO: ${userCompleto.senha}`);
 
-    return this.http.post<User>(this.urlUser, userCompleto);
+    return this.http.post<User>(`${this.urlUser}/registrar`, userCompleto);
   };
 
   setItemWithExpiry(key: string, value: SafeUser, ttl: number) {
@@ -113,7 +113,7 @@ export class UserService implements OnInit {
           this.currentUser = {
             nome: response.user.nome,
             email: response.user.email,
-            password: '',
+            senha: '',
             isAdmin: isAdmin
           };
 
@@ -176,7 +176,7 @@ export class UserService implements OnInit {
     this.currentUser = {
       nome: '',
       email: '',
-      password: '',
+      senha: '',
       isAdmin: false,
     };
     localStorage.removeItem('@currentUser');

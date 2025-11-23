@@ -2,7 +2,7 @@ export interface User {
   id: number;
   nome: string;
   email: string;
-  password: string;
+  senha: string;
   isAdmin: boolean;
   created_at: string;
   updated_at: string;
