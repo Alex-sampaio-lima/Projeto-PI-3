@@ -46,12 +46,12 @@ export class ContainerLoginInputComponent {
           this.userService.toastr.success('Login realizado com sucesso!');
 
           console.log('Usuário logado:', response.user);
-          
-          console.log('É admin?', response.user.roles?.includes('ROLE_ADMIN'));
+
+          console.log('É admin?', response.user.role?.includes('ADMIN'));
 
           // Aguarda o toastr mostrar e depois navega
           setTimeout(() => {
-            if (response.user.roles?.includes('ROLE_ADMIN')) {
+            if (response.user.role?.includes('ADMIN')) {
               console.log('Redirecionando para adminPedidos');
               this.router.navigate(['/adminPedidos']);
             } else {

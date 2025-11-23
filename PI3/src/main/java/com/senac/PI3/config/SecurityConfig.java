@@ -131,10 +131,14 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/pedido/**").authenticated() // Atualizar - validação no service
                 .requestMatchers(HttpMethod.DELETE, "/pedido/**").authenticated() // Deletar - validação no service
 
+                // AUTH - CLIENTES
+                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/cliente/registrar").permitAll()
                 .anyRequest().permitAll()
                 )
                 .httpBasic(withDefaults())
                 .csrf(csrf -> csrf.disable()) // DESABILITA CSRF COMPLETAMENTE
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Cors configuration
                 .headers(headers -> headers
                 .frameOptions(frame -> frame.disable())
                 );
