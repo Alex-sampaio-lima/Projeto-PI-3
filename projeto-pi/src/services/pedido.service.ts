@@ -28,9 +28,9 @@ export class PedidoService implements OnInit {
     this.getAllPedidos();
 
     this.pedidoForm = this.fb.group({
-      tipo_pedido: ['', [Validators.required]],
-      forma_pagamento: ['', [Validators.required]],
-      valor_total: ['', [Validators.required]],
+      nomeProduto: ['', [Validators.required]],
+      formaPagamento: ['', [Validators.required]],
+      valorTotal: ['', [Validators.required]],
       status: ['', [Validators.required]],
       observacoes: ['', [Validators.required]]
     });
@@ -48,8 +48,8 @@ export class PedidoService implements OnInit {
           this.cancelados++;
         };
 
-        if (item.valor_total) {
-          this.ganhos += item.valor_total;
+        if (item.valorTotal) {
+          this.ganhos += item.valorTotal;
           this.totalGanhos = this.ganhos * 0.30;
         };
       });

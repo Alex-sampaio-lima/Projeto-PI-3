@@ -45,9 +45,9 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       telefone: [''],
       email: [''],
       cpf: [''],
-      tipo_pedido: [''],
-      forma_pagamento: [''],
-      valor_total: [''],
+      nomeProduto: [''],
+      formaPagamento: [''],
+      valorTotal: [''],
       status: [''],
       observacoes: [''],
     });
@@ -116,9 +116,9 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       telefone: this.pedidoForm.value.telefone,
       email: this.pedidoForm.value.email,
       cpf: this.pedidoForm.value.cpf,
-      tipo_pedido: this.pedidoForm.value.tipo_pedido,
-      forma_pagamento: this.pedidoForm.value.forma_pagamento,
-      valor_total: this.pedidoForm.value.valor_total,
+      nomeProduto: this.pedidoForm.value.nomeProduto,
+      formaPagamento: this.pedidoForm.value.formaPagamento,
+      valorTotal: this.pedidoForm.value.valorTotal,
       status: this.pedidoForm.value.status,
       observacoes: this.pedidoForm.value.observacoes,
     }
@@ -141,9 +141,9 @@ export class ContainerFormModalPedidoComponent implements OnInit {
 
   resetForm() {
     this.pedidoForm.reset({
-      tipo_pedido: '',
-      forma_pagamento: '',
-      valor_total: null,
+      nomeProduto: '',
+      formaPagamento: '',
+      valorTotal: null,
       status: '',
       observacoes: '',
     });

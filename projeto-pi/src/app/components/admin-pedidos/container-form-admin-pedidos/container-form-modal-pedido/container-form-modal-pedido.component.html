@@ -48,22 +48,22 @@
         <div class="container-form-nome-default">
           <div class="container-default">
             <label for="tipo">Tipo</label>
-            <input formControlName="tipo_pedido" (change)="campoAlterado('tipo_pedido', pedidoForm.value.tipo_pedido)"
-              class="container-input-default" type="text" name="tipo_pedido" id="tipo"
+            <input formControlName="nomeProduto" (change)="campoAlterado('nomeProduto', pedidoForm.value.nomeProduto)"
+              class="container-input-default" type="text" name="nomeProduto" id="tipo"
               placeholder="Ex: Bolo para festa de casamento">
           </div>
 
           <!-- <div class="container-default">
             <label for="formaDePagamento">Forma de pagamento</label>
-            <input formControlName="forma_pagamento"
-              (change)="campoAlterado('forma_pagamento', pedidoForm.value.forma_pagamento)"
-              class="container-input-default" type="text" name="forma_pagamento" id="formaDePagamento"
+            <input formControlName="formaPagamento"
+              (change)="campoAlterado('formaPagamento', pedidoForm.value.formaPagamento)"
+              class="container-input-default" type="text" name="formaPagamento" id="formaDePagamento"
               placeholder="Ex: Débito">
           </div> -->
 
           <div class="container-default">
             <label for="formaDePagamento">Forma de Pagamento</label>
-            <select formControlName="forma_pagamento" name="formaDePagamento" id="formaDePagamento"
+            <select formControlName="formaPagamento" name="formaDePagamento" id="formaDePagamento"
               class="container-input-default">
               <option value="">Selecione...</option>
               <option value="debito">Débito</option>
@@ -75,8 +75,8 @@
 
           <div class="container-default">
             <label for="valorTotal">Valor Total</label>
-            <input formControlName="valor_total" (change)="campoAlterado('valor_total', pedidoForm.value.valor_total)"
-              class="container-input-default" type="number" name="valor_total" id="valorTotal" placeholder="Ex: 320 R$">
+            <input formControlName="valorTotal" (change)="campoAlterado('valorTotal', pedidoForm.value.valorTotal)"
+              class="container-input-default" type="number" name="valorTotal" id="valorTotal" placeholder="Ex: 320 R$">
           </div>
 
           <!-- <div class="container-default">

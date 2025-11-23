@@ -75,9 +75,8 @@ public class PedidoService {
 
         System.out.println("Pedido criado =" + pedido.getNomeProduto());
 
-        
         pedido.setCliente(cliente);
-        
+
         validatePedidoAccess(pedido);
         if (pedido.getDataPedido() == null) {
             pedido.setDataPedido(LocalDate.now());
@@ -149,6 +148,11 @@ public class PedidoService {
     }
 
     private void validatePedidoAccess(Pedido pedido) {
+
+        if (pedido.getCliente() == null) {
+            throw new RuntimeException("Pedido não possui cliente associado");
+        }
+
         // Admin tem acesso a tudo
         if (isAdmin()) {
             return;

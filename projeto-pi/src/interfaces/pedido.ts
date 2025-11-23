@@ -4,9 +4,9 @@ export interface Pedido {
   telefone: string;
   email: string;
   cpf: string;
-  tipo_pedido: string;
-  forma_pagamento: string;
-  valor_total: number | null;
+  nomeProduto: string;
+  formaPagamento: string;
+  valorTotal: number | null;
   status: string;
   observacoes: string;
   cliente_id: number;
@@ -16,9 +16,9 @@ export interface Pedido {
 
 
 export interface Pedidopayload {
-  tipo_pedido: string;
-  forma_pagamento: string;
-  valor_total: number;
+  nomeProduto: string;
+  formaPagamento: string;
+  valorTotal: number;
   status: string;
   observacoes: string;
   cliente_id: number;

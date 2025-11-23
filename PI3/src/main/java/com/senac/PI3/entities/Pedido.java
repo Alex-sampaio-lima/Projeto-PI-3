@@ -10,8 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,7 +32,13 @@ public class Pedido implements Serializable {
 
     private String nomeProduto;
 
+    private String formaPagamento;
+
     private double valorTotal;
+
+    private String status;
+
+    private String observacoes;
 
     private LocalDate dataPedido;
 
