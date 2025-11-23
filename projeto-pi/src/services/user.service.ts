@@ -94,25 +94,54 @@ export class UserService implements OnInit {
       senha: password
     };
 
-    return this.http.post<User[]>(`${this.urlAuth}/login`, loginRequest).pipe(
+    return this.http.post<any>(`${this.urlAuth}/login`, loginRequest).pipe(
       tap(response => {
-        if (response && response.length > 0) {
+        console.log('Resposta completa da API:', response);
+
+        // CORRIGIDO: Verifica response.user (OBJETO) em vez de response.length (ARRAY)
+        if (response && response.user) {
           this.isAuthenticated = true;
-          console.log('está autenticado essa porra ? = ', this.isAuthenticated);
-          this.currentUser = response[0];
-          const safeUser = this.sanitizeUser(response[0]);
-          this.userLocalStorage = localStorage.setItem('@currentUser', JSON.stringify(safeUser));
-          this.setItemWithExpiry("@currentUser", safeUser, 5 * 600 * 1000);
-          this.toastr.success('Login Realizado com sucesso !');
-          console.log('Usuário logado', safeUser);
-        };
+          console.log('Está autenticado:', this.isAuthenticated);
+
+          // Calcula se é admin
+          const isAdmin = response.user.role === 'ADMIN' || response.user.role === 'ROLE_ADMIN';
+
+          console.log('Role do usuário:', response.user.role);
+          console.log('É admin?', isAdmin);
+
+          // Atualiza o currentUser
+          this.currentUser = {
+            nome: response.user.nome,
+            email: response.user.email,
+            password: '',
+            isAdmin: isAdmin
+          };
+
+          // Cria safeUser para localStorage
+          const safeUser: SafeUser = {
+            nome: response.user.nome,
+            email: response.user.email,
+            isAdmin: isAdmin
+          };
+
+          // Salva no localStorage
+          localStorage.setItem('@currentUser', JSON.stringify(safeUser));
+          this.setItemWithExpiry("@currentUser", safeUser, 5 * 60 * 60 * 1000);
+
+          this.toastr.success('Login realizado com sucesso!');
+          console.log('Usuário salvo no localStorage:', safeUser);
+
+        } else {
+          console.log('Resposta sem user:', response);
+        }
       }),
       catchError(error => {
-        this.toastr.error('Erro ao realizar login:', error);
-        return of(null); // Esse of aqui, ele cria um Observable para retornar um null em vez de retornar um null diretamente, para seguir o fluxo normal do código
+        console.error('Erro no login:', error);
+        this.toastr.error('Erro ao realizar login');
+        return of(null);
       })
     );
-  };
+  }
 
   isLoggedIn(): boolean {
     return this.isAuthenticated;

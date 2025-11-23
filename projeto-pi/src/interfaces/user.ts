@@ -36,3 +36,4 @@ export interface UserInfo {
   roles: string;
   isAdmin?: boolean;
 }
+

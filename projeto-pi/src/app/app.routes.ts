@@ -27,11 +27,11 @@ export const routes: Routes = [
   { path: "card", component: CardSaboresComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: "admin-login", component: AdminLoginComponent,canActivate: [AdminGuardService]},
+  { path: "admin-login", component: AdminLoginComponent, canActivate: [AdminGuardService] },
   { path: "adminPedidos", component: AdminPedidosComponent, canActivate: [AdminGuardService] },
   // { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
   { path: "admin-login-agenda", component: AdminLoginAgendaComponent /*colocar guardiao depois16.11JULIAAA*/ },
-  {path: "carrinho-compra", component: CarrinhoCompraComponent},
+  { path: "carrinho-compra", component: CarrinhoCompraComponent },
 
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "**", component: PaginaNaoEncontradaComponent }

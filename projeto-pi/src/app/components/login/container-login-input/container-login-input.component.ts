@@ -45,10 +45,9 @@ export class ContainerLoginInputComponent {
         if (response && response.user) {
           this.userService.toastr.success('Login realizado com sucesso!');
 
-          console.log('Usuário logado:', response.user);
+          // console.log('Usuário logado:', response.user);
 
-          console.log('É admin?', response.user.role?.includes('ADMIN'));
-
+          console.log('É admin = ', response.user.role?.includes('ADMIN'));
           // Aguarda o toastr mostrar e depois navega
           setTimeout(() => {
             if (response.user.role?.includes('ADMIN')) {
@@ -58,8 +57,9 @@ export class ContainerLoginInputComponent {
               console.log('Redirecionando para home');
               this.router.navigate(['/home']);
             }
-          }, 500);
+          }, 100);
 
+          // this.userService.isAuthenticated = true;
         } else {
           console.log('Resposta sem usuário:', response);
           this.errorMessage = 'Email ou senha incorretos';

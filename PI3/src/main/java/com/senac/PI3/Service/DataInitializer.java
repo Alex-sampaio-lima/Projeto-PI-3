@@ -49,4 +49,4 @@ public class DataInitializer {
         //     System.out.println("Usuário comum criado com sucesso !");
         // }
     }
-}
+};
