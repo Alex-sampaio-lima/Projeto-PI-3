@@ -207,7 +207,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .container-cards-sabores {
+  .container-cards-sabores,.section-tipos-cardapio {
     flex-wrap: wrap;
     justify-content: center;
     height: auto;
@@ -220,3 +220,4 @@ body {
     min-height: 380px;
   }
 }
+
