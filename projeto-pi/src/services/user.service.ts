@@ -1,6 +1,6 @@
 import { LoginRequest } from './../interfaces/user';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Injectable, OnInit } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { Cliente, SafeUser, User } from '../interfaces/user';
@@ -41,6 +41,7 @@ export class UserService implements OnInit {
 
   }
 
+  // CRUD - Clientes
   getAllClientes() {
     return this.http.get<Cliente[]>(this.urlUser);
   };
@@ -129,7 +130,7 @@ export class UserService implements OnInit {
           email: storedUser.email,
           isAdmin: storedUser.isAdmin
         };
-      }
+      };
       // console.log(`variavel do admin: ${this.verifyCurrentUser.isAdmin}`);
 
       this.verifyCurrentUser.isAdmin == true ? verifica = true : verifica = false;
@@ -137,8 +138,7 @@ export class UserService implements OnInit {
       // console.log("Autenticado", this.isAuthenticated);
       // console.log("Usuário atual", this.verifyCurrentUser);
       // console.log("local storage", this.userLocalStorage);
-
-    }
+    };
     return verifica;
   };
 
