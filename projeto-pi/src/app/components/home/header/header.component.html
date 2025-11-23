@@ -27,7 +27,7 @@
     </button> -->
 
     @if(this.userService.isLoggedInAdmin()) {
-    <button id="btn-login-menu-mobile" type="button" class="button-login" [routerLink]="'/adminPedidos'">
+    <button id="btn-login-menu-mobile" type="button" class="button-login" [routerLink]="'/admin-pedidos'">
       {{'Admin'}}
     </button>
     }@else if (this.userService.isLoggedIn()) {
@@ -59,7 +59,7 @@
     </ul>
 
     @if(this.userService.isLoggedInAdmin()) {
-    <button id="btn-login-menu" type="button" class="button-login" [routerLink]="'/adminPedidos'">
+    <button id="btn-login-menu" type="button" class="button-login" [routerLink]="'/admin-pedidos'">
       {{'Admin'}}
     </button>
     }@else if (this.userService.isLoggedIn()) {

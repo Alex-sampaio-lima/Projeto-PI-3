@@ -51,8 +51,8 @@ export class ContainerLoginInputComponent {
           // Aguarda o toastr mostrar e depois navega
           setTimeout(() => {
             if (response.user.role?.includes('ADMIN')) {
-              console.log('Redirecionando para adminPedidos');
-              this.router.navigate(['/adminPedidos']);
+              console.log('Redirecionando para admin-pedidos');
+              this.router.navigate(['/admin-pedidos']);
             } else {
               console.log('Redirecionando para home');
               this.router.navigate(['/home']);
