@@ -36,5 +36,17 @@ public class DataInitializer {
             clienteRepository.save(admin);
             System.out.println("Usuário ADMIN criado com sucesso !");
         }
+        // if (!clienteRepository.existsByEmail("alex@email.com")) {
+        //     Cliente user = new Cliente();
+        //     user.setNome("Alexsander Sampaio Lima");
+        //     user.setEmail("alex@email.com");
+        //     user.setSenha(passwordEncoder.encode("123456"));
+        //     user.setCpf("233.456.289-10");
+        //     user.setTelefone("(11) 94232-4159");
+        //     user.setRole(Cliente.UserRole.USER);
+
+        //     clienteRepository.save(user);
+        //     System.out.println("Usuário comum criado com sucesso !");
+        // }
     }
 }

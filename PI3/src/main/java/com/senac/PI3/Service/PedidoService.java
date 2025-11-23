@@ -68,9 +68,9 @@ public class PedidoService {
     }
 
     // Criar Pedido
-    public Pedido create(Pedido pedido, int clientId) {
+    public Pedido create(Pedido pedido, int clienteId) {
 
-        Cliente cliente = clienteRepository.findById(clientId)
+        Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
 
         System.out.println("Pedido criado =" + pedido.getNomeProduto());

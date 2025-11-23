@@ -1,3 +1,4 @@
+import { LoginRequest } from './../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
@@ -11,8 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserService implements OnInit {
 
-  private userUrl = 'http://localhost:3000/user';
-  private isAuthenticated = false;
+  private userUrl = 'http://localhost:8080/cliente';
+  urlUser = 'http://localhost:8080/cliente';
+  urlAuth = 'http://localhost:8080/auth'
+
+  isAuthenticated = false;
   userLocalStorage: string | null | void = '';
   users: User[] = [];
 
@@ -28,7 +32,6 @@ export class UserService implements OnInit {
     email: '',
     isAdmin: false,
   }
-  urlUser = ' http://localhost:3000/user';
 
   constructor(private http: HttpClient, private router: Router, public toastr: ToastrService) { }
 
@@ -77,21 +80,30 @@ export class UserService implements OnInit {
     if (now.getTime() > item.expiry) {
       this.isAuthenticated = false;
       this.logOut();
-      this.toastr.error('Tempo expirado !');
+      this.toastr.error('Sessão expirada !');
+      return null;
     };
 
     return item.value;
   };
 
   login(email: string, password: string): Observable<any> {
-    return this.http.get<User[]>(`${this.userUrl}?email=${email}&password=${password}`).pipe(
-      tap(users => {
-        if (users && users.length > 0) {
+    const loginRequest: LoginRequest = {
+      email: email,
+      senha: password
+    };
+
+    return this.http.post<User[]>(`${this.urlAuth}/login`, loginRequest).pipe(
+      tap(response => {
+        if (response && response.length > 0) {
           this.isAuthenticated = true;
-          this.currentUser = users[0];
-          const safeUser = this.sanitizeUser(users[0]);
+          console.log('está autenticado essa porra ? = ', this.isAuthenticated);
+          this.currentUser = response[0];
+          const safeUser = this.sanitizeUser(response[0]);
           this.userLocalStorage = localStorage.setItem('@currentUser', JSON.stringify(safeUser));
           this.setItemWithExpiry("@currentUser", safeUser, 5 * 600 * 1000);
+          this.toastr.success('Login Realizado com sucesso !');
+          console.log('Usuário logado', safeUser);
         };
       }),
       catchError(error => {
@@ -102,11 +114,7 @@ export class UserService implements OnInit {
   };
 
   isLoggedIn(): boolean {
-    let verifica = false;
-    if (this.isAuthenticated) {
-      verifica = true;
-    };
-    return verifica;
+    return this.isAuthenticated;
   };
 
   isLoggedInAdmin(): boolean {
@@ -144,6 +152,7 @@ export class UserService implements OnInit {
     };
     localStorage.removeItem('@currentUser');
     this.router.navigate(['/home']);
+    this.toastr.info('Logout realizado com sucesso !');
   };
 
   sanitizeUser(user: User): SafeUser {

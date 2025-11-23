@@ -121,7 +121,7 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       valorTotal: this.pedidoForm.value.valorTotal,
       status: this.pedidoForm.value.status,
       observacoes: this.pedidoForm.value.observacoes,
-    }
+    };
 
     this.pedidoService.postPedido(novoPedido).subscribe({
       next: (response) => {

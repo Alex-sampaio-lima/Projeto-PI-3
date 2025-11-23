@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senac.PI3.Repository.ClienteRepository;
 import com.senac.PI3.Service.PedidoService;
+import com.senac.PI3.entities.Cliente;
 import com.senac.PI3.entities.Pedido;
 
 @RestController
@@ -25,6 +28,9 @@ public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     // Cliente - Pedido
     // Lista todos os pedidos do cliente
@@ -48,17 +54,41 @@ public class PedidoController {
     }
 
     // Criar Pedidos 
-    @PostMapping
-    public ResponseEntity<Pedido> newPedido(@RequestBody Pedido novoPedido) {
+    // @PostMapping(value = "/{id}")
+    @PostMapping()
+    public ResponseEntity<Pedido> createPedido(@RequestBody Pedido novoPedido, Authentication authentication) {
+        String username = authentication.getName();
+        Cliente cliente = clienteRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("Cliente não encontrado !"));
         Pedido pedido = new Pedido();
 
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        if (isAdmin) {
+            // ADMIN: Pode criar pedido para qualquer cliente
+            // Se o novoPedido já veio com cliente, usa esse, senão usa o próprio
+            if (novoPedido.getCliente() != null && novoPedido.getCliente().getId() > 0) {
+                cliente = clienteRepository.findById(novoPedido.getCliente().getId())
+                        .orElseThrow(() -> new RuntimeException("Cliente não encontrado !"));
+            } else {
+                // Se admin não especificou cliente, cria para si mesmo
+                cliente = clienteRepository.findByEmail(username)
+                        .orElseThrow(() -> new RuntimeException("Cliente não encontrado !"));
+            }
+        } else {
+            // CLIENTE: Só pode criar pedido para si mesmo
+            cliente = clienteRepository.findByEmail(username)
+                    .orElseThrow(() -> new RuntimeException("Cliente não encontrado !"));
+        }
         pedido.setNomeProduto(novoPedido.getNomeProduto());
+        pedido.setFormaPagamento(novoPedido.getFormaPagamento());
+        pedido.setStatus(novoPedido.getStatus());
+        pedido.setObservacoes(novoPedido.getObservacoes());
         pedido.setValorTotal(novoPedido.getValorTotal());
         pedido.setDataPedido(novoPedido.getDataPedido());
 
-        System.out.println("ID DO CLIENTE = " + novoPedido.getCliente().getId());
-
-        Pedido pedidoCriado = pedidoService.create(pedido, novoPedido.getCliente().getId());
+        // pedido.setCliente(cliente);
+        // System.out.println("CLIENTE EM SI " + pedido.getCliente().getEmail());
+        Pedido pedidoCriado = pedidoService.create(pedido, cliente.getId());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
     }

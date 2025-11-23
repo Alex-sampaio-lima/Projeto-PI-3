@@ -33,13 +33,13 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarPedidos();
-  }
+  };
 
   listarPedidos() {
     this.pedidoService.getAllPedidos().subscribe((data: Pedido[]) => {
       this.pedidos = data;
     })
-  }
+  };
 
   get filtrarPedidos() {
     const termo = this.termoPesquisa.toLowerCase();
@@ -51,7 +51,7 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
           pedido.nomeProduto?.toLowerCase().includes(termo) ||
           pedido.status?.toLowerCase().includes(termo)
       });
-    }
+    };
     return this.pedidos;
   };
 
@@ -73,11 +73,11 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
       }
     });
     this.listarPedidos();
-  }
+  };
 
   openModal(): void {
     console.log("O modal foi Aberto");
     this.modalVisible = true;
     this.pedidoService.vericaAtualizacaoPedido = false;
-  }
-}
+  };
+};

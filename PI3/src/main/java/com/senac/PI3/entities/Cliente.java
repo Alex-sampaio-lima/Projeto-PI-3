@@ -20,8 +20,8 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 
 @Entity
@@ -34,7 +34,7 @@ public class Cliente implements Serializable {
 
     @NotBlank(message = "O nome é obrigatório")
     @Column(nullable = false)
-    @Size(max = 255)
+    @Size(max = 255, min = 3)
     private String nome;
 
     @NotBlank(message = "O E-mail é obrigatório")
@@ -59,6 +59,6 @@ public class Cliente implements Serializable {
     public enum UserRole {
         ADMIN,
         USER
-    };
+    }
 
-};
+}

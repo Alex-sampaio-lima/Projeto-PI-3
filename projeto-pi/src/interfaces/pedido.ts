@@ -1,7 +1,7 @@
 export interface Pedido {
   id: number;
   nome: string,
-  telefone: string;
+  telefone?: string;
   email: string;
   cpf: string;
   nomeProduto: string;
@@ -12,7 +12,8 @@ export interface Pedido {
   cliente_id: number;
   created_at: string;
   updated_at: string;
-}
+
+};
 
 
 export interface Pedidopayload {
@@ -22,6 +23,6 @@ export interface Pedidopayload {
   status: string;
   observacoes: string;
   cliente_id: number;
-}
+};
 
 

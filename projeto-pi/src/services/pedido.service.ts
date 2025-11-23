@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class PedidoService implements OnInit {
 
-  urlPedido = 'http://localhost:3000/pedidos';
+  urlPedido = 'http://localhost:8080/pedido';
   pedidoForm: FormGroup | undefined;
   idPedido = 0;
   vericaAtualizacaoPedido = false;
@@ -56,13 +56,19 @@ export class PedidoService implements OnInit {
     });
   };
 
+  // PEDIDO - CLIENTE
+  getMeusPedidos(): Observable<Pedido[]> {
+    return this.httpClient.get<Pedido[]>(`${this.urlPedido}/meus-pedidos`);
+  };
+
+  // CRUD - PEDIDO
   getAllPedidos() {
     let data = this.httpClient.get<Pedido[]>(this.urlPedido);
     this.verificaVendido(data);
     return data;
   };
 
-  getPedidoByID(id: number) {
+  getPedidoByID(id: number): Observable<Pedido[]> {
     let data: Observable<Pedido[]>;
     data = this.httpClient.get<Pedido[]>(`${this.urlPedido}/${id}`);
     return data;
@@ -74,13 +80,16 @@ export class PedidoService implements OnInit {
       created_at: new Date().toLocaleString(),
       updated_at: new Date().toLocaleString()
     };
+
     console.log('Payload sendo enviado:', pedidoCompleto);
+
     return this.httpClient.post<Pedido>(this.urlPedido, pedidoCompleto);
   };
 
   updatePedido(id: number, pedido: Partial<Pedido>): Observable<Pedido> {
     return this.httpClient.patch<Pedido>(`${this.urlPedido}/${id}`, pedido);
   };
+
   // updatePedido(id: number, campo: string, valor: number | string): Observable<Pedido> {
   //   const updateData = {
   //     ...this.pedidoForm,

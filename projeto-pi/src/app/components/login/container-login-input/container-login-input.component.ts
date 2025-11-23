@@ -1,3 +1,4 @@
+import { AdminLoginAgendaComponent } from './../../admin-login/admin-login-agenda/admin-login-agenda.component';
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
@@ -34,36 +35,54 @@ export class ContainerLoginInputComponent {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
 
-    this.userService.login(email, password).subscribe(
-      response => {
-        if (response && response.length > 0 && email !== '',
-          password !== ''
-          && email == this.userService.currentUser.email
-          && password == this.userService.currentUser.password && this.loginForm.valid) {
-          this.router.navigate(['home']);
-          this.userService.toastr.success("Login realizado com sucesso !");
-          // console.log(`EMAIL DO FORM:${email}`);
-          // console.log(`EMAIL DO USUÁRIO ATUAL:${this.userService.currentUser.email}`);
+    if (!email || !password) {
+      this.userService.toastr.warning('Preencha todos os campos');
+      return;
+    }
 
-          if (this.userService.currentUser.isAdmin) {
-            console.log("Entrou !");
-            this.router.navigate(['adminPedidos']);
-          } else {
-            this.router.navigate(['home']);
-          };
+    this.userService.login(email, password).subscribe({
+      next: (response) => {
+        if (response && response.user) {
+          this.userService.toastr.success('Login realizado com sucesso!');
+
+          console.log('Usuário logado:', response.user);
+          
+          console.log('É admin?', response.user.roles?.includes('ROLE_ADMIN'));
+
+          // Aguarda o toastr mostrar e depois navega
+          setTimeout(() => {
+            if (response.user.roles?.includes('ROLE_ADMIN')) {
+              console.log('Redirecionando para adminPedidos');
+              this.router.navigate(['/adminPedidos']);
+            } else {
+              console.log('Redirecionando para home');
+              this.router.navigate(['/home']);
+            }
+          }, 500);
 
         } else {
-          console.log("Email", email);
-          console.log("Senha", password);
+          console.log('Resposta sem usuário:', response);
           this.errorMessage = 'Email ou senha incorretos';
           this.userService.toastr.error(this.errorMessage);
-          console.log(this.errorMessage);
-        };
+        }
       },
-      error => {
-        this.errorMessage = 'Ocorreu um erro durante o login';
-        alert(this.errorMessage);
+      error: (error) => {
+        console.error('Erro no login:', error);
+
+        if (error.error?.message) {
+          this.errorMessage = error.error.message;
+        } else if (error.status === 401) {
+          this.errorMessage = 'Email ou senha incorretos';
+        } else if (error.status === 500) {
+          this.errorMessage = 'Erro no servidor. Tente novamente.';
+        } else {
+          this.errorMessage = 'Erro ao realizar login';
+        }
+
+        this.userService.toastr.error(this.errorMessage);
+        console.log('Email tentado:', email);
+        console.log('Senha tentada:', password);
       }
-    );
-  };
+    });
+  }
 };
