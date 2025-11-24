@@ -23,7 +23,6 @@ export class PedidoService implements OnInit {
 
   public userService = inject(UserService);
 
-
   constructor(
     private httpClient: HttpClient,
     private fb: FormBuilder
@@ -31,6 +30,7 @@ export class PedidoService implements OnInit {
 
   ngOnInit(): void {
     this.getAllPedidos();
+    this.getAuthHeaders();
 
     this.pedidoForm = this.fb.group({
       nomeProduto: ['', [Validators.required]],
@@ -41,10 +41,20 @@ export class PedidoService implements OnInit {
     });
   };
 
-  private getAuthHeaders(): HttpHeaders {
-    const nomeUsuario = this.userService.currentUser.email;
-    const senha = this.userService.currentUser.senha;
-    console.log("TESTE DA SENHA " + senha);
+
+  public getAuthHeaders(): HttpHeaders {
+    const userData = localStorage.getItem("@currentUser");
+    if (userData) {
+      console.log("Entrou" + JSON.parse(userData));
+      var user = JSON.parse(userData);
+      var userInfo = { ...user }
+    };
+
+    const nomeUsuario = userInfo.value.email;
+    const senha = userInfo.value.senha;
+
+    // console.log("USER = " + nomeUsuario);
+    // console.log("PASSWORD = " + senha);
 
     const auth = btoa(`${nomeUsuario}:${senha}`);
     return new HttpHeaders({

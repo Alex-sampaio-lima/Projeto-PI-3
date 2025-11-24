@@ -1,10 +1,11 @@
 import { LoginRequest, User } from './../interfaces/user';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Injectable, OnInit } from '@angular/core';
+import { ChangeDetectorRef, inject, Injectable, OnInit } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { Cliente, SafeUser } from '../interfaces/user';
 import { ToastrService } from 'ngx-toastr';
+import { PedidoService } from './pedido.service';
 
 
 @Injectable({
@@ -122,18 +123,19 @@ export class UserService implements OnInit {
           };
 
           // Cria safeUser para localStorage
-          const safeUser: SafeUser = {
+          const user: any = {
             nome: response.user.nome,
             email: response.user.email,
+            senha: password,
             isAdmin: this.isAdmin
           };
 
           // Salva no localStorage
-          localStorage.setItem('@currentUser', JSON.stringify(safeUser));
-          this.setItemWithExpiry("@currentUser", safeUser, 5 * 60 * 60 * 1000);
+          localStorage.setItem('@currentUser', JSON.stringify(user));
+          this.setItemWithExpiry("@currentUser", user, 5 * 60 * 60 * 1000);
 
           this.toastr.success('Login realizado com sucesso!');
-          console.log('Usuário salvo no localStorage:', safeUser);
+          console.log('Usuário salvo no localStorage:', user);
 
         } else {
           console.log('Resposta sem user:', response);
