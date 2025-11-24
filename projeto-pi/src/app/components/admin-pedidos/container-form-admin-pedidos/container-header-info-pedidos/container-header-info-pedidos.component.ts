@@ -16,7 +16,11 @@ export class ContainerHeaderInfoPedidosComponent implements OnInit {
   userName: string = '';
 
   ngOnInit(): void {
-    this.userName = this.userService.verifyCurrentUser.nome;
-  }
-
+    const userData = localStorage.getItem("@currentUser");
+    if (userData) {
+      var user = JSON.parse(userData);
+      var userInfo = { ...user }
+    };
+    this.userName = userInfo.value.nome;
+  };
 };
