@@ -18,7 +18,7 @@ import { UserService } from '../../../../../services/user.service';
 export class ContainerFormModalPedidoComponent implements OnInit {
 
   public pedidoService = inject(PedidoService);
-  private userService = inject(UserService);
+  public userService = inject(UserService);
 
   constructor(public dialogRef: MatDialog, private fb: FormBuilder, public toastr: ToastrService) { }
 
