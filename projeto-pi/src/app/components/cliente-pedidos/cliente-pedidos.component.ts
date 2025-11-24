@@ -6,7 +6,7 @@ import { ContainerFormClientePedidosComponent } from "./container-form-cliente-p
 
 @Component({
   selector: 'app-cliente-pedidos',
-  imports: [NavBarAdminPedidosComponent, ContainerFormAdminPedidosComponent],
+  imports: [NavBarClientePedidosComponent, ContainerFormClientePedidosComponent],
   templateUrl: './cliente-pedidos.component.html',
   styleUrl: './cliente-pedidos.component.css'
 })

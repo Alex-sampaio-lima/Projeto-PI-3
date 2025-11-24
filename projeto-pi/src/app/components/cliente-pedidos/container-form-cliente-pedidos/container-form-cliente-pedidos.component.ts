@@ -5,7 +5,7 @@ import { ContainerFormPedidoDashBoardComponent } from "../../admin-pedidos/conta
 
 @Component({
   selector: 'app-container-form-cliente-pedidos',
-  imports: [ContainerHeaderInfoPedidosComponent, ContainerInfoPedidoComponent, ContainerFormPedidoDashBoardComponent],
+  imports: [ContainerHeaderInfoPedidosComponent, ContainerFormPedidoDashBoardComponent],
   templateUrl: './container-form-cliente-pedidos.component.html',
   styleUrl: './container-form-cliente-pedidos.component.css'
 })
