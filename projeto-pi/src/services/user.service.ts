@@ -149,9 +149,17 @@ export class UserService implements OnInit {
     );
   }
 
-  isLoggedIn(): boolean {
-    return this.isAuthenticated;
-  };
+ isLoggedIn(): boolean {
+  const storedUser = this.getItemWithExpiry('@currentUser');
+
+  if (storedUser) {
+    this.isAuthenticated = true;
+    return true;
+  }
+
+  this.isAuthenticated = false;
+  return false;
+}
 
   isLoggedInAdmin(): boolean {
     this.userLocalStorage = localStorage.getItem('@currentUser');

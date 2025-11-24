@@ -19,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HomeCardapioComponent } from './components/home-cardapio/home-cardapio.component';
 import { CarrinhoCompraComponent } from './components/carrinho-compra/carrinho-compra.component';
 import { ClientePedidosComponent } from './components/cliente-pedidos/cliente-pedidos.component';
+import { AuthGuardService } from '../services/auth-guard.service';
 
 export const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -26,7 +27,7 @@ export const routes: Routes = [
   { path: "card", component: CardSaboresComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path:"cliente-pedidos", component: ClientePedidosComponent},
+  { path:"cliente-pedidos", component: ClientePedidosComponent, canActivate: [AuthGuardService]},
   { path: "admin-pedidos", component: AdminPedidosComponent, canActivate: [AdminGuardService] },
   // { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
   { path: "carrinho-compra", component: CarrinhoCompraComponent },
