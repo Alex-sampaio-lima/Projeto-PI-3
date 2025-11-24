@@ -20,7 +20,7 @@
         <th>
           <!-- <input type="checkbox" name="" id=""> -->
         </th>
-        <th class="title-info-pedido">Clientes</th>
+        <!-- <th class="title-info-pedido">Clientes</th> -->
         <th class="title-info-pedido">Nome do Cliente</th>
         <th class="title-info-pedido">Pedido</th>
         <th class="title-info-pedido">Data</th>
@@ -39,8 +39,8 @@
           <!-- <img src="assets/imagemDoUsuario.svg" alt="avatar do usuário"> -->
           <i class="material-icons">account_circle</i>
           <div>
-            <p>Alexsander Sampaio Lima</p>
-            <p class="email">alexsandersampaiolima12.com</p>
+            <p>{{item.cliente.nome}}</p>
+            <p class="email">{{item.cliente.email}}</p>
           </div>
         </td>
         <td class="container-dashboard-info">{{item.nomeProduto}}</td>

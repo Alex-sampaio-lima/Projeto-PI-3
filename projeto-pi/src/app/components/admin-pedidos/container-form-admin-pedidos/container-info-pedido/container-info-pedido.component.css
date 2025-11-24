@@ -69,7 +69,7 @@
 .title-number {
   display: flex;
   width: 136px;
-  height: 42px;
+  height: auto;
   flex-direction: column;
   justify-content: center;
   text-align: center;

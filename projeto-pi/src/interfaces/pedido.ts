@@ -1,3 +1,5 @@
+import { Cliente } from "./user";
+
 export interface Pedido {
   id: number;
   nomeProduto: string;
@@ -18,4 +20,8 @@ export interface Pedidopayload {
   cliente_id: number;
 };
 
+
+export interface PedidoResponse extends Pedido {
+  cliente: Cliente;
+};
 

@@ -1,6 +1,6 @@
-import { User } from './../interfaces/user';
+import { User, Cliente } from './../interfaces/user';
 import { UserService } from './user.service';
-import { Pedido } from './../interfaces/pedido';
+import { Pedido, PedidoResponse } from './../interfaces/pedido';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, OnInit } from '@angular/core';
 import { Observable, retry, tap } from 'rxjs';
@@ -86,21 +86,21 @@ export class PedidoService implements OnInit {
   // PEDIDO - CLIENTE
   getMeusPedidos(): Observable<Pedido[]> {
     const headers = this.getAuthHeaders();
-    return this.httpClient.get<Pedido[]>(`${this.urlPedido}/meus-pedidos`, { headers });
+    return this.httpClient.get<Pedido[]>(`${this.urlPedido}/meus-pedidos`, { headers: headers });
   };
 
   // CRUD - PEDIDO
   getAllPedidos() {
     const headers = this.getAuthHeaders();
-    let data = this.httpClient.get<Pedido[]>(this.urlPedido, { headers });
+    let data = this.httpClient.get<PedidoResponse[]>(this.urlPedido, { headers: headers });
     this.verificaVendido(data);
     return data;
   };
 
   getPedidoByID(id: number): Observable<Pedido[]> {
-    this.getAuthHeaders();
+    const headers = this.getAuthHeaders();
     let data: Observable<Pedido[]>;
-    data = this.httpClient.get<Pedido[]>(`${this.urlPedido}/${id}`);
+    data = this.httpClient.get<Pedido[]>(`${this.urlPedido}/${id}`, { headers: headers });
     return data;
   }
 
@@ -118,8 +118,8 @@ export class PedidoService implements OnInit {
   };
 
   updatePedido(id: number, pedido: Partial<Pedido>): Observable<Pedido> {
-    this.getAuthHeaders();
-    return this.httpClient.patch<Pedido>(`${this.urlPedido}/${id}`, pedido);
+    const headers = this.getAuthHeaders();
+    return this.httpClient.put<Pedido>(`${this.urlPedido}/${id}`, pedido, { headers: headers });
   };
 
   // updatePedido(id: number, campo: string, valor: number | string): Observable<Pedido> {
@@ -132,8 +132,8 @@ export class PedidoService implements OnInit {
   // };
 
   deletePedido(id: number): Observable<void> {
-    this.getAuthHeaders();
-    return this.httpClient.delete<void>(`${this.urlPedido}/${id}`);
+    const headers = this.getAuthHeaders();
+    return this.httpClient.delete<void>(`${this.urlPedido}/${id}`, { headers: headers });
   };
 
 };

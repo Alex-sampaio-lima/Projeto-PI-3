@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Pedido } from '../../../../../interfaces/pedido';
+import { Pedido, PedidoResponse } from '../../../../../interfaces/pedido';
 import { PedidoService } from '../../../../../services/pedido.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,7 +26,7 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
   constructor(public dialog: MatDialog, public toastr: ToastrService) { }
 
   clientes: Cliente[] = [];
-  pedidos: Pedido[] = [];
+  pedidos: PedidoResponse[] = [];
   verificaAtualizaPedido = false;
   modalVisible = false;
   termoPesquisa: string = '';
@@ -35,10 +35,11 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
     this.listarPedidos();
   };
 
+
   listarPedidos() {
-    this.pedidoService.getAllPedidos().subscribe((data: Pedido[]) => {
+    this.pedidoService.getAllPedidos().subscribe((data: PedidoResponse[]) => {
       this.pedidos = data;
-    })
+    });
   };
 
   get filtrarPedidos() {
@@ -46,9 +47,9 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
 
     if (termo !== '') {
       return this.pedidos.filter(pedido => {
-        // return pedido.nome?.toLowerCase().includes(termo) ||
-        // pedido.email?.toLowerCase().includes(termo) ||
-        pedido.nomeProduto?.toLowerCase().includes(termo) ||
+        return pedido.cliente.nome?.toLowerCase().includes(termo) ||
+          pedido.cliente.email?.toLowerCase().includes(termo) ||
+          pedido.nomeProduto?.toLowerCase().includes(termo) ||
           pedido.status?.toLowerCase().includes(termo)
       });
     };
@@ -69,6 +70,7 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
         this.listarPedidos();
       },
       error: (err) => {
+        this.toastr.error('Erro ao excluir Pedido !', err);
         console.error('Erro ao excluir pedido', err);
       }
     });
