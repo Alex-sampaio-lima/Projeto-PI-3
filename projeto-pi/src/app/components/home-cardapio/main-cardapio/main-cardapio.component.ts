@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth.service';
+import { CartService } from '../../../../services/carrinho.service';
+
 
 @Component({
   selector: 'app-main-cardapio',
@@ -9,6 +13,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-cardapio.component.css']
 })
 export class MainCardapioComponent {
+
+constructor(
+  private authService: AuthService,
+  private cartService: CartService,
+  private router: Router
+) {}
+
+
+
 
   // ======== LISTA DE BOLOS =========
   bolos = [
@@ -47,10 +60,29 @@ export class MainCardapioComponent {
     list[index].isFlipped = !list[index].isFlipped;
   }
 
-  // ======== CARRINHO (OPCIONAL) ========
-  addToCart(produto: any) {
-    console.log("Adicionado ao carrinho:", produto);
-    // lógica real do carrinho aqui
+  // ======== ADICIONA NO CARRINHO ========
+addToCart(produto: any) {
+  if (!this.authService.isLoggedIn()) {
+    alert('Você precisa estar logado para adicionar ao carrinho!');
+    return;
   }
+
+  // adiciona no cartService local
+this.cartService.addItem({
+  id: produto.id,           // id do produto
+  nomeProduto: produto.nome,
+  price: produto.price,
+  image: produto.image,     // caminho da imagem do produto
+  quantidade: 1,            // quantidade inicial
+  status: 'Pendente'        // se você adicionou status
+});
+
+
+  alert(`${produto.name} adicionado ao carrinho!`);
+
+  // opcional: redireciona para o carrinho
+  this.router.navigate(['/carrinho-compra']);
+}
+
 
 }

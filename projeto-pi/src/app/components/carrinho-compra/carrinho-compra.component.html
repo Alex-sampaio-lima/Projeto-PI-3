@@ -4,38 +4,22 @@
     <h2>Veja e gerencie os itens que você deseja comprar.</h2>
 
     <div class="botoes-principais">
-      <button class="botao-carrinho">Continuar Comprando</button>
-      <button class="botao-finalizar">Finalizar Compra</button>
+      <button class="botao-carrinho" (click)="continueShopping()">Continuar Comprando</button>
+      <button class="botao-finalizar" (click)="finalizePurchase()">Finalizar Compra</button>
     </div>
   </div>
 
   <section class="itens-selecionados">
     <h3>Itens Selecionados</h3>
-    <button class="remover-todos">Remover Todos</button>
+    <button class="remover-todos" (click)="clearCart()">Remover Todos</button>
 
-    <div class="item">
+    <div class="item" *ngFor="let item of cartItems; let i = index">
       <div class="item-img">
-        <img src="assets/Bolos/bolo-chocolate-com-morango-2.png" alt="bolo-chocolate">
+        <img [src]="item.image" [alt]="item.nomeProduto">
       </div>
-      <p>Bolo de pote:</p>
-      <span>Quantidade: 1</span>
-    </div>
-
-    <div class="item">
-      <div class="item-img">
-        <img src="/assets/KitFesta/kit-festa-3.png" alt="KitFesta">
-      </div>
-      <p>Decoração:</p>
-      <span>Quantidade: 1</span>
-    </div>
-    
-
-    <div class="item">
-      <div class="item-img">
-        <img src="/assets/Doces/doces-finos.png" alt="DocesFinos">
-      </div>
-      <p>Surpresa de uva:</p>
-      <span>Quantidade: 2</span>
+      <p>{{ item.nomeProduto }}</p>
+      <span>Preço: R$ {{ item.price }}</span>
+      <button (click)="removeItem(i)">Remover</button>
     </div>
   </section>
 
@@ -44,7 +28,7 @@
 
     <div class="resumo-box">
       <p>Subtotal</p>
-      <span>R$ 50,00</span>
+      <span>R$ {{ getTotal() }}</span>
     </div>
 
     <div class="resumo-box">
@@ -54,10 +38,10 @@
 
     <div class="resumo-box">
       <p>Total</p>
-      <span>R$ 70,00</span>
+      <span>R$ {{ getTotal() + 20 }}</span>
     </div>
 
     <button class="aplicar-cupom">Aplicar Cupom</button>
-    <button class="botao-finalizar">Finalizar Compra</button>
+    <button class="botao-finalizar" (click)="finalizePurchase()">Finalizar Compra</button>
   </aside>
 </main>
