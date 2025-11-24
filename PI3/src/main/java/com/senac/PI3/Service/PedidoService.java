@@ -128,7 +128,7 @@ public class PedidoService {
     }
 
     // Métodos
-    private boolean isAdmin() {
+    public boolean isAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {

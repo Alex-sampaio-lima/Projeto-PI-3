@@ -1,24 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { Component, EventEmitter, HostListener, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
+import { Pedido } from '../../../../../interfaces/pedido';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PedidoService } from '../../../../../services/pedido.service';
-import { Pedido } from '../../../../../interfaces/pedido';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../../../../../services/user.service';
 
 @Component({
-  selector: 'app-container-form-modal-pedido',
-  imports: [HttpClientModule, FormsModule, CommonModule, ReactiveFormsModule],
-  templateUrl: './container-form-modal-pedido.component.html',
-  styleUrl: './container-form-modal-pedido.component.css'
+  selector: 'app-container-form-modal-cliente-pedidos',
+  imports: [],
+  templateUrl: './container-form-modal-cliente-pedidos.component.html',
+  styleUrl: './container-form-modal-cliente-pedidos.component.css'
 })
-
-export class ContainerFormModalPedidoComponent implements OnInit {
-
+export class ContainerFormModalClientePedidosComponent {
   public pedidoService = inject(PedidoService);
-  private userService = inject(UserService);
 
   constructor(public dialogRef: MatDialog, private fb: FormBuilder, public toastr: ToastrService) { }
 
@@ -139,4 +133,4 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       observacoes: '',
     });
   };
-};
+}

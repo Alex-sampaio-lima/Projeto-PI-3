@@ -40,7 +40,7 @@ export class UserService implements OnInit {
   ngOnInit(): void {
     this.isLoggedInAdmin();
     console.log(` Nome do currentUser ${this.currentUser.nome}`);
-    console.log(` Nome do currentUser ${this.currentUser.senha}`);
+    console.log(` Senha do currentUser ${this.currentUser.senha}`);
 
   }
 
@@ -149,17 +149,17 @@ export class UserService implements OnInit {
     );
   }
 
- isLoggedIn(): boolean {
-  const storedUser = this.getItemWithExpiry('@currentUser');
+  isLoggedIn(): boolean {
+    const storedUser = this.getItemWithExpiry('@currentUser');
 
-  if (storedUser) {
-    this.isAuthenticated = true;
-    return true;
+    if (storedUser) {
+      this.isAuthenticated = true;
+      return true;
+    }
+
+    this.isAuthenticated = false;
+    return false;
   }
-
-  this.isAuthenticated = false;
-  return false;
-}
 
   isLoggedInAdmin(): boolean {
     this.userLocalStorage = localStorage.getItem('@currentUser');

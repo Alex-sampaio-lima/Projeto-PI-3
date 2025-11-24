@@ -29,9 +29,6 @@ export class PedidoService implements OnInit {
   ) { };
 
   ngOnInit(): void {
-    this.getAllPedidos();
-    this.getAuthHeaders();
-
     this.pedidoForm = this.fb.group({
       nomeProduto: ['', [Validators.required]],
       formaPagamento: ['', [Validators.required]],
@@ -84,9 +81,9 @@ export class PedidoService implements OnInit {
   };
 
   // PEDIDO - CLIENTE
-  getMeusPedidos(): Observable<Pedido[]> {
+  getMeusPedidos(): Observable<PedidoResponse[]> {
     const headers = this.getAuthHeaders();
-    return this.httpClient.get<Pedido[]>(`${this.urlPedido}/meus-pedidos`, { headers: headers });
+    return this.httpClient.get<PedidoResponse[]>(`${this.urlPedido}/meus-pedidos`, { headers: headers });
   };
 
   // CRUD - PEDIDO

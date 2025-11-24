@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-nav-bar-cliente-pedidos',
@@ -10,6 +11,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './nav-bar-cliente-pedidos.component.css'
 })
 export class NavBarClientePedidosComponent {
-userService: any;
-
+  public userService = inject(UserService);
 }

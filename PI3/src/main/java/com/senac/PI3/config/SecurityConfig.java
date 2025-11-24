@@ -129,7 +129,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/pedido/meus-pedidos").authenticated() // Listar próprio pedido - validação no service
                 .requestMatchers(HttpMethod.POST, "/pedido").authenticated() // Criar - só usuário logado
                 .requestMatchers(HttpMethod.PUT, "/pedido/**").authenticated() // Atualizar - validação no service
-                .requestMatchers(HttpMethod.DELETE, "/pedido/**").hasRole("ADMIN") // Deletar - validação no service
+                .requestMatchers(HttpMethod.DELETE, "/pedido/**").authenticated() // Deletar - validação no service
 
                 // AUTH - CLIENTES
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
