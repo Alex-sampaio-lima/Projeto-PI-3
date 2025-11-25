@@ -35,6 +35,11 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarPedidos();
+    console.log(this.pedidos.map((pedido) => {
+      pedido.created_at,
+      pedido.cliente
+    }));
+
   };
 
   listarPedidos() {

@@ -18,23 +18,23 @@ export class CartService {
 
   getCart(): Carrinho[] {
     return this.cart;
-  }
+  };
 
   addItem(item: Carrinho) {
     this.cart.push(item);
-  }
+  };
 
   removeItem(index: number) {
     this.cart.splice(index, 1);
-  }
+  };
 
   clearCart() {
     this.cart = [];
-  }
+  };
 
   getTotal(): number {
     return this.cart.reduce((acc, item) => acc + item.price * item.quantidade, 0);
-  }
+  };
 
   // createPedido(clienteId: number, formaPagamento: string): Observable<any> {
   //   const payload = {
@@ -74,7 +74,7 @@ export class CartService {
     });
 
     return forkJoin(requests);
-  }
+  };
 
   createPedidosIndividual(clienteId: number, formaPagamento: string): Observable<any[]> {
     const requests = this.cart.map(item => {
@@ -94,7 +94,7 @@ export class CartService {
     });
 
     return forkJoin(requests); // Executa todas as requisições em paralelo
-  }
+  };
   // Método para debug detalhado
   debugCartItems(): void {
     console.log('=== DEBUG CARRINHO ===');
@@ -111,5 +111,5 @@ export class CartService {
 
     console.log('Total geral:', this.getTotal());
     console.log('=====================');
-  }
+  };
 };

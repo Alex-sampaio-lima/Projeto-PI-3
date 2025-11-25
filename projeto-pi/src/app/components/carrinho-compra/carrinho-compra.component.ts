@@ -42,7 +42,7 @@ export class CarrinhoCompraComponent {
     if (!userData) {
       console.error('Usuário não logado');
       return;
-    }
+    };
 
     const user = JSON.parse(userData);
     const userInfo = { ...user };

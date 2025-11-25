@@ -60,7 +60,7 @@ export class MainCardapioComponent {
   // ======== MÉTODO PARA FLIPAR APENAS O CARD CORRETO ========
   flipCard(list: any[], index: number) {
     list[index].isFlipped = !list[index].isFlipped;
-  }
+  };
 
   // ======== ADICIONA NO CARRINHO ========
   addToCart(produto: any) {
@@ -71,19 +71,16 @@ export class MainCardapioComponent {
     // adiciona no cartService local
     this.cartService.addItem({
       id: produto.id,           // id do produto
-      nomeProduto: produto.nome,
+      nomeProduto: produto.name,
       price: produto.price,
       image: produto.image,     // caminho da imagem do produto
       quantidade: 1,            // quantidade inicial
       status: 'Pendente'        // se você adicionou status
     });
 
-
     this.toastr.success(`${produto.name} adicionado ao carrinho!`);
 
     // opcional: redireciona para o carrinho
     this.router.navigate(['/carrinho-compra']);
-  }
-
-
-}
+  };
+};

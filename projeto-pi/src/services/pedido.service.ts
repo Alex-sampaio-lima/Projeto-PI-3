@@ -131,6 +131,5 @@ export class PedidoService implements OnInit {
   deletePedido(id: number): Observable<void> {
     const headers = this.getAuthHeaders();
     return this.httpClient.delete<void>(`${this.urlPedido}/${id}`, { headers: headers });
-  };
-
+  }; 
 };
