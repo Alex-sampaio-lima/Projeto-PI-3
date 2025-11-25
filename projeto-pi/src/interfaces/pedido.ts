@@ -17,7 +17,7 @@ export interface Pedidopayload {
   valorTotal: number;
   status: string;
   observacoes: string;
-  cliente_id: number;
+  // cliente_id: number;
 };
 
 

@@ -38,22 +38,25 @@ export class CarrinhoCompraComponent {
   };
 
   finalizePurchase() {
-    // const clienteId = 1; //pegar usuario logado
     const userData = localStorage.getItem("@currentUser");
-    if (userData) {
-      var user = JSON.parse(userData);
-      var userInfo = { ...user };
-    };
-    let clienteId = userInfo.value.id;
+    if (!userData) {
+      console.error('Usuário não logado');
+      return;
+    }
 
-    this.cartService.createPedido(clienteId, 'Cartão').subscribe({
+    const user = JSON.parse(userData);
+    const userInfo = { ...user };
+    const clienteId = userInfo.value.id;
+
+    // Opção 1: Criar múltiplos pedidos de uma vez
+    this.cartService.createPedidos(clienteId, 'Cartão').subscribe({
       next: (res: any) => {
-        console.log('Pedido criado:', res);
+        console.log('Pedidos criados:', res);
         this.clearCart();
-        this.router.navigate(['/obrigado']); // página de confirmação
+        this.router.navigate(['/cliente-pedidos']);
       },
       error: (err: any) => {
-        console.error(err);
+        console.error('Erro ao criar pedidos:', err);
       }
     });
   };
