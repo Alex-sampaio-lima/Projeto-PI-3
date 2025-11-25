@@ -41,9 +41,11 @@ export class CarrinhoCompraComponent {
     // const clienteId = 1; //pegar usuario logado
     const userData = localStorage.getItem("@currentUser");
     if (userData) {
-
+      var user = JSON.parse(userData);
+      var userInfo = { ...user };
     };
-    const clienteId = 1;
+    let clienteId = userInfo.value.id;
+
     this.cartService.createPedido(clienteId, 'Cartão').subscribe({
       next: (res: any) => {
         console.log('Pedido criado:', res);

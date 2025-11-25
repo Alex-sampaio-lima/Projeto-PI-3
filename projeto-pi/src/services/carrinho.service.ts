@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Carrinho } from '../interfaces/carrinho'; 
+import { Carrinho } from '../interfaces/carrinho';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +42,7 @@ export class CartService {
       observacoes: '',
       cliente_id: clienteId
     };
+    
     return this.http.post(this.baseUrl, payload);
   }
 }
