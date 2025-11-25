@@ -21,24 +21,29 @@ export class CarrinhoCompraComponent {
 
   continueShopping() {
     this.router.navigate(['/home-cardapio']);
-  }
+  };
 
   removeItem(index: number) {
     this.cartService.removeItem(index);
     this.cartItems = this.cartService.getCart();
-  }
+  };
 
   clearCart() {
     this.cartService.clearCart();
     this.cartItems = [];
-  }
+  };
 
   getTotal(): number {
     return this.cartService.getTotal();
-  }
+  };
 
   finalizePurchase() {
-    const clienteId = 1; //pegar usuario logado
+    // const clienteId = 1; //pegar usuario logado
+    const userData = localStorage.getItem("@currentUser");
+    if (userData) {
+
+    };
+    const clienteId = 1;
     this.cartService.createPedido(clienteId, 'Cartão').subscribe({
       next: (res: any) => {
         console.log('Pedido criado:', res);
@@ -49,5 +54,5 @@ export class CarrinhoCompraComponent {
         console.error(err);
       }
     });
-  }
-}
+  };
+};

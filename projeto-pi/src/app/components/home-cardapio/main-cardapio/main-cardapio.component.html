@@ -1,194 +1,186 @@
 <section class="container-principal" id="cardapio">
 
-    <!-- TÍTULO DO CARDÁPIO -->
-    <div class="container-titulo-cardapio">
-        <div class="titulo-cardapio">
-            <p>Cardápio</p>
-        </div>
+  <!-- TÍTULO DO CARDÁPIO -->
+  <div class="container-titulo-cardapio">
+    <div class="titulo-cardapio">
+      <p>Cardápio</p>
+    </div>
+  </div>
+
+  <!-- ================== BOLOS ================== -->
+  <div class="section-tipos-cardapio" id="Bolos">
+    <div class="container-titulo-section-cardapio">
+      <p class="titulo-section-cardapio">Conheça nossos Bolos</p>
     </div>
 
-    <!-- ================== BOLOS ================== -->
-    <div class="section-tipos-cardapio" id="Bolos">
-        <div class="container-titulo-section-cardapio">
-            <p class="titulo-section-cardapio">Conheça nossos Bolos</p>
-        </div>
+    <div class="container-cards-sabores">
+      <div class="flip-card" *ngFor="let card of bolos; let i = index" [class.flipped]="card.isFlipped">
+        <div class="flip-card-inner">
 
-        <div class="container-cards-sabores">
-            <div class="flip-card" *ngFor="let card of bolos; let i = index" [class.flipped]="card.isFlipped">
-                <div class="flip-card-inner">
+          <!-- FRENTE -->
+          <div class="flip-card-front container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
+            <p class="titulo-card-sabores">{{ card.name }}</p>
 
-                    <!-- FRENTE -->
-                    <div class="flip-card-front container-tipos-sabores"
-                        [style.background-image]="'url(' + card.image + ')'">
-                        <p class="titulo-card-sabores">{{ card.name }}</p>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(bolos, i)">
+                <p class="text-button-sabores">Saiba mais</p>
+              </button>
 
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(bolos, i)">
-                                <p class="text-button-sabores">Saiba mais</p>
-                            </button>
+              <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)"></button>
 
-                            <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)"></button>
-
-                        </div>
-                    </div>
-
-                    <!-- VERSO -->
-                    <div class="flip-card-back container-tipos-sabores"
-                    [style.background-image]="'url(' + card.image + ')'">
-
-                        <p class="texto-verso-sabores">
-                            {{ card.description }}
-                        </p>
-                        <p class="texto-verso-sabores">
-                            Preço: R$ {{ card.price }}
-                        </p>
-
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(bolos, i)">
-                                <p class="text-button-sabores">Voltar</p>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
             </div>
-        </div>
-    </div>
+          </div>
 
-    <!-- ================== SALGADOS ================== -->
-    <div class="section-tipos-cardapio" id="Salgados">
-        <div class="container-titulo-section-cardapio">
-            <p class="titulo-section-cardapio">Conheça nossas Salgados</p>
-        </div>
+          <!-- VERSO -->
+          <div class="flip-card-back container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
 
-        <div class="container-cards-sabores">
-            <div class="flip-card" *ngFor="let card of Salgados; let i = index" [class.flipped]="card.isFlipped">
-                <div class="flip-card-inner">
+            <p class="texto-verso-sabores">
+              {{ card.description }}
+            </p>
+            <p class="texto-verso-sabores">
+              Preço: R$ {{ card.price }}
+            </p>
 
-                    <div class="flip-card-front container-tipos-sabores"
-                    [style.background-image]="'url(' + card.image + ')'">
-                        <p class="titulo-card-sabores">{{ card.name }}</p>
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(Salgados, i)">
-                                <p class="text-button-sabores">Saiba mais</p>
-                            </button>
-
-                            <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)">
-                                <img src="" class="icon-button-sabores">
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flip-card-back container-tipos-sabores"
-                     [style.background-image]="'url(' + card.image + ')'">
-
-                        <p class="texto-verso-sabores">
-                            {{ card.description }}
-                        </p>
-                        <p class="texto-verso-sabores">
-                            Preço: R$ {{ card.price }}
-                        </p>
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(Salgados, i)">
-                                <p class="text-button-sabores">Voltar</p>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(bolos, i)">
+                <p class="text-button-sabores">Voltar</p>
+              </button>
             </div>
+          </div>
+
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================== SALGADOS ================== -->
+  <div class="section-tipos-cardapio" id="Salgados">
+    <div class="container-titulo-section-cardapio">
+      <p class="titulo-section-cardapio">Conheça nossas Salgados</p>
     </div>
 
-    <!-- ================== KITFESTA================== -->
-    <div class="section-tipos-cardapio" id="KitFesta">
-        <div class="container-titulo-section-cardapio">
-            <p class="titulo-section-cardapio">Conheça nossos Kit Festa</p>
-        </div>
+    <div class="container-cards-sabores">
+      <div class="flip-card" *ngFor="let card of Salgados; let i = index" [class.flipped]="card.isFlipped">
+        <div class="flip-card-inner">
 
-        <div class="container-cards-sabores">
-            <div class="flip-card" *ngFor="let card of kitFesta; let i = index" [class.flipped]="card.isFlipped">
-                <div class="flip-card-inner">
+          <div class="flip-card-front container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
+            <p class="titulo-card-sabores">{{ card.name }}</p>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(Salgados, i)">
+                <p class="text-button-sabores">Saiba mais</p>
+              </button>
 
-                    <div class="flip-card-front container-tipos-sabores"
-                    [style.background-image]="'url(' + card.image + ')'">
-                        <p class="titulo-card-sabores">{{ card.name }}</p>
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(kitFesta, i)">
-                                <p class="text-button-sabores">Saiba mais</p>
-                            </button>
-
-                            <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)">
-                                <img src=""  class="icon-button-sabores">
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flip-card-back container-tipos-sabores"
-                     [style.background-image]="'url(' + card.image + ')'">
-
-                        <p class="texto-verso-sabores">
-                            {{ card.description }}
-                        </p>
-                        <p class="texto-verso-sabores">
-                            Preço: R$ {{ card.price }}
-                        </p>
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(kitFesta, i)">
-                                <p class="text-button-sabores">Voltar</p>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
+              <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)">
+                <img src="" class="icon-button-sabores">
+              </button>
             </div>
-        </div>
-    </div>
+          </div>
 
-    <!-- ================== DOCES ================== -->
-    <div class="section-tipos-cardapio" id="Doces">
-        <div class="container-titulo-section-cardapio">
-            <p class="titulo-section-cardapio">Conheça nossos Doces</p>
-        </div>
+          <div class="flip-card-back container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
 
-        <div class="container-cards-sabores">
-            <div class="flip-card" *ngFor="let card of doces; let i = index" [class.flipped]="card.isFlipped">
-                <div class="flip-card-inner">
-
-                    <div class="flip-card-front container-tipos-sabores"
-                    [style.background-image]="'url(' + card.image + ')'">
-                        <p class="titulo-card-sabores">{{ card.name }}</p>
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(doces, i)">
-                                <p class="text-button-sabores">Saiba mais</p>
-                            </button>
-
-                            <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)">
-                                <img src=''  class="icon-button-sabores">
-
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flip-card-back container-tipos-sabores"
-                    [style.background-image]="'url(' + card.image + ')'">
-
-                        <p class="texto-verso-sabores">
-                            {{ card.description }}
-                        </p>
-                        <p class="texto-verso-sabores">
-                            Preço: R$ {{ card.price }}
-                        </p>
-                        <div class="container-button-sabores">
-                            <button class="button-card-sabores" type="button" (click)="flipCard(doces, i)">
-                                <p class="text-button-sabores">Voltar</p>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
+            <p class="texto-verso-sabores">
+              {{ card.description }}
+            </p>
+            <p class="texto-verso-sabores">
+              Preço: R$ {{ card.price }}
+            </p>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(Salgados, i)">
+                <p class="text-button-sabores">Voltar</p>
+              </button>
             </div>
+          </div>
+
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- ================== KITFESTA================== -->
+  <div class="section-tipos-cardapio" id="KitFesta">
+    <div class="container-titulo-section-cardapio">
+      <p class="titulo-section-cardapio">Conheça nossos Kit Festa</p>
+    </div>
+
+    <div class="container-cards-sabores">
+      <div class="flip-card" *ngFor="let card of kitFesta; let i = index" [class.flipped]="card.isFlipped">
+        <div class="flip-card-inner">
+
+          <div class="flip-card-front container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
+            <p class="titulo-card-sabores">{{ card.name }}</p>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(kitFesta, i)">
+                <p class="text-button-sabores">Saiba mais</p>
+              </button>
+
+              <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)">
+                <img src="" class="icon-button-sabores">
+              </button>
+            </div>
+          </div>
+
+          <div class="flip-card-back container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
+
+            <p class="texto-verso-sabores">
+              {{ card.description }}
+            </p>
+            <p class="texto-verso-sabores">
+              Preço: R$ {{ card.price }}
+            </p>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(kitFesta, i)">
+                <p class="text-button-sabores">Voltar</p>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================== DOCES ================== -->
+  <div class="section-tipos-cardapio" id="Doces">
+    <div class="container-titulo-section-cardapio">
+      <p class="titulo-section-cardapio">Conheça nossos Doces</p>
+    </div>
+
+    <div class="container-cards-sabores">
+      <div class="flip-card" *ngFor="let card of doces; let i = index" [class.flipped]="card.isFlipped">
+        <div class="flip-card-inner">
+
+          <div class="flip-card-front container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
+            <p class="titulo-card-sabores">{{ card.name }}</p>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(doces, i)">
+                <p class="text-button-sabores">Saiba mais</p>
+              </button>
+
+              <button class="Container-button-icon-sabores" type="button" (click)="addToCart(card)">
+                <img src='' class="icon-button-sabores">
+
+              </button>
+            </div>
+          </div>
+
+          <div class="flip-card-back container-tipos-sabores" [style.background-image]="'url(' + card.image + ')'">
+
+            <p class="texto-verso-sabores">
+              {{ card.description }}
+            </p>
+            <p class="texto-verso-sabores">
+              Preço: R$ {{ card.price }}
+            </p>
+            <div class="container-button-sabores">
+              <button class="button-card-sabores" type="button" (click)="flipCard(doces, i)">
+                <p class="text-button-sabores">Voltar</p>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 </section>
