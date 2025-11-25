@@ -15,7 +15,7 @@ import { ContainerFormModalPedidoComponent } from '../../../admin-pedidos/contai
     HttpClientModule,
     FormsModule,
     CommonModule,
-    ],
+  ],
   templateUrl: './container-form-cliente-pedidos-dashboard.component.html',
   styleUrl: './container-form-cliente-pedidos-dashboard.component.css'
 })

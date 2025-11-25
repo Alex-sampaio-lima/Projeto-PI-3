@@ -37,7 +37,7 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
     this.carregarPedidos();
     console.log(this.pedidos.map((pedido) => {
       pedido.created_at,
-      pedido.cliente
+        pedido.cliente
     }));
 
   };
@@ -105,4 +105,16 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
     this.modalVisible = true;
     this.pedidoService.vericaAtualizacaoPedido = false;
   };
+
+  formatLocalDate(dateString: string): string {
+    if (!dateString) return '';
+
+    // Converte "2024-01-15" para "15/01/2024"
+    const [year, month, day] = dateString.split('-');
+    return `${day}/${month}/${year}`;
+  }
+
+  getType(value: any): string {
+    return typeof value;
+  }
 };

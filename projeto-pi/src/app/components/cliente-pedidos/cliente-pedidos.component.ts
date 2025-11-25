@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavBarClientePedidosComponent } from "./nav-bar-cliente-pedidos/nav-bar-cliente-pedidos.component";
-import { NavBarAdminPedidosComponent } from "../admin-pedidos/nav-bar-admin-pedidos/nav-bar-admin-pedidos.component";
-import { ContainerFormAdminPedidosComponent } from "../admin-pedidos/container-form-admin-pedidos/container-form-admin-pedidos.component";
 import { ContainerFormClientePedidosComponent } from "./container-form-cliente-pedidos/container-form-cliente-pedidos.component";
+import { PedidoResponse } from '../../../interfaces/pedido';
+import { PedidoService } from '../../../services/pedido.service';
 
 @Component({
   selector: 'app-cliente-pedidos',
@@ -10,6 +10,24 @@ import { ContainerFormClientePedidosComponent } from "./container-form-cliente-p
   templateUrl: './cliente-pedidos.component.html',
   styleUrl: './cliente-pedidos.component.css'
 })
-export class ClientePedidosComponent {
+export class ClientePedidosComponent implements OnInit {
+  pedidoService = inject(PedidoService);
 
+  ngOnInit(): void {
+    console.log('✅ ClientePedidosComponent inicializado');
+
+    // Escuta por atualizações de pedidos
+    this.pedidoService.pedidosAtualizados$.subscribe((atualizado: boolean) => {
+      console.log('📢 Recebida notificação de atualização:', atualizado);
+      if (atualizado) {
+        // Força atualização nos componentes filhos via Input
+        this.atualizarComponentesFilhos();
+      }
+    });
+  }
+
+  atualizarComponentesFilhos(): void {
+    console.log('🔄 Atualizando componentes filhos...');
+    // Esta função pode ser usada para forçar atualização nos filhos
+  }
 }

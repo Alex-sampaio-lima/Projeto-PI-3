@@ -106,6 +106,7 @@ export class CartService {
         price: item.price,
         quantidade: item.quantidade,
         subtotal: item.price * item.quantidade
+
       });
     });
 

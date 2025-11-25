@@ -8,7 +8,7 @@ export interface Pedido {
   status: string;
   observacoes: string;
   created_at: string;
-  updated_at: string;
+  updated_at: string | Date;
 };
 
 export interface Pedidopayload {
@@ -17,7 +17,7 @@ export interface Pedidopayload {
   valorTotal: number;
   status: string;
   observacoes: string;
-  // cliente_id: number;
+  // created_at: string | Date;
 };
 
 
