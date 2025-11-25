@@ -27,7 +27,7 @@ export const routes: Routes = [
   { path: "card", component: CardSaboresComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path:"cliente-pedidos", component: ClientePedidosComponent, canActivate: [AuthGuardService]},
+  { path: "cliente-pedidos", component: ClientePedidosComponent, canActivate: [AuthGuardService] },
   { path: "admin-pedidos", component: AdminPedidosComponent, canActivate: [AdminGuardService] },
   // { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
   { path: "carrinho-compra", component: CarrinhoCompraComponent },
