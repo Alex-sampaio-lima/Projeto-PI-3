@@ -1,29 +1,26 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Pedido, PedidoResponse } from '../../../../../interfaces/pedido';
+import { PedidoResponse } from './../../../../../interfaces/pedido';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { PedidoService } from '../../../../../services/pedido.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { Cliente } from '../../../../../interfaces/user';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ContainerFormModalPedidoComponent } from '../container-form-modal-pedido/container-form-modal-pedido.component';
-import { Cliente } from '../../../../../interfaces/user';
-import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../../../../../services/user.service';
+import { ContainerFormModalPedidoComponent } from '../../../admin-pedidos/container-form-admin-pedidos/container-form-modal-pedido/container-form-modal-pedido.component';
 
 @Component({
-  selector: 'app-container-form-pedido-dashboard',
+  selector: 'app-container-form-cliente-pedidos-dashboard',
   imports: [
     HttpClientModule,
     FormsModule,
     CommonModule,
-    ContainerFormModalPedidoComponent],
-  templateUrl: './container-form-pedido-dashboard.component.html',
-  styleUrl: './container-form-pedido-dashboard.component.css'
+    ],
+  templateUrl: './container-form-cliente-pedidos-dashboard.component.html',
+  styleUrl: './container-form-cliente-pedidos-dashboard.component.css'
 })
-
-export class ContainerFormPedidoDashBoardComponent implements OnInit {
+export class ContainerFormClientePedidosDashboardComponent {
   private pedidoService = inject(PedidoService);
-  private userService = inject(UserService);
 
   constructor(public dialog: MatDialog, public toastr: ToastrService) { }
 
@@ -34,8 +31,10 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
   termoPesquisa: string = '';
 
   ngOnInit(): void {
-    this.carregarPedidos();
+    this.listarPedidos();
+    this.listarMeusPedidos();
   };
+
 
   listarPedidos() {
     this.pedidoService.getAllPedidos().subscribe((data: PedidoResponse[]) => {
@@ -47,19 +46,8 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
     this.pedidoService.getMeusPedidos().subscribe((data: PedidoResponse[]) => {
       this.pedidos = data
     });
-  };
+  }
 
-  carregarPedidos() {
-    if (this.userService.isLoggedInAdmin()) {
-      this.pedidoService.getAllPedidos().subscribe(pedidos => {
-        this.pedidos = pedidos;
-      });
-    } else {
-      this.pedidoService.getMeusPedidos().subscribe(pedidos => {
-        this.pedidos = pedidos;
-      });
-    };
-  };
   get filtrarPedidos() {
     const termo = this.termoPesquisa.toLowerCase();
 

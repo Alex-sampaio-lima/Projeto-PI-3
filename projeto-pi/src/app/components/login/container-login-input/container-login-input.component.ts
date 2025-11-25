@@ -1,7 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
@@ -12,12 +18,11 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    ToastrModule
+    ToastrModule,
   ],
   templateUrl: './container-login-input.component.html',
   styleUrl: './container-login-input.component.css',
 })
-
 export class ContainerLoginInputComponent {
   errorMessage: string = '';
   loginForm!: FormGroup;
@@ -26,9 +31,9 @@ export class ContainerLoginInputComponent {
   constructor(private router: Router, fb: FormBuilder) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
-  };
+  }
 
   onSubmit() {
     const email = this.loginForm.get('email')?.value;
@@ -53,11 +58,16 @@ export class ContainerLoginInputComponent {
               console.log('Redirecionando para admin-pedidos');
               this.router.navigate(['/admin-pedidos']);
             } else {
-              console.log('Redirecionando para home');
-              this.router.navigate(['/home']);
+              console.log('Redirecionando para cliente-pedidos');
+              this.router.navigate(['/cliente-pedidos']);
             }
           }, 100);
-
+          console.log(
+            ` Nome do currentUser ${this.userService.currentUser.nome}`
+          );
+          console.log(
+            ` Nome do currentUser ${this.userService.currentUser.senha}`
+          );
           // this.userService.isAuthenticated = true;
         } else {
           console.log('Resposta sem usuário:', response);
@@ -81,7 +91,7 @@ export class ContainerLoginInputComponent {
         this.userService.toastr.error(this.errorMessage);
         console.log('Email tentado:', email);
         console.log('Senha tentada:', password);
-      }
+      },
     });
   }
-};
+}

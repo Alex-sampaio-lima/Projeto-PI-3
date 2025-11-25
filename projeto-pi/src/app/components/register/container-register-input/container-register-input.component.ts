@@ -49,9 +49,12 @@ export class ContainerRegisterInputComponent implements OnInit {
       isAdmin: false,
     };
 
+    this.userService.toastr.success('Cadastro realizado com sucesso !');
+
     // Validação básica antes de enviar
     if (!novoUser.nome || !novoUser.email || !novoUser.senha) {
       console.error('Dados incompletos');
+      this.userService.toastr.error('Dados incompletos !');
       return;
     }
 
@@ -61,6 +64,7 @@ export class ContainerRegisterInputComponent implements OnInit {
       },
       error: (e) => {
         console.error('Erro ao criar novo usuário:', e);
+        this.userService.toastr.error('Erro ao criar usuário !');
         // Log mais detalhado do erro
         if (e.error) {
           console.error('Detalhes do erro:', e.error);

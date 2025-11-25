@@ -6,40 +6,8 @@
         <h1 class="title-pedido">Adicionar Pedido</h1>
         <button class="btn-close-modal close-btn" type="button" (click)="onClose()">X</button>
       </div>
-      <div class="container-title-cliente">
-        <h1 class="title-cliente">Dados do Cliente</h1>
-      </div>
 
       <form [formGroup]="pedidoForm" class="container-inputs" action="" method="post">
-
-        <div class="container-form-nome-default">
-          <div class="container-default">
-            <label for="nome">Nome</label>
-            <input formControlName="nome" (change)="campoAlterado('nome', pedidoForm.value.nome)"
-              class="container-input-default" type="text" name="nome" id="nome"
-              placeholder="Ex: Digite o nome do cliente">
-          </div>
-          <div class="container-default">
-            <label for="telefone">Telefone</label>
-            <input formControlName="telefone" (change)="campoAlterado('telefone', pedidoForm.value.telefone)"
-              class="container-input-default" type="text" name="telefone" id="telefone"
-              placeholder="Ex: Digite o telefone do cliente">
-          </div>
-        </div>
-        <div class="container-form-nome-default">
-          <div class="container-default">
-            <label for="email">Email</label>
-            <input formControlName="email" (change)="campoAlterado('email', pedidoForm.value.email)"
-              class="container-input-default" type="email" name="email" id="email"
-              placeholder="Ex: Digite o nome E-mail do cliente">
-          </div>
-          <div class="container-default">
-            <label for="cpf">CPF</label>
-            <input formControlName="cpf" (change)="campoAlterado('cpf', pedidoForm.value.cpf)"
-              class="container-input-default" type="text" name="cpf" id="cpf" placeholder="Ex: Digite o CPF do cliente"
-              mask="000.000.000-00">
-          </div>
-        </div>
 
         <div class="container-title-cliente">
           <h1 class="title-cliente">Dados do Pedido</h1>
@@ -47,19 +15,11 @@
 
         <div class="container-form-nome-default">
           <div class="container-default">
-            <label for="tipo">Tipo</label>
+            <label for="tipo">Nome do Produto</label>
             <input formControlName="nomeProduto" (change)="campoAlterado('nomeProduto', pedidoForm.value.nomeProduto)"
               class="container-input-default" type="text" name="nomeProduto" id="tipo"
               placeholder="Ex: Bolo para festa de casamento">
           </div>
-
-          <!-- <div class="container-default">
-            <label for="formaDePagamento">Forma de pagamento</label>
-            <input formControlName="formaPagamento"
-              (change)="campoAlterado('formaPagamento', pedidoForm.value.formaPagamento)"
-              class="container-input-default" type="text" name="formaPagamento" id="formaDePagamento"
-              placeholder="Ex: Débito">
-          </div> -->
 
           <div class="container-default">
             <label for="formaDePagamento">Forma de Pagamento</label>
@@ -73,17 +33,13 @@
             </select>
           </div>
 
+          @if (userService.isLoggedInAdmin()) {
+
           <div class="container-default">
             <label for="valorTotal">Valor Total</label>
             <input formControlName="valorTotal" (change)="campoAlterado('valorTotal', pedidoForm.value.valorTotal)"
               class="container-input-default" type="number" name="valorTotal" id="valorTotal" placeholder="Ex: 320 R$">
           </div>
-
-          <!-- <div class="container-default">
-            <label for="status">Status</label>
-            <input formControlName="status" (change)="campoAlterado('status', pedidoForm.value.status)"
-              class="container-input-default" type="text" name="status" id="status" placeholder="Ex: pendente">
-          </div> -->
 
           <div class="container-default">
             <label for="formaDePagamento">Status</label>
@@ -96,6 +52,7 @@
               <option value="Cancelado">Cancelado</option>
             </select>
           </div>
+          }
 
           <div class="container-default">
             <label for="observacoes">Observações</label>

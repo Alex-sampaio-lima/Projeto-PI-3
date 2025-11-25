@@ -1,0 +1,14 @@
+<nav class="container-navbar-pedido-estoque">
+  <div class="container-navbar-title">
+    <h1 class="navbar-title">Cliente</h1>
+  </div>
+  <div class="container-navbar-title-pedido">
+    <a class="navbar-title-pedido" routerLink="/home">Home</a>
+  </div>
+  <div class="container-navbar-title-pedido">
+    <a class="navbar-title-pedido" routerLink="/cliente-pedidos">Meus Pedidos</a>
+  </div>
+  <div class="container-navbar-title-pedido">
+    <a class="navbar-title-pedido" routerLink="/home" (click)="this.userService.logOut()">Sair</a>
+  </div>
+</nav>
