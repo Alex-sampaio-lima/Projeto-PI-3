@@ -14,6 +14,7 @@ import { CommonModule, ViewportScroller } from '@angular/common';
 export class HeaderComponent {
 
   public userService = inject(UserService);
+  cartService: any;
 
   constructor(private router: Router, private viewportScroller: ViewportScroller) { }
 
