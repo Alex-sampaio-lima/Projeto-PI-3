@@ -36,12 +36,38 @@
       <span>R$ 20,00</span>
     </div>
 
-    <div class="resumo-box">
+    <!-- <div class="resumo-box">
       <p>Total</p>
       <span>R$ {{ getTotal() + 20 }}</span>
+    </div> -->
+
+    <!-- <button class="aplicar-cupom">Aplicar Cupom</button> -->
+
+    <div class="resumo-box">
+      <p>Cupom de Desconto</p>
+      <input
+        type="text"
+        placeholder="Digite seu cupom"
+        [(ngModel)]="cupomDigitado"
+        class="input-cupom"
+      >
     </div>
 
-    <button class="aplicar-cupom">Aplicar Cupom</button>
+    <button class="aplicar-cupom"
+      (click)="aplicarCupom()"
+      [disabled]="!cupomDigitado || descontoAplicado > 0">
+      Aplicar Cupom
+    </button>
+
+    <div *ngIf="descontoAplicado > 0" class="mensagem-cupom">
+      Cupom "{{ cupomDigitado }}" aplicado! Você ganhou {{ descontoAplicado }}% de desconto.
+    </div>
+
+    <div class="resumo-box">
+      <p>Total</p>
+      <span>R$ {{ getTotalComDesconto() + 20 | number:'1.2-2' }}</span>
+    </div>
+
     <button class="botao-finalizar" (click)="finalizePurchase()">Finalizar Compra</button>
   </aside>
 </main>

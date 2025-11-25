@@ -43,6 +43,17 @@ export class HeaderComponent {
 
   };
 
+  goToPedidos() {
+    const userData = localStorage.getItem("@currentUser");
+    if (userData) {
+
+      this.router.navigate(['/cliente-pedidos']);
+    } else {
+
+      this.router.navigate(['/login']);
+    }
+  }
+
   deslogarUsuario() {
     this.userService.logOut();
   };

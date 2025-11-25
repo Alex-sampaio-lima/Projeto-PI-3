@@ -70,7 +70,7 @@ header {
     align-items: center;
     grid-gap: 10px;
 
-    width: 508px;
+    width: 610px;
     height: 68px;
     gap: 1rem;
 }
@@ -132,7 +132,7 @@ header {
     border: 0.125rem solid var(--gray-1, #D9D9D9);
     transition: 0.7s ease;
 
-    
+
     color: #D9D9D9;
     font-size: 0.875rem;
     font-family: var(--font-primary);

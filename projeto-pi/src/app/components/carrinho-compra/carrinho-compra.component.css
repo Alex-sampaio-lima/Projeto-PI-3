@@ -98,3 +98,33 @@ button:active {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
+.input-cupom {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 2px solid #D81B60;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+  background: white;
+}
+
+.input-cupom:focus {
+  border-color: #a3144b;
+  box-shadow: 0 0 4px #d81b6044;
+}
+
+.resumo-box input {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+
+.mensagem-cupom {
+  color: green;
+  font-weight: bold;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
