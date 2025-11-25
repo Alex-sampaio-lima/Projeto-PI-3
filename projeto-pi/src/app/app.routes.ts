@@ -16,10 +16,10 @@ import { AdminGuardService } from '../services/admin-guard.service';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 //15.11
-import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { HomeCardapioComponent } from './components/home-cardapio/home-cardapio.component';
-import { AdminLoginAgendaComponent } from './components/admin-login/admin-login-agenda/admin-login-agenda.component';
 import { CarrinhoCompraComponent } from './components/carrinho-compra/carrinho-compra.component';
+import { ClientePedidosComponent } from './components/cliente-pedidos/cliente-pedidos.component';
+import { AuthGuardService } from '../services/auth-guard.service';
 
 export const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -27,34 +27,33 @@ export const routes: Routes = [
   { path: "card", component: CardSaboresComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: "admin-login", component: AdminLoginComponent, canActivate: [AdminGuardService] },
+  { path:"cliente-pedidos", component: ClientePedidosComponent, canActivate: [AuthGuardService]},
   { path: "admin-pedidos", component: AdminPedidosComponent, canActivate: [AdminGuardService] },
   // { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
-  { path: "admin-login-agenda", component: AdminLoginAgendaComponent /*colocar guardiao depois16.11JULIAAA*/ },
   { path: "carrinho-compra", component: CarrinhoCompraComponent },
 
-    { path: "", redirectTo: "/home", pathMatch: "full" },
-    { path: "**", component: PaginaNaoEncontradaComponent }
-  ];
+  { path: "", redirectTo: "/home", pathMatch: "full" },
+  { path: "**", component: PaginaNaoEncontradaComponent }
+];
 
 
 
-  const routerOptions: ExtraOptions = {
-    anchorScrolling: 'enabled',
-    scrollPositionRestoration: 'enabled'
-  };
+const routerOptions: ExtraOptions = {
+  anchorScrolling: 'enabled',
+  scrollPositionRestoration: 'enabled'
+};
 
-  @NgModule({
-    imports: [
-      RouterModule.forRoot(routes, routerOptions),
-      MatDialogModule,
-      FormsModule,
-      BrowserModule,
-      CommonModule,
-      BrowserAnimationsModule,
-      ToastrModule.forRoot()
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, routerOptions),
+    MatDialogModule,
+    FormsModule,
+    BrowserModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
 
-    ],
-    exports: [RouterModule]
-  })
-  export class AppRoutingModule { }
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
