@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: "cliente-pedidos", component: ClientePedidosComponent, canActivate: [AuthGuardService] },
   { path: "admin-pedidos", component: AdminPedidosComponent, canActivate: [AdminGuardService] },
   // { path: "adminEstoque", component: AdminEstoqueComponent, canActivate: [AdminGuardService] },
-  { path: "carrinho-compra", component: CarrinhoCompraComponent },
+  { path: "carrinho-compra", component: CarrinhoCompraComponent, canActivate: [AuthGuardService] },
 
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "**", component: PaginaNaoEncontradaComponent }
