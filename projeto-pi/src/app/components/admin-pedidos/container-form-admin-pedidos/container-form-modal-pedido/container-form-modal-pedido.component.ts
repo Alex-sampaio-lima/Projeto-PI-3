@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, EventEmitter, HostListener, inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PedidoService } from '../../../../../services/pedido.service';
-import { Pedido } from '../../../../../interfaces/pedido';
+import { Pedido, PedidoResponse } from '../../../../../interfaces/pedido';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../../../services/user.service';
@@ -47,6 +47,7 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       status: [''],
       observacoes: [''],
     });
+    this.listarPedidos();
   };
 
   onClose() {
@@ -55,8 +56,21 @@ export class ContainerFormModalPedidoComponent implements OnInit {
   };
 
   listarPedidos() {
-    this.pedidoService.getAllPedidos().subscribe((data: Pedido[]) => {
-      this.pedidoData = data;
+    this.pedidoService.getAllPedidos().subscribe({
+      next: (data: PedidoResponse[]) => {
+        console.log('📦 Dados recebidos:', data);
+        this.pedidoData = data;
+
+        // Debug: verifique um item específico
+        if (data.length > 0) {
+          console.log('🔍 Primeiro pedido:', data[0]);
+          console.log('📅 Created_at do primeiro:', data[0].dataPedido);
+          console.log('👤 Cliente do primeiro:', data[0].cliente);
+        }
+      },
+      error: (error) => {
+        console.error('❌ Erro ao carregar pedidos:', error);
+      }
     });
   };
 
@@ -106,7 +120,7 @@ export class ContainerFormModalPedidoComponent implements OnInit {
   };
 
   criarPedido() {
-    const novoPedido: Omit<Pedido, 'id' | 'created_at' | 'updated_at'> = {
+    const novoPedido: Omit<Pedido, 'id' | 'dataPedido' | 'updated_at'> = {
       nomeProduto: this.pedidoForm.value.nomeProduto,
       formaPagamento: this.pedidoForm.value.formaPagamento,
       valorTotal: this.pedidoForm.value.valorTotal,

@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (item of filtrarPedidos; track item.id) {
+      @for (item of pedidos; track item.id) {
       <tr class="container-info-edit-delete">
         <td>
           <!-- <input type="checkbox" name="checkbox-pedidos" id="checkbox-pedidos"> -->
@@ -44,7 +44,7 @@
           </div>
         </td>
         <td class="container-dashboard-info">{{item.nomeProduto}}</td>
-        <td class="container-dashboard-info">{{formatLocalDate(item.created_at)}}</td>
+        <td class="container-dashboard-info">{{item.dataPedido}}</td>
         <td class="container-dashboard-info">{{item.status}}</td>
         <td class="container-dashboard-info">{{item.observacoes}}</td>
         <td class="container-edit-delete-btn">

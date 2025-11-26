@@ -110,11 +110,9 @@ export class PedidoService implements OnInit {
     return data;
   }
 
-  postPedido(pedido: Omit<Pedido, 'id' | 'created_at' | 'updated_at' | 'cliente_id'>): Observable<Pedido> {
+  postPedido(pedido: Omit<Pedido, 'id' | 'dataPedido' | 'updated_at' | 'cliente_id'>): Observable<Pedido> {
     const pedidoCompleto = {
-      ...pedido,
-      created_at: new Date().toLocaleString(),
-      updated_at: new Date().toLocaleString()
+      ...pedido
     };
 
     console.log('Payload sendo enviado:', pedidoCompleto);

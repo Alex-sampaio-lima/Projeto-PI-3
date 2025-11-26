@@ -33,16 +33,17 @@ public class PedidoService {
 
     // Criar Pedido USER
     // public Pedido createPedidoUser(Pedido pedido, int clientId) {
-    //     Cliente cliente = clienteRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Cliente não localizado !"));
-    //     System.out.println("Pedido criado =" + pedido.getNomeProduto());
-    //     validatePedidoAccess(pedido);
-    //     pedido.setCliente(cliente);
-    //     if (pedido.getDataPedido() == null) {
-    //         pedido.setDataPedido(LocalDate.now());
-    //     }
-    //     return pedidoRepository.save(pedido);
+    // Cliente cliente = clienteRepository.findById(clientId).orElseThrow(() -> new
+    // RuntimeException("Cliente não localizado !"));
+    // System.out.println("Pedido criado =" + pedido.getNomeProduto());
+    // validatePedidoAccess(pedido);
+    // pedido.setCliente(cliente);
+    // if (pedido.getDataPedido() == null) {
+    // pedido.setDataPedido(LocalDate.now());
     // }
-    // CRUD 
+    // return pedidoRepository.save(pedido);
+    // }
+    // CRUD
     // Listar Todos Pedidos
     public List<Pedido> getAll() {
         if (isAdmin()) {
@@ -80,6 +81,7 @@ public class PedidoService {
         validatePedidoAccess(pedido);
         if (pedido.getDataPedido() == null) {
             pedido.setDataPedido(LocalDate.now());
+            System.out.println("Eu sou incrivel");
         }
 
         return pedidoRepository.save(pedido);
@@ -105,7 +107,8 @@ public class PedidoService {
         if (pedido.getStatus() != null && !pedido.getStatus().equalsIgnoreCase(pedidoExistente.getStatus())) {
             pedidoExistente.setStatus(pedido.getStatus());
         }
-        if (pedido.getObservacoes() != null && !pedido.getObservacoes().equalsIgnoreCase(pedidoExistente.getObservacoes())) {
+        if (pedido.getObservacoes() != null
+                && !pedido.getObservacoes().equalsIgnoreCase(pedidoExistente.getObservacoes())) {
             pedidoExistente.setObservacoes(pedido.getObservacoes());
         }
         if (pedido.getDataPedido() != null) {
@@ -170,7 +173,8 @@ public class PedidoService {
         // Cliente só tem acesso aos próprios pedidos
         int idClienteAtual = getCurrentClientId();
         if (pedido.getCliente().getId() != idClienteAtual) {
-            throw new org.springframework.security.access.AccessDeniedException("Acesso negado. Você só pode acessar seus próprios pedidos.");
+            throw new org.springframework.security.access.AccessDeniedException(
+                    "Acesso negado. Você só pode acessar seus próprios pedidos.");
         }
     }
 };

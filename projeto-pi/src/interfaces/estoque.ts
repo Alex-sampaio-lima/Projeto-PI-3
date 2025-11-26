@@ -6,7 +6,7 @@ export interface Estoque {
     custo_unitario: number | null;
     unidade_medida: string;
     observacoes: string;
-    created_at: string;
+    dataPedido : string;
     updated_at: string;
 }
 
