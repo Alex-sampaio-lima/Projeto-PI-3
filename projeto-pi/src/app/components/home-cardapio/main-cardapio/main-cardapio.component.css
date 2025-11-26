@@ -128,6 +128,7 @@ body {
   border-radius: 10px;
   background: var(--Background-color, #e5dbd0);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 }
 
 .text-button-sabores {
@@ -161,7 +162,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
 }
+
 /* verso card */
 .texto-verso-sabores {
   width: 182px;
@@ -207,7 +210,9 @@ body {
 }
 
 @media (max-width: 768px) {
-  .container-cards-sabores,.section-tipos-cardapio {
+
+  .container-cards-sabores,
+  .section-tipos-cardapio {
     flex-wrap: wrap;
     justify-content: center;
     height: auto;
@@ -220,4 +225,3 @@ body {
     min-height: 380px;
   }
 }
-

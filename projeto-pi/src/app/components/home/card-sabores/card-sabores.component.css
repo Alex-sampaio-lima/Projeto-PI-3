@@ -127,10 +127,11 @@
     box-shadow: 0rem 0.25rem 0.25rem 0rem rgba(0, 0, 0, 0.25);
     transition: 0.7s ease;
     cursor: pointer;
-}
+  }
 
-.button-card-sabores:hover {
+  .button-card-sabores:hover {
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 .title-button-sabores {
