@@ -59,7 +59,7 @@ export class ContainerLoginInputComponent {
               this.router.navigate(['/admin-pedidos']);
             } else {
               console.log('Redirecionando para cliente-pedidos');
-              this.router.navigate(['/cliente-pedidos']);
+              this.router.navigate(['/home-cardapio']);
             }
           }, 100);
           console.log(

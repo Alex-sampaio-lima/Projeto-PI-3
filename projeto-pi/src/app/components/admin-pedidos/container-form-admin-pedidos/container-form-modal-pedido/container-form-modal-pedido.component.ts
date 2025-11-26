@@ -1,10 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, EventEmitter, HostListener, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PedidoService } from '../../../../../services/pedido.service';
 import { Pedido, PedidoResponse } from '../../../../../interfaces/pedido';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../../../services/user.service';
 
@@ -12,15 +26,17 @@ import { UserService } from '../../../../../services/user.service';
   selector: 'app-container-form-modal-pedido',
   imports: [HttpClientModule, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './container-form-modal-pedido.component.html',
-  styleUrl: './container-form-modal-pedido.component.css'
+  styleUrl: './container-form-modal-pedido.component.css',
 })
-
 export class ContainerFormModalPedidoComponent implements OnInit {
-
   public pedidoService = inject(PedidoService);
   public userService = inject(UserService);
 
-  constructor(public dialogRef: MatDialog, private fb: FormBuilder, public toastr: ToastrService) { }
+  constructor(
+    public dialogRef: MatDialog,
+    private fb: FormBuilder,
+    public toastr: ToastrService
+  ) {}
 
   pedidoForm!: FormGroup;
   private alteracoesPendentesPedido: Partial<Pedido> = {};
@@ -36,8 +52,8 @@ export class ContainerFormModalPedidoComponent implements OnInit {
   onEscKey(event: KeyboardEvent | Event) {
     if (this.visible) {
       this.onClose();
-    };
-  };
+    }
+  }
 
   ngOnInit(): void {
     this.pedidoForm = this.fb.group({
@@ -48,12 +64,12 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       observacoes: [''],
     });
     this.listarPedidos();
-  };
+  }
 
   onClose() {
     this.close.emit();
     this.listarPedidos();
-  };
+  }
 
   listarPedidos() {
     this.pedidoService.getAllPedidos().subscribe({
@@ -70,9 +86,9 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       },
       error: (error) => {
         console.error('❌ Erro ao carregar pedidos:', error);
-      }
+      },
     });
-  };
+  }
 
   listarPedidoPorID() {
     this.pedidoService.getPedidoByID(this.pedidoService.idPedido).subscribe({
@@ -82,42 +98,50 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       },
       error(e) {
         console.error('Erro ao buscar pedido pelo ID', e);
-      }
+      },
     });
-  };
+  }
 
   campoAlterado(campo: keyof Pedido, valor: any) {
-    if ((this.dadosOriginaisPedido && this.dadosOriginaisPedido[campo] !== valor) || (this.dadosOriginaisPedido == null)) {
+    if (
+      (this.dadosOriginaisPedido &&
+        this.dadosOriginaisPedido[campo] !== valor) ||
+      this.dadosOriginaisPedido == null
+    ) {
       this.alteracoesPendentesPedido[campo] = valor;
     } else {
-      console.log("CAIU NO DELETE");
-    };
-  };
+      console.log('CAIU NO DELETE');
+    }
+  }
 
   limparAlteracoesPendentes() {
     this.alteracoesPendentesPedido = {};
-  };
+  }
 
   atualizar() {
-
     if (this.pedidoService.vericaAtualizacaoPedido) {
-      this.pedidoService.updatePedido(this.pedidoService.idPedido, this.alteracoesPendentesPedido).subscribe({
-        next: (response) => {
-          console.log(`Pedido atualizado com sucesso ! ${response}`);
-          this.toastr.success(`Pedido atualizado com sucesso !`);
-          this.pedidoCriado.emit();
-          this.resetForm();
-        },
-        error: (e) => {
-          console.error(`Erro ao atualizar Estoque ! Erro: ${e}`);
-          this.toastr.error("Erro ao atualizar Estoque !")
-        }
-      });
-    };
+      this.pedidoService
+        .updatePedido(
+          this.pedidoService.idPedido,
+          this.alteracoesPendentesPedido
+        )
+        .subscribe({
+          next: (response) => {
+            console.log(`Pedido atualizado com sucesso ! ${response}`);
+            this.toastr.success(`Pedido atualizado com sucesso !`);
+            this.pedidoCriado.emit();
+            this.resetForm(); 
+          },
+          error: (e) => {
+            console.error(`Erro ao atualizar Pedido! Erro: ${e}`);
+            this.toastr.error('Erro ao atualizar Pedido !');
+          },
+        });
+    }
 
     this.close.emit();
     this.resetForm();
-  };
+  }
 
   criarPedido() {
     const novoPedido: Omit<Pedido, 'id' | 'dataPedido' | 'updated_at'> = {
@@ -125,7 +149,7 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       formaPagamento: this.pedidoForm.value.formaPagamento,
       valorTotal: this.pedidoForm.value.valorTotal,
       status: this.pedidoForm.value.status,
-      observacoes: this.pedidoForm.value.observacoes
+      observacoes: this.pedidoForm.value.observacoes,
     };
 
     this.pedidoService.postPedido(novoPedido).subscribe({
@@ -138,11 +162,10 @@ export class ContainerFormModalPedidoComponent implements OnInit {
         this.onClose();
       },
       error(error) {
-        console.error("Erro ao criar pedido", error);
+        console.error('Erro ao criar pedido', error);
       },
     });
-  };
-
+  }
 
   resetForm() {
     this.pedidoForm.reset({
@@ -152,5 +175,5 @@ export class ContainerFormModalPedidoComponent implements OnInit {
       status: '',
       observacoes: '',
     });
-  };
-};
+  }
+}
