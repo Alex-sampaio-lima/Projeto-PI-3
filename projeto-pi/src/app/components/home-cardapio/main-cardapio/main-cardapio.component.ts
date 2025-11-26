@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { CartService } from '../../../../services/carrinho.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { UserService } from '../../../../services/user.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class MainCardapioComponent {
     public toastr: ToastrService
   ) { }
 
-
+    userService = inject(UserService);
 
 
   // ======== LISTA DE BOLOS =========
@@ -64,7 +65,7 @@ export class MainCardapioComponent {
 
   // ======== ADICIONA NO CARRINHO ========
   addToCart(produto: any) {
-    if (!this.authService.isLoggedIn()) {
+    if (!this.userService.isLoggedIn()) {
       this.toastr.info('Você precisa estar logado para adicionar ao carrinho!');
     };
 
@@ -81,6 +82,6 @@ export class MainCardapioComponent {
     this.toastr.success(`${produto.name} adicionado ao carrinho!`);
 
     // opcional: redireciona para o carrinho
-    this.router.navigate(['/carrinho-compra']);
+    // this.router.navigate(['/carrinho-compra']);
   };
 };

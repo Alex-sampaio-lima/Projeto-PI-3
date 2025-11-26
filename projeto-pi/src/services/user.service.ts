@@ -38,7 +38,7 @@ export class UserService implements OnInit {
     private http: HttpClient,
     private router: Router,
     public toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isLoggedInAdmin();
@@ -187,6 +187,8 @@ export class UserService implements OnInit {
       // console.log("Usuário atual", this.verifyCurrentUser);
       // console.log("local storage", this.userLocalStorage);
     }
+    console.log("OLHA AQUI CORNO == VERIFICA RETORNA" + verifica);
+
     return verifica;
   }
 
@@ -202,7 +204,7 @@ export class UserService implements OnInit {
     this.router.navigate(['/home']);
     this.toastr.info('Logout realizado com sucesso !');
   }
-  
+
   getPedidosRoute(): string {
     if (this.isLoggedInAdmin()) {
       return '/admin-pedidos';

@@ -7,18 +7,18 @@ import { Injectable } from '@angular/core';
 })
 export class AdminGuardService implements CanActivate {
 
-  constructor(private UserService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
 
     //Não está logado → Vai para login
-    if (!this.UserService.isLoggedIn()) {
+    if (!this.userService.isLoggedIn()) {
       this.router.navigate(['/login']);
       return false;
     }
 
     // Está logado e é Admin → Acesso liberado
-    if (this.UserService.isLoggedInAdmin()) {
+    if (this.userService.isLoggedInAdmin()) {
       return true;
     }
 

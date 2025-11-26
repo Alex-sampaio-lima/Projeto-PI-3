@@ -2,10 +2,12 @@
   <div class="modal-content">
     <!-- <button class="close-btn" (click)="onClose()">X</button> -->
     <div class="container-form-pedido">
+      @if (userService.isLoggedInAdmin()) {
       <div class="container-title-pedido">
         <h1 class="title-pedido">Adicionar Pedido</h1>
         <button class="btn-close-modal close-btn" type="button" (click)="onClose()">X</button>
       </div>
+      }
 
       <form [formGroup]="pedidoForm" class="container-inputs" action="" method="post">
 
