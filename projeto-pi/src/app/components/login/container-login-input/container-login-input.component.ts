@@ -47,7 +47,7 @@ export class ContainerLoginInputComponent {
     this.userService.login(email, password).subscribe({
       next: (response) => {
         if (response && response.user) {
-          this.userService.toastr.success('Login realizado com sucesso!');
+          // this.userService.toastr.success('Login realizado com sucesso!');
 
           // console.log('Usuário logado:', response.user);
 
