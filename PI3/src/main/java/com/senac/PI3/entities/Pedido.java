@@ -45,6 +45,7 @@ public class Pedido implements Serializable {
     // Um pedido pertence a um cliente (N:1)
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    // @JsonIgnore
     private Cliente cliente;
 
 };

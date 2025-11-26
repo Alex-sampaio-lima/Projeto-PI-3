@@ -34,11 +34,8 @@ export class ContainerFormPedidoDashBoardComponent implements OnInit {
   termoPesquisa: string = '';
 
   ngOnInit(): void {
+
     this.carregarPedidos();
-    console.log(this.pedidos.map((pedido) => {
-      pedido.created_at,
-        pedido.cliente
-    }));
 
   };
 

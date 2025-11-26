@@ -10,24 +10,6 @@ import { PedidoService } from '../../../services/pedido.service';
   templateUrl: './cliente-pedidos.component.html',
   styleUrl: './cliente-pedidos.component.css'
 })
-export class ClientePedidosComponent implements OnInit {
-  pedidoService = inject(PedidoService);
+export class ClientePedidosComponent {
 
-  ngOnInit(): void {
-    console.log('✅ ClientePedidosComponent inicializado');
-
-    // Escuta por atualizações de pedidos
-    this.pedidoService.pedidosAtualizados$.subscribe((atualizado: boolean) => {
-      console.log('📢 Recebida notificação de atualização:', atualizado);
-      if (atualizado) {
-        // Força atualização nos componentes filhos via Input
-        this.atualizarComponentesFilhos();
-      }
-    });
-  }
-
-  atualizarComponentesFilhos(): void {
-    console.log('🔄 Atualizando componentes filhos...');
-    // Esta função pode ser usada para forçar atualização nos filhos
-  }
 }

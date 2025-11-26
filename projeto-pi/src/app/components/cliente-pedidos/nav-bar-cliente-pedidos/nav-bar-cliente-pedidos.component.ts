@@ -12,23 +12,13 @@ import { PedidoResponse } from '../../../../interfaces/pedido';
   templateUrl: './nav-bar-cliente-pedidos.component.html',
   styleUrl: './nav-bar-cliente-pedidos.component.css'
 })
-export class NavBarClientePedidosComponent implements OnInit {
+export class NavBarClientePedidosComponent {
   pedidoService = inject(PedidoService);
   userService = inject(UserService);
 
   pedidos: PedidoResponse[] = [];
   isLoading: boolean = true;
 
-  ngOnInit(): void {
-    this.carregarMeusPedidos();
-
-    // Escuta por atualizações de pedidos
-    this.pedidoService.pedidosAtualizados$.subscribe((atualizado: any) => {
-      if (atualizado) {
-        this.carregarMeusPedidos();
-      }
-    });
-  }
 
   carregarMeusPedidos(): void {
     this.isLoading = true;

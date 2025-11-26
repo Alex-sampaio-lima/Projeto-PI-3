@@ -92,7 +92,6 @@ export class PedidoService implements OnInit {
   // PEDIDO - CLIENTE
   getMeusPedidos(): Observable<PedidoResponse[]> {
     const headers = this.getAuthHeaders();
-    this.notificarAtualizacaoPedidos();
     return this.httpClient.get<PedidoResponse[]>(`${this.urlPedido}/meus-pedidos`, { headers: headers });
   };
 
@@ -101,7 +100,6 @@ export class PedidoService implements OnInit {
     const headers = this.getAuthHeaders();
     let data = this.httpClient.get<PedidoResponse[]>(this.urlPedido, { headers: headers });
     this.verificaVendido(data);
-    this.notificarAtualizacaoPedidos();
     return data;
   };
 
@@ -109,7 +107,6 @@ export class PedidoService implements OnInit {
     const headers = this.getAuthHeaders();
     let data: Observable<Pedido[]>;
     data = this.httpClient.get<Pedido[]>(`${this.urlPedido}/${id}`, { headers: headers });
-    this.notificarAtualizacaoPedidos();
     return data;
   }
 
@@ -123,13 +120,11 @@ export class PedidoService implements OnInit {
     console.log('Payload sendo enviado:', pedidoCompleto);
 
     const headers = this.getAuthHeaders();
-    this.notificarAtualizacaoPedidos();
     return this.httpClient.post<Pedido>(this.urlPedido, pedidoCompleto, { headers: headers });
   };
 
   updatePedido(id: number, pedido: Partial<Pedido>): Observable<Pedido> {
     const headers = this.getAuthHeaders();
-    this.notificarAtualizacaoPedidos();
     return this.httpClient.put<Pedido>(`${this.urlPedido}/${id}`, pedido, { headers: headers });
   };
 
@@ -144,7 +139,6 @@ export class PedidoService implements OnInit {
 
   deletePedido(id: number): Observable<void> {
     const headers = this.getAuthHeaders();
-    this.notificarAtualizacaoPedidos();
     return this.httpClient.delete<void>(`${this.urlPedido}/${id}`, { headers: headers });
   };
 };
