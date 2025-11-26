@@ -69,7 +69,7 @@ export class CarrinhoCompraComponent {
     }
 
     const user = JSON.parse(userData);
-    const clienteId = user.id; // Ajuste conforme a estrutura do seu localStorage
+    const clienteId = user.id;
 
     this.cartService.createPedidos(clienteId, 'Cartão').subscribe({
       next: (res: any) => {
